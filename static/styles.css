@@ -1,0 +1,147 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #f0f4f6;
+    position: relative;
+    padding-bottom: 58px;
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #273D59;
+    height: 50px;
+}
+
+.navbar-brand {
+    color: #f0f4f6;
+}
+.navbar-brand:hover {
+    color: #9befe9;
+}
+
+.nav-item {
+    background-color: #92C3C9;
+    margin-right: 20px;
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.nav-link {
+    color: #151f3f;
+    text-align: center;
+    font-size: 18px;
+    padding: 2px;
+}
+.nav-link:hover {
+    color: #ecf0f6;
+    font-weight: bold;
+}
+
+/* main content*/
+main {
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.custom-form-bg {
+    background-color: rgba(205, 231, 227, 0.68);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.custom-btn {
+    background-color: #4d6167;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.custom-btn:hover {
+    background-color: #166e19;
+}
+
+.add-button {
+    background-color: #1c4e6a;
+    font-weight: bold;
+    width: 200px;
+    color: white;
+}
+.add-button:hover {
+    background-color: #23523c;
+    color: white;
+}
+
+.export-button {
+    background-color: #1c4e6a;
+    font-weight: bold;
+    width: 200px;
+    color: white;
+}
+.export-button:hover {
+    background-color: #606567;
+    color: white;
+}
+
+.a-edit {
+    color: white;
+    text-decoration: none;
+}
+
+.btn-delete {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100px;
+}
+
+.a-delete {
+    color: #113649;
+    text-decoration: none;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* main header */
+h1 {
+    color: #3b4869;
+}
+
+/* custom table styling*/
+.th-custom tr th {
+    background-color: rgba(137, 168, 165, 0.68);
+}
+
+tbody tr td a {
+    text-decoration: none;
+}
+
+/* Footer */
+.footer {
+    font-size: 0.8rem;
+    padding: 20px;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+    height: 58px;
+    background-color: #273D59;
+}
+
+.text-footer {
+    color: #b0c4de;
+}
+@media(max-width: 550px) {
+    .text-footer {
+       font-size: 14px;
+    }
+}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+    <style>
+        /* Force the offcanvas to stay visible */
+        .offcanvas-custom {
+            position: fixed !important; /* Fix it on the left side */
+            top: 56px; /* Set the top offset */
+            bottom: 60px;
+            width: 250px; /* Set your desired width */
+            z-index: 1045; /* Set appropriate z-index */
+            background-color: #f8f9fa; /* Optional: Customize the background color */
+            border-right: 1px solid #ddd; /* Optional: Add a border */
+        }
+
+        /* Fix footer to always appear at the bottom */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1050; /* Ensure it's rendered above the offcanvas */
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Page content adjustment for fixed nav/footer */
+        .container {
+            margin-top: 80px; /* Adjust for the fixed navbar */
+            margin-bottom: 80px; /* Adjust for the fixed footer */
+        }
+    </style>
+
+
+    <!-- Offcanvas -->
+    <div class="offcanvas-custom">
+        <div class="p-3">
+            <h5>Offcanvas Menu</h5>
+            <ul>
+                <li><a href="#">Menu Item 1</a></li>
+                <li><a href="#">Menu Item 2</a></li>
+                <li><a href="#">Menu Item 3</a></li>
+            </ul>
+            <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout</a>
+        </div>
+    </div>
+
+
+    <!-- Page Content -->
+    <div class="container mt-5">
+        <h1>Welcom to the dashboard {{ user.username }}</h1>
+        <p>Here is your main content area. The offcanvas (drawer) is always visible on the left.</p>
+    </div>
+
+
+{% endblock %}
