@@ -25,8 +25,8 @@ from userprofile.views import my_logout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
-    path('', include('dashboard.urls')),
-    path('', include('userprofile.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('dashboard/account/', include('userprofile.urls')),
     path('login/', views.LoginView.as_view(template_name='userprofile/login.html',
                                             authentication_form=LoginForm), name='login'),
     path('logout/', my_logout, name='logout'),
