@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	Lead Detail
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        /* Force the offcanvas to stay visible */
+        .offcanvas-custom {
+            position: fixed !important; /* Fix it on the left side */
+            top: 56px; /* Set the top offset */
+            bottom: 60px;
+            width: 250px; /* Set your desired width */
+            z-index: 1045; /* Set appropriate z-index */
+            background-color: #f8f9fa; /* Optional: Customize the background color */
+            border-right: 1px solid #ddd; /* Optional: Add a border */
+        }
+
+        /* Fix footer to always appear at the bottom */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1050; /* Ensure it's rendered above the offcanvas */
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Page content adjustment for fixed nav/footer */
+        .container {
+            margin-top: 80px; /* Adjust for the fixed navbar */
+            margin-bottom: 80px; /* Adjust for the fixed footer */
+        }
+    </style>
+
+
+    <!-- Offcanvas -->
+    <div class="offcanvas-custom">
+        <div class="p-3">
+            <h5>Offcanvas Menu</h5>
+            <ul>
+                <li><a href="{% url 'lead:list' %}">Leads</a></li>
+                <li><a href="#">Menu Item 2</a></li>
+                <li><a href="#">Menu Item 3</a></li>
+            </ul>
+            <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout</a>
+        </div>
+    </div>
+
+
+	<div class="container">
+
+        <div class="row">
+            <h1>Lead Detail: {{ lead.last_name }} {{ lead.first_name }}</h1>
+        </div>
+
+    <div class="row mt-lg-2 pt-lg-3">
+
+            <div class="col-6">
+
+                <div class="row">
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <span class="lead-span">Company:</span>
+                        </div>
+                        <div class="col-lg-8 px-lg-4">
+                            {{ lead.company }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <span class="lead-span">Email:</span>
+                        </div>
+                        <div class="col-lg-8 px-lg-4">
+                            {{ lead.email }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <span class="lead-span">Phone:</span>
+                        </div>
+                        <div class="col-lg-8 px-lg-4">
+                            {{ lead.phone }}
+                        </div>
+                    </div>
+
+                    {% if lead.description %}
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <span class="lead-span">Description:</span>
+                            </div>
+                            <div class="col-lg-8 px-lg-4">
+                                {{ lead.description }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <span class="lead-span">Priority:</span>
+                    </div>
+                    <div class="col-lg-8 px-lg-4">
+                        {{ lead.get_priority_display }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <span class="lead-span">Status:</span>
+                    </div>
+                    <div class="col-lg-8 px-lg-4">
+                        {{ lead.status }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <span class="lead-span">Status Sale:</span>
+                    </div>
+                    <div class="col-lg-8 px-lg-4">
+                        {{ lead.status_sale }}
+                    </div>
+                </div>
+
+                <div class="row mt-2 justify-content-start">
+                    <div class="col-lg-12">
+                        <span class="lead-span">Created at: </span>{{ lead.created_at|date:"M-d-Y H:i" }}
+                    </div>
+                    <div class="col-lg-12">
+                        <span class="lead-span">Modifed at: </span>{{ lead.modified_at|date:"M-d-Y H:i" }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center border-top border-2">
+
+            <div class="col-lg-6">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <h2 class="pt-2 mt-3">Comments</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row border-bottom border-2 mx-2 mt-3 py-3">
+                    {% for comment in lead.comments.all %}
+                        <div class="col-lg-12">
+                            <p class="comment mt-2"><strong class="px-2">@{{ comment.created_by }}</strong>
+                                {{ comment.created_at|date:"M-d-Y H:i" }}</p>
+                            <p class="comment-p mx-5 px-2 py-1">{{ comment.content }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="row my-3 py-2">
+
+                    <form method="post" action="{% url 'lead:add_comment' lead.id %}">
+                        {% csrf_token %}
+                            <div class="col-lg-12  d-flex align-items-start">
+                                <div class="row mx-5 comment-row justify-content-center">
+                                    <div class="col-lg-2">
+                                        <label class="comment-label">Comment</label>
+                                    </div>
+                                    <div class="col-lg-10">
+                                       <div class="comment-form mx-3 my-3">{{ form.content }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
+                            <div class="text-center">
+                                <button class="comment-btn my-3">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+
+                        <div class="text-center">
+
+                            <h2 class="pt-2 mt-3">Files</h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row border-bottom border-2 mx-2 mt-2 py-3">
+
+                    {% for file in lead.files.all %}
+
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-12 mt-2">
+                                    <strong class="px-2">@{{ file.created_by }}</strong>
+                                    {{ file.created_at|date:"M-d-Y H:i" }}
+                                </div>
+                            </div>
+
+                            <div class="row mx-5 justify-content-center">
+                                <div class="files-p col-6">
+                                    {{ file.file }}
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{ file.file.url }}" class="download-a">Download files</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+                <div class="row my-3 py-2">
+
+                    <form method="post" action="{% url 'lead:add_file' lead.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                        <div class="col-lg-12  d-flex align-items-start">
+                            <div class="row">
+                                <div class="col-10">{{ fileform.as_p }}</div>
+                                <div class="col-2">
+                                    <button class="comment-btn">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row py-1">
+
+            <div class="col-lg-6">
+                <div>
+                    <a class="lead-a" href="{% url 'lead:list' %}">Back to Leads</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form id="lead_delete_form" method="post" action="{% url 'lead:delete' lead.id %}">
+                        {% csrf_token %}
+
+                        <button class="btn custom-btn mx-2 px-2">
+                            <a href="{% url 'lead:edit' lead.id %}" class="a-edit">Edit</a>
+                        </button>
+                        <button class="btn btn-danger btn-delete">
+                            <a href="#" onclick="document.getElementById('lead_delete_form').submit();"
+                               class="a-delete">Delete</a>
+                        </button>
+                    </form>
+            </div>
+        </div>
+
+
+	</div>
+{% endblock %}
