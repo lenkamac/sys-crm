@@ -7,95 +7,58 @@
 
 {% block content %}
 
-    <style>
-        /* Force the offcanvas to stay visible */
-        .offcanvas-custom {
-            position: fixed !important; /* Fix it on the left side */
-            top: 56px; /* Set the top offset */
-            bottom: 60px;
-            width: 250px; /* Set your desired width */
-            z-index: 1045; /* Set appropriate z-index */
-            background-color: #f8f9fa; /* Optional: Customize the background color */
-            border-right: 1px solid #ddd; /* Optional: Add a border */
-        }
+    {% block css %}
+    	<link rel="stylesheet" href="{% static 'lead/css/lead.css' %}">
+    {% endblock %}
 
-        /* Fix footer to always appear at the bottom */
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 1050; /* Ensure it's rendered above the offcanvas */
-            background-color: #343a40;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        /* Page content adjustment for fixed nav/footer */
-        .container {
-            margin-top: 80px; /* Adjust for the fixed navbar */
-            margin-bottom: 80px; /* Adjust for the fixed footer */
-        }
-    </style>
-
-
-    <!-- Offcanvas -->
-    <div class="offcanvas-custom">
-        <div class="p-3">
-            <h5>Offcanvas Menu</h5>
-            <ul>
-                <li><a href="{% url 'lead:list' %}">Leads</a></li>
-                <li><a href="#">Menu Item 2</a></li>
-                <li><a href="#">Menu Item 3</a></li>
-            </ul>
-            <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout</a>
-        </div>
-    </div>
+   {% include 'core/partials/offcanvas_menu.html' %}
 
 	<div class="container">
 
-        <div class="row">
+        <div class="row mx-lg-5 justify-content-center">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <h1>Leads</h1>
+                    <h1 class="px-5">Leads</h1>
                 </div>
             </div>
-            <div>
-                <!-- Display messages -->
-               {% if messages %}
-                   <div class="row">
-                       {% for message in messages %}
-                           <div class="alert alert-{{ message.tags }}" role="alert">
-                               <div class="text-center">
-                                   {{ message }}
+            <div class="col-lg-12">
+               <div class="text-center">
+                    <!-- Display messages -->
+                   {% if messages %}
+                       <div class="row">
+                           {% for message in messages %}
+                               <div class="alert alert-{{ message.tags }}" role="alert">
+                                   <div class="text-center">
+                                       {{ message }}
+                                   </div>
                                </div>
-                           </div>
-                       {% endfor %}
-                   </div>
-               {% endif %}
+                           {% endfor %}
+                       </div>
+                   {% endif %}
+               </div>
             </div>
         </div>
 
-        <div class="row mt-lg-2">
+        <div class="row mt-lg-2 mx-lg-3 justify-content-center">
 
             <div class="col-lg-12">
 
-                <div class="row justify-content-start my-lg-3">
+                <div class="row my-lg-3 mx-lg-3 py-lg-4">
 
                     <form method="post" action="{% url 'lead:delete_bulk' %}">
                         {% csrf_token %}
 
-                        <div class="row justify-content-start my-lg-3">
+                        <div class="row justify-content-center w-100 my-lg-3 mx-lg-5">
 
-                            <div class="col-2">
+                            <div class="col-3 mx-lg-3 my-lg-2">
                                 <a class="btn add-button" href="{% url 'lead:add' %}">Add lead</a>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-3 mx-lg-3 my-lg-2">
                                 <a class="btn export-button" href="{% url 'lead:export' %}">Export leads to csv</a>
                             </div>
 
-                            <div class="col-2">
+                            <div class="col-3 mx-lg-3 my-lg-2">
                                 <!-- Button to delete selected clients -->
                                 <button type="submit" class="btn btn-danger"
                                         onclick="return confirm('Are you sure you want to delete selected leads?')">
@@ -108,7 +71,7 @@
 
                         <div class="row justify-content-center mt-lg-4 mx-lg-5">
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 my-lg-3">
 
                                 <table class="table">
                                     <thead class="th-custom">
@@ -148,15 +111,31 @@
                                                     <td>{{ lead.company }}</td>
                                                     <td>{{ lead.last_name }}, {{ lead.first_name }}</td>
                                                     <td>{{ lead.email }}</td>
-                                                    <td>{{ lead.get_priority_display }}</td>
+                                                    <td>
+                                                        {% if lead.priority == "high" %}
+                                                            <img src="{% static 'lead/images/high.png' %}" alt="high" height="20">
+                                                            {{ lead.get_priority_display|capfirst }}
+                                                        {% elif lead.priority == "medium" %}
+                                                            <img src="{% static 'lead/images/middle.png' %}" alt="medium" height="20">
+                                                            {{ lead.get_priority_display|capfirst }}
+                                                        {% elif lead.priority == "low" %}
+                                                            <img src="{% static 'lead/images/low.png' %}" alt="low" height="20">
+                                                            {{ lead.get_priority_display|capfirst }}
+                                                        {% endif %}
+                                                    </td>
                                                     <td>{{ lead.get_status_display }}</td>
                                                     <td>{{ lead.status_sale }}</td>
-                                                    <td><a href="{% url 'lead:detail' lead.id %}">Detail</a></td>
-                                                    <td><a href="{% url 'lead:edit' lead.id %}">Edit</a></td>
                                                     <td>
-                                                        <button type="submit"
-                                                                class="delete-icon bg-transparent">
-                                                            <img src="{% static 'lead/images/empty.png' %}" alt="empty" height="20">
+                                                        <a class="a-detail" href="{% url 'lead:detail' lead.id %}">Detail</a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="edit" href="{% url 'lead:edit' lead.id %}">Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="delete-icon bg-transparent">
+                                                            <img src="{% static 'lead/images/empty.png' %}"
+                                                                 alt="empty"
+                                                                 height="20">
                                                         </button>
                                                     </td>
 

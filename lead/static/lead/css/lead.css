@@ -1,0 +1,24 @@
+.delete-icon {
+    border: none;
+}
+
+.btn-danger {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.a-detail {
+    font-weight: bold;
+    color: #23523c;
+}
+
+.edit{
+    font-weight: bold;
+    color: #606567;
+}
+
+.span-h3 {
+    font-weight: bold;
+    color: #23523c;
+}
