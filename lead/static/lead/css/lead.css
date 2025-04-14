@@ -1,11 +1,13 @@
+/* Lead list page*/
 .delete-icon {
     border: none;
 }
 
 .btn-danger {
     color: #fff;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .a-detail {
@@ -21,4 +23,87 @@
 .span-h3 {
     font-weight: bold;
     color: #23523c;
+}
+
+.lead-span {
+    font-weight: bold;
+    color: #23523c;
+    margin-left: 10px;
+}
+
+.content-lead {
+    margin-left: 380px;
+}
+
+.comment-p {
+    border-left: 3px solid #3b4869;
+}
+
+.comment-label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 5px;
+    padding: 5px;
+}
+
+.comment-row {
+    background-color: #bbd0da;
+}
+
+/* Lead detail page */
+.comment-btn {
+    background-color: rgba(113, 175, 167, 0.68);
+    text-align: center;
+    border-radius: 5px;
+    width: 100px;
+    font-weight: bold;
+}
+.comment-btn:hover {
+    background-color: rgb(35, 82, 60);
+    color: white;
+}
+
+.download-a {
+    padding-left: 40px;
+    font-size: 1.1rem;
+    color: #023564;
+}
+
+.download-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.files-p {
+    border-left: 3px solid #3b4869;
+    height: auto;
+    padding: 0 5px;
+    margin-top: 13px;
+}
+
+
+.lead-a {
+    color: #333844;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding-left: 6px;
+}
+
+.lead-a:hover {
+    color: #506cb2;
+}
+
+.btn-convert {
+    background-color: #849c9d;
+}
+
+.btn-convert:hover {
+    background-color: #606567;
+}
+
+#convert {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
