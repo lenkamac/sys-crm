@@ -29,8 +29,9 @@ urlpatterns = [
     path('dashboard/account/', include('userprofile.urls')),
     path('dashboard/leads/', include('lead.urls')),
     path('dashboard/clients/', include('client.urls')),
+    path('dashboard/tasks/', include('task.urls')),
     path('login/', views.LoginView.as_view(template_name='userprofile/login.html',
-                                            authentication_form=LoginForm), name='login'),
+                                           authentication_form=LoginForm), name='login'),
     path('logout/', my_logout, name='logout'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
