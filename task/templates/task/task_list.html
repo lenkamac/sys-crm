@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+
+    {% include 'core/partials/offcanvas_menu.html' %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h1>Tasks</h1>
+                </div>
+            </div>
+            <div class="col-lg-12">
+               <div class="text-center">
+                    <!-- Display messages -->
+                   {% if messages %}
+                       <div class="row">
+                           {% for message in messages %}
+                               <div class="alert alert-{{ message.tags }}" role="alert">
+                                   <div class="text-center">
+                                       {{ message }}
+                                   </div>
+                               </div>
+                           {% endfor %}
+                       </div>
+                   {% endif %}
+               </div>
+            </div>
+        </div>
+        <div class="row mt-lg-2 mx-lg-3 justify-content-start">
+            <div class="col-lg-12 mb-4">
+                <div class="row justify-content-start mx-lg-5 my-lg-3">
+                    <a href="#" class="btn btn-primary px-5">
+                        <i class="fas fa-plus"></i> New Task
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mx-lg-3 justify-content-center">
+            <div class="col-lg-12">
+                <div class="row justify-content-center w-100 mx-lg-5 my-lg-3">
+                    <!-- Filters -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form method="get" class="row g-3">
+                                <div class="col-md-3">
+                                    <label class="form-label">Status</label>
+                                    <select name="status" class="form-select">
+                                        <option value="">All</option>
+                                        <option value="todo" {% if request.GET.status == 'todo' %}selected{% endif %}>To Do</option>
+                                        <option value="in_progress" {% if request.GET.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                        <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
+                                        <option value="canceled" {% if request.GET.status == 'canceled' %}selected{% endif %}>Canceled</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Priority</label>
+                                    <select name="priority" class="form-select">
+                                        <option value="">All</option>
+                                        <option value="high" {% if request.GET.priority == 'high' %}selected{% endif %}>High</option>
+                                        <option value="medium" {% if request.GET.priority == 'medium' %}selected{% endif %}>Medium</option>
+                                        <option value="low" {% if request.GET.priority == 'low' %}selected{% endif %}>Low</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Assigned To</label>
+                                    <select name="assigned_to" class="form-select">
+                                        <option value="">All</option>
+                                        {% for user in users %}
+                                        <option value="{{ user.id }}" {% if request.GET.assigned_to == user.id|stringformat:"i" %}selected{% endif %}>
+                                            {{ user.get_full_name|default:user.username }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-secondary d-block">Apply Filters</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mx-lg-3 justify-content-center">
+            <div class="col-lg-12">
+                <div class="row justify-content-center w-100 my-lg-3 mx-lg-5">
+                    <!-- Tasks List -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned To</th>
+                                    <th>Due Date</th>
+                                    <th>Related To</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in tasks %}
+                                <tr>
+                                    <td>
+                                        <a href="#" class="text-decoration-none">
+                                            {{ task.title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {% if task.status == 'todo' %}
+                                            <span class="badge bg-secondary">To Do</span>
+                                        {% elif task.status == 'in_progress' %}
+                                            <span class="badge bg-primary">In Progress</span>
+                                        {% elif task.status == 'completed' %}
+                                            <span class="badge bg-success">Completed</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Canceled</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if task.priority == 'high' %}
+                                            <span class="badge bg-danger">High</span>
+                                        {% elif task.priority == 'medium' %}
+                                            <span class="badge bg-warning">Medium</span>
+                                        {% else %}
+                                            <span class="badge bg-info">Low</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if task.assigned_to %}
+                                            {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
+                                        {% else %}
+                                            <span class="text-muted">Unassigned</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if task.due_date %}
+                                            {{ task.due_date }}
+                                        {% else %}
+                                            <span class="text-muted">No due date</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if task.lead %}
+                                            <span>Lead:</span> {{ task.lead.first_name }} {{ task.lead.last_name }}
+                                        {% elif task.client %}
+                                            <span>Client:</span> {{ task.client.first_name }} {{ task.client.last_name }}
+                                        {% else %}
+                                            <span class="text-muted">None</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="#" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-outline-danger"
+                                               onclick="return confirm('Are you sure you want to delete this task?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">
+                                        <p class="text-muted mb-0">No tasks found</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination -->
+                        {% if tasks.has_other_pages %}
+                        <nav aria-label="Page navigation" class="mt-4">
+                            <ul class="pagination justify-content-center">
+                                {% if tasks.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ tasks.previous_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.priority %}&priority={{ request.GET.priority }}{% endif %}{% if request.GET.assigned_to %}&assigned_to={{ request.GET.assigned_to }}{% endif %}">&laquo;</a>
+                                </li>
+                                {% endif %}
+
+                                {% for i in tasks.paginator.page_range %}
+                                    {% if tasks.number == i %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ i }}</span>
+                                    </li>
+                                    {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ i }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.priority %}&priority={{ request.GET.priority }}{% endif %}{% if request.GET.assigned_to %}&assigned_to={{ request.GET.assigned_to }}{% endif %}">{{ i }}</a>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if tasks.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ tasks.next_page_number }}{% if request.GET.status %}&status={{ request.GET.status }}{% endif %}{% if request.GET.priority %}&priority={{ request.GET.priority }}{% endif %}{% if request.GET.assigned_to %}&assigned_to={{ request.GET.assigned_to }}{% endif %}">&raquo;</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        import '@fortawesome/fontawesome-free/css/all.min.css';
+    </script>
+{% endblock %}
