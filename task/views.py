@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from .forms import TaskForm
 from .models import Task
 
 
@@ -37,3 +41,77 @@ def tasks(request):
     }
 
     return render(request, 'task/task_list.html', context)
+
+
+@login_required
+def task_detail(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    return render(request, 'task/task_detail.html', {'task': task})
+
+
+# Add this new view function
+@login_required
+def task_add(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.created_by = request.user
+            task.save()
+            messages.success(request, 'Task was created successfully.')
+            return redirect('task:task_list')
+    else:
+        initial_data = {}
+        # Pre-fill lead or client if provided in URL parameters
+        if 'lead_id' in request.GET:
+            initial_data['lead'] = request.GET.get('lead_id')
+        elif 'client_id' in request.GET:
+            initial_data['client'] = request.GET.get('client_id')
+        form = TaskForm(initial=initial_data)
+
+    return render(request, 'task/task_form.html', {
+        'form': form,
+        'title': 'Add Task'
+    })
+
+
+@login_required
+def task_delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+
+    # Check if user has permission to delete the task
+    if not (request.user == task.created_by or request.user == task.assigned_to):
+        raise PermissionDenied("You don't have permission to delete this task.")
+
+    if request.method == 'POST':
+        task.delete()
+        messages.success(request, 'Task was deleted successfully.')
+        return redirect('task:task_list')
+
+    return render(request, 'task/task_confirm_delete.html', {
+        'task': task
+    })
+
+
+@login_required
+def task_edit(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+
+    # Check if user has permission to edit the task
+    if not (request.user == task.created_by or request.user == task.assigned_to):
+        raise PermissionDenied("You don't have permission to edit this task.")
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Task was updated successfully.')
+            return redirect('task:task_detail', pk=task.pk)
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, 'task/task_form.html', {
+        'form': form,
+        'title': 'Edit Task',
+        'task': task
+    })
