@@ -1,12 +1,15 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views import View
 
-from .forms import TaskForm
-from .models import Task
+from .forms import TaskForm, TaskCommentForm
+from .models import Task, TaskComment
 
 
 @login_required
@@ -46,7 +49,8 @@ def tasks(request):
 @login_required
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
-    return render(request, 'task/task_detail.html', {'task': task})
+    task_comments = TaskComment.objects.filter(task_id=pk)
+    return render(request, 'task/task_detail.html', {'task': task, 'task_comments': task_comments,})
 
 
 # Add this new view function
@@ -115,3 +119,22 @@ def task_edit(request, pk):
         'title': 'Edit Task',
         'task': task
     })
+
+
+# task comment
+class AddTaskCommentView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+
+        form = TaskCommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.created_by = request.user
+            comment.task_id = pk
+            comment.save()
+
+        return redirect('task:task_detail', pk=pk)
+
+
+

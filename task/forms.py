@@ -2,7 +2,7 @@ from django import forms
 
 from client.models import Client
 from lead.models import Lead
-from .models import Task
+from .models import Task, TaskComment
 
 
 class TaskForm(forms.ModelForm):
@@ -35,3 +35,9 @@ class TaskForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class TaskCommentForm(forms.ModelForm):
+    class Meta:
+        model = TaskComment
+        fields = ('content',)

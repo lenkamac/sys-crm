@@ -10,4 +10,5 @@ urlpatterns = [
     path('add/', task_add, name='task_add'),
     path('<int:pk>/edit/', task_edit, name='task_edit'),
     path('<int:pk>/delete/', task_delete, name='task_delete'),
+    path('<int:pk>/add-comment/', AddTaskCommentView.as_view(), name='add_task_comment'),
 ]

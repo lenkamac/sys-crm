@@ -40,3 +40,14 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
+class TaskComment(models.Model):
+    task = models.ForeignKey(Task, related_name='comments', on_delete=models.CASCADE)
+    content = models.TextField(blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name='task_comments', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.created_by.username

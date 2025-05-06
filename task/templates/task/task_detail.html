@@ -52,6 +52,43 @@
                                         <p class="text-muted">No related items</p>
                                     {% endif %}
                                 </div>
+
+                                <!-- Task Comments -->
+                                <div class="mb-4">
+                                    <h5>Comments</h5>
+
+                                    <div class="card-body">
+                                        {% if task_comments %}
+                                            {% for comment in task_comments %}
+                                                <div class="comment mb-3 pb-3 border-bottom">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <div>
+                                                            <strong>@{{ comment.created_by.username }}</strong>
+                                                            <small class="text-muted ms-2">
+                                                                {{ comment.created_at|date:"M d, Y H:i" }}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-2">
+                                                        {{ comment.content|linebreaks }}
+                                                    </div>
+                                                </div>
+
+
+                                            {% endfor %}
+
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <form method="post" action="{% url 'task:add_task_comment' task.pk %}">
+                                            {% csrf_token %}
+                                            <div class="card-body bg-info">{{ form.content }}</div>
+                                            <button class="comment-btn my-3">Submit</button>
+                                        </form>
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div class="col-md-4">
