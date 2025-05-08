@@ -40,4 +40,9 @@ class TaskForm(forms.ModelForm):
 class TaskCommentForm(forms.ModelForm):
     class Meta:
         model = TaskComment
-        fields = ('content',)
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(
+                attrs={'class': 'form-control', 'rows': 3}),
+        }
+

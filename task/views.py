@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
@@ -50,7 +50,9 @@ def tasks(request):
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
     task_comments = TaskComment.objects.filter(task_id=pk)
-    return render(request, 'task/task_detail.html', {'task': task, 'task_comments': task_comments,})
+    form = TaskCommentForm()
+    return render(request, 'task/task_detail.html', {'task': task, 'task_comments': task_comments,
+                                                     'form': form})
 
 
 # Add this new view function
@@ -122,19 +124,52 @@ def task_edit(request, pk):
 
 
 # task comment
-class AddTaskCommentView(LoginRequiredMixin, View):
-    def post(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
+@login_required
+def add_task_comment(request, pk):
+    task = get_object_or_404(Task, pk=pk)
 
+    if request.method == 'POST':
         form = TaskCommentForm(request.POST)
-
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.task = task
             comment.created_by = request.user
-            comment.task_id = pk
             comment.save()
+            return redirect('task:task_detail', pk=task.pk)
 
-        return redirect('task:task_detail', pk=pk)
+    return redirect('task:task_detail', pk=task.pk)
 
 
+@login_required
+def edit_task_comment(request, task_pk, pk):
+    comment = get_object_or_404(TaskComment, pk=pk, task_id=task_pk)
+
+    # Only allow editing if the user is the comment creator
+    if comment.created_by != request.user:
+        return JsonResponse({'error': 'Not authorized'}, status=403)
+
+    if request.method == 'POST':
+        form = TaskCommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({
+                'success': True,
+                'content': comment.content,
+            })
+    else:
+        form = TaskCommentForm(instance=comment)
+        return JsonResponse({
+            'content': comment.content
+        })
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+
+@login_required
+def delete_task_comment(request, task_pk, pk):
+    comment = get_object_or_404(TaskComment, pk=pk, task_id=task_pk)
+    # Only allow deletion if the user is the comment creator
+    if comment.created_by == request.user:
+        comment.delete()
+    return redirect('task:task_detail', pk=task_pk)
 
