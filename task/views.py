@@ -141,28 +141,19 @@ def add_task_comment(request, pk):
 
 
 @login_required
-def edit_task_comment(request, task_pk, pk):
-    comment = get_object_or_404(TaskComment, pk=pk, task_id=task_pk)
-
-    # Only allow editing if the user is the comment creator
-    if comment.created_by != request.user:
-        return JsonResponse({'error': 'Not authorized'}, status=403)
+def edit_task_comment(request, task_pk, comment_pk):
+    comment = get_object_or_404(TaskComment, pk=comment_pk, task__pk=task_pk, created_by=request.user)
 
     if request.method == 'POST':
         form = TaskCommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-            return JsonResponse({
-                'success': True,
-                'content': comment.content,
-            })
+            return redirect('task:task_detail', pk=task_pk)
     else:
         form = TaskCommentForm(instance=comment)
-        return JsonResponse({
-            'content': comment.content
-        })
 
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+    return render(request, 'task/edit_task_comment.html', {'form': form, 'task_pk': task_pk, 'comment': comment})
+
 
 
 @login_required
