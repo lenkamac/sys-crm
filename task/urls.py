@@ -12,7 +12,7 @@ urlpatterns = [
     path('<int:pk>/edit/', task_edit, name='task_edit'),
     path('<int:pk>/delete/', task_delete, name='task_delete'),
     path('<int:pk>/comment/add/', views.add_task_comment, name='add_task_comment'),
-    path('<int:task_pk>/comment/<int:comment_pk>/edit/', views.edit_task_comment, name='edit_task_comment'),
-    path('<int:task_pk>/comment/<int:pk>/delete/', views.delete_task_comment, name='delete_task_comment'),
+    path("task_comment/edit/<int:comment_id>/", edit_tasks_comment, name="edit_tasks_comment"),
+    path("task_comment/delete/<int:comment_id>/", delete_task_comment, name="delete_task_comment"),
 
 ]

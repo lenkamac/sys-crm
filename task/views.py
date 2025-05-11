@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import TaskForm, TaskCommentForm
 from .models import Task, TaskComment
@@ -140,27 +141,39 @@ def add_task_comment(request, pk):
     return redirect('task:task_detail', pk=task.pk)
 
 
+@csrf_exempt
+def edit_tasks_comment(request, comment_id):
+    if request.method == "POST":
+        comment = get_object_or_404(TaskComment, id=comment_id)
+
+        # Check if the user is authorized to update the comment
+        if request.user != comment.created_by:
+            return JsonResponse({"error": "Unauthorized"}, status=403)
+
+        new_content = request.POST.get("content", "")
+        if new_content.strip() == "":
+            return JsonResponse({"error": "Content cannot be empty"}, status=400)
+
+        # Update the comment
+        comment.content = new_content
+        comment.save()
+        return JsonResponse({"success": True, "updated_comment": comment.content})
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
 @login_required
-def edit_task_comment(request, task_pk, comment_pk):
-    comment = get_object_or_404(TaskComment, pk=comment_pk, task__pk=task_pk, created_by=request.user)
+def delete_task_comment(request, comment_id):
+    if request.method == "POST":
+        comment = get_object_or_404(TaskComment, id=comment_id)
 
-    if request.method == 'POST':
-        form = TaskCommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            form.save()
-            return redirect('task:task_detail', pk=task_pk)
-    else:
-        form = TaskCommentForm(instance=comment)
+        # Check if the user is authorized to delete the comment
+        if request.user != comment.created_by:
+            return JsonResponse({"error": "Unauthorized"}, status=403)
 
-    return render(request, 'task/edit_task_comment.html', {'form': form, 'task_pk': task_pk, 'comment': comment})
-
-
-
-@login_required
-def delete_task_comment(request, task_pk, pk):
-    comment = get_object_or_404(TaskComment, pk=pk, task_id=task_pk)
-    # Only allow deletion if the user is the comment creator
-    if comment.created_by == request.user:
+        # Delete the comment
         comment.delete()
-    return redirect('task:task_detail', pk=task_pk)
+        return JsonResponse({"success": True})
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
 
