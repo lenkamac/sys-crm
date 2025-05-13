@@ -212,6 +212,26 @@
                         </div>
                     </form>
                 </div>
+
+                <div class="row my-3 py-2">
+
+                    <h2>Tasks</h2>
+                    <ul>
+                        {% for task in tasks %}
+                            <li>
+                                <a href="{% url 'task:task_detail' task.pk %}"><strong>{{ task.title }}</strong></a>
+                                <p>Due: {{ task.due_date }}</p>
+                                <p>Status: {{ task.status }}</p>
+                                <p>Description: {{ task.description }}</p>
+                            </li>
+                        {% empty %}
+                            <p>No tasks found for this lead.</p>
+                        {% endfor %}
+                    </ul>
+
+
+                </div>
+
             </div>
         </div>
 

@@ -8,6 +8,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.views import View
+
+from task.models import Task
 from .models import Lead, LeadFile
 from .forms import AddCommentForm, AddFileForm
 
@@ -29,6 +31,7 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AddCommentForm()
+        context['tasks'] = Task.objects.filter(lead_id=self.kwargs.get('pk'))
         context['fileform'] = AddFileForm()
         return context
 

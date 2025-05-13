@@ -20,14 +20,14 @@ class Task(models.Model):
     )
 
     title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='tasks', on_delete=models.CASCADE)
     assigned_to = models.ForeignKey(User, related_name='assigned_tasks',
                                     on_delete=models.CASCADE,
                                     blank=True,
                                     null=True)
-    lead = models.ForeignKey(Lead, related_name='tasks', on_delete=models.CASCADE, null=True, blank=True)
-    client = models.ForeignKey(Client, related_name='tasks', null=True, blank=True, on_delete=models.CASCADE)
+    lead = models.ForeignKey(Lead, related_name='tasks_lead', on_delete=models.CASCADE, null=True, blank=True)
+    client = models.ForeignKey(Client, related_name='tasks_client', null=True, blank=True, on_delete=models.CASCADE)
+    description = models.TextField(blank=True, null=True)
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='-')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='-')
     due_date = models.DateField(blank=True, null=True)

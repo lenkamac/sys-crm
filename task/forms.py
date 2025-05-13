@@ -1,7 +1,5 @@
 from django import forms
 
-from client.models import Client
-from lead.models import Lead
 from .models import Task, TaskComment
 
 
