@@ -252,7 +252,7 @@
                             <a href="{% url 'lead:edit' lead.id %}" class="a-edit">Edit</a>
                         </button>
                         <button class="btn btn-convert mx-2 px-2">
-                            <a href="#" id="convert">Convert to client</a>
+                            <a href="{% url 'lead:convert_lead' lead.id %}" id="convert">Convert to client</a>
                         </button>
                         <button class="btn btn-danger" style="width: 100px;">
                             <a href="#" onclick="document.getElementById('lead_delete_form').submit();"

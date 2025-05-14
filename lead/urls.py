@@ -15,4 +15,5 @@ urlpatterns = [
     path('<int:pk>/add-comment/', AddCommentView.as_view(), name='add_comment'),
     path('<int:pk>/add-file/', AddFileView.as_view(), name='add_file'),
     path('export/', views.leads_export, name='export'),
+    path('convert-lead/<int:lead_id>/', convert_lead_to_client, name='convert_lead'),
 ]

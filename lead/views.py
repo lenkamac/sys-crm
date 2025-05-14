@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.views import View
 
+from client.models import Client
 from task.models import Task
 from .models import Lead, LeadFile
 from .forms import AddCommentForm, AddFileForm
@@ -161,3 +162,27 @@ def leads_bulk_delete(request):
             messages.warning(request, 'No leads were selected.')
 
     return redirect('lead:list')
+
+
+def convert_lead_to_client(request, lead_id):
+    # Retrieve the Lead instance by ID
+    lead = get_object_or_404(Lead, id=lead_id)
+
+    # Create a new Client based on the Lead
+    client = Client.objects.create(
+        company=lead.company,
+        first_name=lead.first_name,
+        last_name=lead.last_name,
+        email=lead.email,
+        phone=lead.phone,
+        status=lead.status_sale,
+        created_at=lead.created_at,
+        created_by=lead.created_by,
+    )
+
+    # Delete the Lead instance from the database
+    lead.delete()
+
+    # Set success message and redirect (adjust URL as needed)
+    messages.success(request, f"Lead {lead.last_name} {lead.first_name} has been converted to a client.")
+    return redirect("lead:list")
