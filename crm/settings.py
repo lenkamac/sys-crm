@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'lead',
     'client',
     'task',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

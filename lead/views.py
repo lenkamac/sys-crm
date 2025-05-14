@@ -169,13 +169,14 @@ def convert_lead_to_client(request, lead_id):
     lead = get_object_or_404(Lead, id=lead_id)
 
     # Create a new Client based on the Lead
-    client = Client.objects.create(
+    Client.objects.create(
         company=lead.company,
         first_name=lead.first_name,
         last_name=lead.last_name,
         email=lead.email,
         phone=lead.phone,
         status=lead.status_sale,
+        description=lead.description,
         created_at=lead.created_at,
         created_by=lead.created_by,
     )
@@ -185,4 +186,4 @@ def convert_lead_to_client(request, lead_id):
 
     # Set success message and redirect (adjust URL as needed)
     messages.success(request, f"Lead {lead.last_name} {lead.first_name} has been converted to a client.")
-    return redirect("lead:list")
+    return redirect("client:list")

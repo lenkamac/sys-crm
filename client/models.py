@@ -27,10 +27,7 @@ class Client(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
     modified_at = models.DateTimeField(auto_now=True)
-    lead = models.ForeignKey(Lead, on_delete=models.SET_NULL, null=True, blank=True, related_name="converted_client")
-
-    def is_converted(self):
-        return self.lead is not None
+    converted_from_lead = models.ForeignKey(Lead, on_delete=models.SET_NULL, null=True, blank=True, related_name="converted_client")
 
     class Meta:
         ordering = ['-created_at']
