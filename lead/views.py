@@ -142,6 +142,7 @@ def leads_export(request):
     return response
 
 
+# Bulk delete leads
 @login_required
 def leads_bulk_delete(request):
     if request.method == "POST":

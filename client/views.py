@@ -11,6 +11,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 
 from client.forms import AddCommentForm, AddFileForm
 from client.models import Client
+from task.models import Task
 
 
 # Create your views here.
@@ -29,6 +30,7 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AddCommentForm()
+        context['tasks'] = Task.objects.filter(client_id=self.kwargs.get('pk'))
         context['fileform'] = AddFileForm()
         return context
 
