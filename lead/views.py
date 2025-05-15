@@ -11,7 +11,7 @@ from django.views import View
 
 from client.models import Client
 from task.models import Task
-from .models import Lead, LeadFile
+from .models import Lead, LeadFile, Comment
 from .forms import AddCommentForm, AddFileForm
 
 
@@ -164,6 +164,7 @@ def leads_bulk_delete(request):
     return redirect('lead:list')
 
 
+# Convert lead to client
 def convert_lead_to_client(request, lead_id):
     # Retrieve the Lead instance by ID
     lead = get_object_or_404(Lead, id=lead_id)
@@ -187,3 +188,20 @@ def convert_lead_to_client(request, lead_id):
     # Set success message and redirect (adjust URL as needed)
     messages.success(request, f"Lead {lead.last_name} {lead.first_name} has been converted to a client.")
     return redirect("client:list")
+
+
+# Delete lead comment
+@login_required
+def delete_comment(request, lead_id, comment_id):
+    lead = get_object_or_404(Lead, id=lead_id)
+    comment = get_object_or_404(Comment, id=comment_id, lead=lead)
+
+    # Optional: Only allow the creator of the comment or an admin to delete it
+    if request.user == comment.created_by or request.user.is_staff:
+        comment.delete()
+        messages.success(request, "Comment deleted successfully.")
+    else:
+        messages.error(request, "You do not have permission to delete this comment.")
+
+    return redirect('lead:detail', pk=lead.id)
+

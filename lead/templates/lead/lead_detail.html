@@ -136,6 +136,16 @@
                             <p class="comment mt-2"><strong class="px-2">@{{ comment.created_by }}</strong>
                                 {{ comment.created_at|date:"M-d-Y H:i" }}</p>
                             <p class="comment-p mx-5 px-2 py-1">{{ comment.content }}</p>
+
+                            <!-- Delete Button -->
+                            <form method="post" action="{% url 'lead:delete_comment' lead.id comment.id %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this comment?');">
+                                    Delete
+                                </button>
+                            </form>
+
+
                         </div>
                     {% endfor %}
                 </div>

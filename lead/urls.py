@@ -13,6 +13,7 @@ urlpatterns = [
     path('<int:pk>/delete/', LeadDeleteView.as_view(), name='delete'),
     path('delete_bulk/', views.leads_bulk_delete, name='delete_bulk'),
     path('<int:pk>/add-comment/', AddCommentView.as_view(), name='add_comment'),
+    path('<int:lead_id>/comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     path('<int:pk>/add-file/', AddFileView.as_view(), name='add_file'),
     path('export/', views.leads_export, name='export'),
     path('convert-lead/<int:lead_id>/', convert_lead_to_client, name='convert_lead'),

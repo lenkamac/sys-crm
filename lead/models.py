@@ -68,6 +68,7 @@ class LeadFile(models.Model):
     def __str__(self):
         return self.created_by.username
 
+
 class Comment(models.Model):
     lead = models.ForeignKey(Lead, related_name='comments', on_delete=models.CASCADE)
     content = models.TextField(blank=True, null=True)
