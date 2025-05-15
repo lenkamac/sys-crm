@@ -145,6 +145,29 @@
                                 </button>
                             </form>
 
+                            <!-- Edit Button -->
+                           <a href="#" data-bs-toggle="modal" data-bs-target="#editCommentModal-{{ comment.id }}">Edit</a>
+
+                           <!-- Edit Comment Modal -->
+                           <div class="modal fade" id="editCommentModal-{{ comment.id }}" tabindex="-1" aria-labelledby="editCommentLabel-{{ comment.id }}" aria-hidden="true">
+                               <div class="modal-dialog">
+                                   <div class="modal-content">
+                                       <div class="modal-header">
+                                           <h5 class="modal-title" id="editCommentLabel-{{ comment.id }}">Edit Comment</h5>
+                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                       </div>
+                                       <div class="modal-body">
+                                           <form method="post" action="{% url 'lead:edit-comment' lead.id comment.id %}">
+                                               {% csrf_token %}
+                                               <textarea name="content" class="form-control">{{ comment.content }}</textarea>
+                                               <button type="submit" class="btn btn-primary mt-3">Save</button>
+                                           </form>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+
+
 
                         </div>
                     {% endfor %}

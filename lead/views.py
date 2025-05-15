@@ -34,6 +34,8 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
         context['form'] = AddCommentForm()
         context['tasks'] = Task.objects.filter(lead_id=self.kwargs.get('pk'))
         context['fileform'] = AddFileForm()
+        context['comments'] = Comment.objects.filter(lead_id=self.kwargs.get('pk'))
+
         return context
 
     def get_queryset(self):
@@ -53,6 +55,9 @@ class AddCommentView(LoginRequiredMixin, View):
             comment.created_by = request.user
             comment.lead_id = pk
             comment.save()
+            messages.success(request, "Comment added successfully.")
+        else:
+            messages.error(request, "Failed to add comment. Please try again.")
 
         return redirect('lead:detail', pk=pk)
 
@@ -204,4 +209,26 @@ def delete_comment(request, lead_id, comment_id):
         messages.error(request, "You do not have permission to delete this comment.")
 
     return redirect('lead:detail', pk=lead.id)
+
+# Edit Comment View
+class EditCommentView(LoginRequiredMixin, View):
+    def post(self, request, lead_id, comment_id):
+        lead = get_object_or_404(Lead, id=lead_id)
+        comment = get_object_or_404(Comment, id=comment_id, lead=lead)
+
+        # Restrict to the owner or an admin
+        if request.user != comment.created_by and not request.user.is_staff:
+            return HttpResponseForbidden("You are not authorized to edit this comment.")
+
+        # Update the comment
+        content = request.POST.get("content")
+        if content:
+            comment.content = content
+            comment.save()
+            messages.success(request, "Comment updated successfully.")
+        else:
+            messages.error(request, "Content cannot be empty.")
+
+        return redirect('lead:detail', pk=lead_id)
+
 
