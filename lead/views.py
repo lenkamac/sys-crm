@@ -3,13 +3,14 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.views import View
 
 from client.models import Client
+from task.forms import TaskForm, TaskEditForm
 from task.models import Task
 from .models import Lead, LeadFile, Comment
 from .forms import AddCommentForm, AddFileForm
@@ -230,5 +231,19 @@ class EditCommentView(LoginRequiredMixin, View):
             messages.error(request, "Content cannot be empty.")
 
         return redirect('lead:detail', pk=lead_id)
+
+
+def edit_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method == 'POST':
+        form = TaskEditForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('lead:detail', args=[task.lead.id]))
+    return redirect(reverse('lead:detail', args=[task.lead.id]))
+
+
+
 
 

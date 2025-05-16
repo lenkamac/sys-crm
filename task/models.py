@@ -13,7 +13,7 @@ class Task(models.Model):
     )
 
     STATUS_CHOICES = (
-        ('todo', 'To Do'),
+        ('open', 'Open'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
         ('canceled', 'Canceled'),
@@ -28,8 +28,8 @@ class Task(models.Model):
     lead = models.ForeignKey(Lead, related_name='tasks_lead', on_delete=models.CASCADE, null=True, blank=True)
     client = models.ForeignKey(Client, related_name='tasks_client', null=True, blank=True, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
-    priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='-')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='-')
+    priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='-', blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='-', blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
