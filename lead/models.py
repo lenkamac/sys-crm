@@ -59,6 +59,7 @@ class Lead(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 
+# Lead Files
 class LeadFile(models.Model):
     lead = models.ForeignKey(Lead, related_name='files', on_delete=models.CASCADE)
     file = models.FileField(upload_to='leadfiles')
@@ -69,6 +70,7 @@ class LeadFile(models.Model):
         return self.created_by.username
 
 
+# Lead Comment
 class Comment(models.Model):
     lead = models.ForeignKey(Lead, related_name='comments', on_delete=models.CASCADE)
     content = models.TextField(blank=True, null=True)

@@ -3,6 +3,7 @@ html, body {
     margin: 0;
 }
 
+
 body {
     background-color: #f0f4f6;
     position: relative;
@@ -10,19 +11,18 @@ body {
     min-height: 100vh;
 }
 
+
 /* Navbar */
 .navbar {
     background-color: #273D59;
     height: 50px;
 }
-
 .navbar-brand {
     color: #f0f4f6;
 }
 .navbar-brand:hover {
     color: #9befe9;
 }
-
 .nav-item {
     background-color: #92C3C9;
     margin-right: 20px;
@@ -30,7 +30,6 @@ body {
     height: 30px;
     border-radius: 5px;
 }
-
 .nav-link {
     color: #151f3f;
     text-align: center;
@@ -40,7 +39,9 @@ body {
 .nav-link:hover {
     color: #ecf0f6;
     font-weight: bold;
+    background-color: #849c9d;
 }
+
 
 /* main content*/
 main {
@@ -59,13 +60,13 @@ main {
     background-color: #4d6167;
     border: none;
     border-radius: 5px;
-    width: 100px;
+    width: 80px;
     color: white;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 .custom-btn:hover {
-    background-color: #166e19;
+    background-color: #859196;
 }
 
 .add-button {
@@ -90,20 +91,64 @@ main {
     color: white;
 }
 
+
+/* custom a edit*/
 .a-edit {
     color: white;
     text-decoration: none;
 }
 
+/* custom back to a*/
+.custom-back-a {
+    color: #113649;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.custom-back-a:hover {
+    color: #23523c;
+}
+
+
 .btn-delete {
     font-size: 1.2rem;
     font-weight: bold;
-    width: 100px;
+    width: 80px;
 }
 
 .a-delete {
     color: #113649;
     text-decoration: none;
+}
+
+.span-task {
+    font-weight: bold;
+    color: #113649;
+    padding: 6px;
+
+}
+
+.btn-for-edit {
+    background-color: #dbe0ef;
+    font-weight: bold;
+    width: 80px;
+    color: black;
+    border: 1px solid #1c4e6a;
+}
+.btn-for-edit:hover {
+    background-color: #1c4e6a;
+    color: white;
+}
+
+.custom-a {
+    color: #1c4e6a;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.custom-a:hover {
+    color: #849c9d;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 label {
@@ -114,6 +159,17 @@ label {
 /* main header */
 h1 {
     color: #3b4869;
+}
+h2 {
+    color: #023564;
+}
+
+
+/* not found message*/
+.not-found-message {
+    text-align: center;
+    padding-top: 6px;
+    font-size: 1.2rem;
 }
 
 /* custom table styling*/
@@ -127,14 +183,36 @@ tbody tr td a {
 
 /* Offcanvas style*/
 .offcanvas-custom {
-         position: fixed !important; /* Fix it on the left side */
-         top: 56px; /* Set the top offset */
-         bottom: 60px;
-         width: 250px; /* Set your desired width */
-         z-index: 1045; /* Set appropriate z-index */
-         background-color: #f8f9fa; /* Optional: Customize the background color */
-         border-right: 1px solid #ddd; /* Optional: Add a border */
+    position: fixed !important; /* Fix it on the left side */
+    top: 50px; /* Set the top offset */
+    left: 0;
+    bottom: 60px;
+    width: 250px; /* Set your desired width */
+    z-index: 1045; /* Set appropriate z-index */
+    background-color: #acbfbf; /* Optional: Customize the background color */
+    border-right: 1px solid #ddd; /* Optional: Add a border */
      }
+
+
+/* Styling for files*/
+.download-a {
+    padding-left: 40px;
+    font-size: 1.1rem;
+    color: #023564;
+}
+
+.download-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.files-p {
+    border-left: 3px solid #3b4869;
+    height: auto;
+    padding: 0 5px;
+    margin-top: 13px;
+}
+
 
 
 /* Footer */
@@ -148,7 +226,6 @@ tbody tr td a {
     height: 58px;
     background-color: #273D59;
 }
-
 .text-footer {
     color: #b0c4de;
 }
@@ -157,6 +234,7 @@ tbody tr td a {
        font-size: 14px;
     }
 }
+
 
 /* Page content adjustment for fixed nav/footer */
 .container {

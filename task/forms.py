@@ -47,4 +47,14 @@ class TaskCommentForm(forms.ModelForm):
 class TaskEditForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'due_date', 'status']
+        fields = ['title', 'description', 'due_date', 'status', 'priority', 'assigned_to' ]
+        widgets = {
+            'due_date': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control'
+            }),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
+            'priority': forms.Select(attrs={'class': 'form-select'}),
+        }

@@ -63,44 +63,21 @@
     color: white;
 }
 
-.download-a {
-    padding-left: 40px;
-    font-size: 1.1rem;
-    color: #023564;
+
+/* lead delete form*/
+#lead_delete_form {
+    display: inline;
+    padding-left: 25px;
 }
 
-.download-icon {
-    height: 60px;
-    width: 60px;
-}
-
-.files-p {
-    border-left: 3px solid #3b4869;
-    height: auto;
-    padding: 0 5px;
-    margin-top: 13px;
-}
-
-
-.lead-a {
-    color: #333844;
-    font-size: 1.1rem;
-    font-weight: bold;
-    padding-left: 6px;
-}
-
-.lead-a:hover {
-    color: #506cb2;
-}
-
+/* Convert button */
 .btn-convert {
     background-color: #849c9d;
+    font-size: 1.1rem;
 }
-
 .btn-convert:hover {
     background-color: #606567;
 }
-
 #convert {
     text-decoration: none;
     color: white;

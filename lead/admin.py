@@ -4,11 +4,12 @@ from .models import Lead, LeadFile, Comment
 
 # Register your models here.
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'company', 'email', 'phone', 'created_at', 'status', 'priority')
+    list_display = ('last_name', 'first_name', 'company', 'email', 'phone', 'created_at', 'status', 'status_sale',
+                    'priority')
 
     list_filter = ('created_at', 'status', 'priority')
 
-    search_fields = ('first_name', 'last_name', 'email')
+    search_fields = ('last_name', 'email', 'priority', 'company')
 
     ordering = ('-created_at',)
 
