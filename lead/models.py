@@ -15,13 +15,13 @@ class Lead(models.Model):
         (HIGH, 'High'),
     )
 
-    NEW = 'new'
+    Open = 'open'
     CONTACTED = 'contacted'
     WON = 'won'
     LOST = 'lost'
 
     CHOICES_STATUS = (
-        (NEW, 'New'),
+        (Open, 'Open'),
         (CONTACTED, 'Contacted'),
         (WON, 'Won'),
         (LOST, 'Lost'),
@@ -47,7 +47,7 @@ class Lead(models.Model):
     country = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     priority = models.CharField(max_length=255, choices=CHOICES_PRIORITY, default=MEDIUM)
-    status = models.CharField(max_length=255, choices=CHOICES_STATUS, default=NEW)
+    status = models.CharField(max_length=255, choices=CHOICES_STATUS, default='----')
     converted_to_client = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='leads', on_delete=models.CASCADE)

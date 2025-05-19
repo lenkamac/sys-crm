@@ -84,3 +84,21 @@
     font-weight: bold;
     font-size: 1.2rem;
 }
+
+/* lead/css/lead.css */
+   .status-open {
+       color: green;
+       font-weight: bold;
+   }
+   .status-in-progress {
+       color: orange;
+       font-weight: bold;
+   }
+   .status-completed {
+       color: blue;
+       font-weight: bold;
+   }
+   .status-closed {
+       color: red;
+       font-weight: bold;
+   }

@@ -269,7 +269,15 @@
                                             <span class="span-task">Due:</span> {{ task.due_date }}
                                         </div>
                                         <div class="col-lg-6">
-                                            <span class="span-task">Status:</span> {{ task.get_status_display }}
+                                            <span class="span-task">Status:</span>
+                                            <span class="{% if lead.status == 'open' %}status-open
+                                                        {% elif lead.status == 'in_progress' %}status-in-progress
+                                                        {% elif lead.status == 'completed' %}status-completed
+                                                        {% elif lead.status == 'closed' %}status-closed
+                                                        {% else %}status-default{% endif %}">
+                                               {{ lead.get_status_display }}
+                                           </span>
+
                                         </div>
                                         <div class="col-lg-12 mt-lg-3">
                                             <span class="span-task">Description:</span> {{ task.description }}
