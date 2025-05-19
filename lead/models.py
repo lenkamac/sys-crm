@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
 
 
 # Create your models here.
@@ -65,6 +66,11 @@ class LeadFile(models.Model):
     file = models.FileField(upload_to='leadfiles')
     created_by = models.ForeignKey(User, related_name='lead_files', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def filename(self):
+        """Return just the file's name without the full path."""
+        return os.path.basename(self.file.name)
 
     def __str__(self):
         return self.created_by.username
