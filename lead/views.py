@@ -211,6 +211,7 @@ def delete_comment(request, lead_id, comment_id):
 
     return redirect('lead:detail', pk=lead.id)
 
+
 # Edit Comment View
 class EditCommentView(LoginRequiredMixin, View):
     def post(self, request, lead_id, comment_id):
@@ -231,18 +232,6 @@ class EditCommentView(LoginRequiredMixin, View):
             messages.error(request, "Content cannot be empty.")
 
         return redirect('lead:detail', pk=lead_id)
-
-
-def edit_task(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-
-    if request.method == 'POST':
-        form = TaskEditForm(request.POST, instance=task)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('lead:detail', args=[task.lead.id]))
-    return redirect(reverse('lead:detail', args=[task.lead.id]))
-
 
 
 
