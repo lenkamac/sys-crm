@@ -129,15 +129,16 @@ main {
 }
 
 .btn-for-edit {
-    background-color: #dbe0ef;
+    background-color: #1c4e6a;
     font-weight: bold;
-    width: 80px;
-    color: black;
+    width: 100px;
+    color: #e9ecf6;
     border: 1px solid #1c4e6a;
 }
 .btn-for-edit:hover {
-    background-color: #1c4e6a;
-    color: white;
+    background-color: #dbe0ef;
+    color: #023564;
+    border: 1px solid #1c4e6a;
 }
 
 .custom-a {
@@ -200,12 +201,10 @@ tbody tr td a {
     font-size: 1.1rem;
     color: #023564;
 }
-
 .download-icon {
     height: 60px;
     width: 60px;
 }
-
 .files-p {
     border-left: 3px solid #3b4869;
     height: auto;
@@ -213,7 +212,38 @@ tbody tr td a {
     margin-top: 13px;
 }
 
-
+/* Comment */
+.comment-p {
+    border-left: 3px solid #3b4869;
+}
+.comment-label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 5px;
+    padding: 5px;
+}
+.comment-btn {
+    background-color: rgba(113, 175, 167, 0.68);
+    text-align: center;
+    border-radius: 5px;
+    width: 100px;
+    font-weight: bold;
+}
+.comment-btn:hover {
+    background-color: rgb(35, 82, 60);
+    color: white;
+}
+.comment-form {
+    width: 100%; /* Make the form span 100% of its parent container */
+    padding: 10px; /* Add some padding to improve aesthetics */
+    background-color: #f4f4f4; /* Optional: Add background to make it stand out */
+    border-radius: 5px; /* Optional: Rounded edges for better styling */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+.comment-row {
+    margin: 0; /* Ensure no margin cuts into the column/grid space */
+    padding: 0; /* Reset padding for alignment */
+}
 
 /* Footer */
 .footer {
@@ -241,3 +271,4 @@ tbody tr td a {
     margin-top: 80px; /* Adjust for the fixed navbar */
     margin-bottom: 80px; /* Adjust for the fixed footer */
 }
+

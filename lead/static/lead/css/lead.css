@@ -35,35 +35,6 @@
     margin-left: 380px;
 }
 
-.comment-p {
-    border-left: 3px solid #3b4869;
-}
-
-.comment-label {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 5px;
-    padding: 5px;
-}
-
-.comment-row {
-    background-color: #bbd0da;
-}
-
-/* Lead detail page */
-.comment-btn {
-    background-color: rgba(113, 175, 167, 0.68);
-    text-align: center;
-    border-radius: 5px;
-    width: 100px;
-    font-weight: bold;
-}
-.comment-btn:hover {
-    background-color: rgb(35, 82, 60);
-    color: white;
-}
-
-
 /* lead delete form*/
 #lead_delete_form {
     display: inline;
@@ -85,7 +56,7 @@
     font-size: 1.2rem;
 }
 
-/* lead/css/lead.css */
+/* lead/status */
    .status-open {
        color: green;
        font-weight: bold;
