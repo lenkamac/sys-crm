@@ -25,11 +25,6 @@
     color: #23523c;
 }
 
-.lead-span {
-    font-weight: bold;
-    color: #23523c;
-    margin-left: 10px;
-}
 
 .content-lead {
     margin-left: 380px;
@@ -57,19 +52,19 @@
 }
 
 /* lead/status */
-   .status-open {
-       color: green;
-       font-weight: bold;
-   }
-   .status-in-progress {
-       color: orange;
-       font-weight: bold;
-   }
-   .status-completed {
-       color: blue;
-       font-weight: bold;
-   }
-   .status-closed {
-       color: red;
-       font-weight: bold;
-   }
+.status-open {
+   color: green;
+   font-weight: bold;
+}
+.status-in-progress {
+   color: orange;
+   font-weight: bold;
+}
+.status-completed {
+   color: blue;
+   font-weight: bold;
+}
+.status-closed {
+   color: red;
+   font-weight: bold;
+}

@@ -190,9 +190,39 @@ tbody tr td a {
     bottom: 60px;
     width: 250px; /* Set your desired width */
     z-index: 1045; /* Set appropriate z-index */
-    background-color: #acbfbf; /* Optional: Customize the background color */
+    background-color: #d4e0e0; /* Optional: Customize the background color */
     border-right: 1px solid #ddd; /* Optional: Add a border */
      }
+.canv-h5 {
+    color: #113649;
+    font-size: 1.6rem;
+}
+.offcanvas-custom ul li a {
+    color: #0b2330;
+    font-size: 1.2rem;
+}
+.offcanvas-custom ul li a:hover {
+    color: #023564;
+    font-weight: bold;
+}
+
+/* Adjust Font Awesome icon placement */
+.offcanvas-custom ul li a i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 1.2rem; /* Adjust font size */
+    color: #113649; /* Icon color */
+}
+.offcanvas-custom ul li a i:hover {
+    color: #023564;
+}
+
+
+span {
+    font-weight: bold;
+    color: #23523c;
+    margin-left: 10px;
+}
+
 
 
 /* Styling for files*/

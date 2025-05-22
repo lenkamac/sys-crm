@@ -1,12 +1,14 @@
  <!-- Offcanvas -->
 <div class="offcanvas-custom">
     <div class="p-3">
-        <h5>Offcanvas Menu</h5>
-        <ul>
-            <li><a href="{% url 'lead:list' %}">Leads</a></li>
-            <li><a href="{% url 'client:list' %}">Clients</a></li>
-            <li><a href="{% url 'task:task_list' %}">Tasks</a></li>
-            <li><a href="#">Calendar</a></li>
+        <div class="text-start">
+            <h5 class="canv-h5 px-lg-3 py-lg-3">Menu</h5>
+        </div>
+        <ul class="list-unstyled">
+            <li class="px-lg-3 py-lg-2"><a href="{% url 'lead:list' %}"><i class="fa-solid fa-circle-user"></i>Leads</a></li>
+            <li class="px-lg-3 py-lg-2"><a href="{% url 'client:list' %}"><i class="fa-regular fa-circle-user"></i>Clients</a></li>
+            <li class="px-lg-3 py-lg-2"><a href="{% url 'task:task_list' %}"><i class="fa-solid fa-list-check"></i>Tasks</a></li>
+            <li class="px-lg-3 py-lg-2"><a href="#"><i class="fa-regular fa-calendar-days"></i>Calendar</a></li>
         </ul>
         <a href="{% url 'logout' %}" class="btn btn-danger mt-3">Logout</a>
     </div>
