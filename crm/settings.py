@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'client',
     'task',
     'widget_tweaks',
+    'calendarapp',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'crm.urls'
 
