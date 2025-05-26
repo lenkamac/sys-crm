@@ -1,0 +1,66 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    display: flex;
+    justify-content: center;  /* horizontal centering */
+    align-items: center;      /* vertical centering */
+    min-height: 100vh;
+  }
+  #calendar {
+    width: 100%;
+    background: white;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    border-radius: 8px;
+    padding: 16px;
+
+  }
+
+  /* Base style for all calendar buttons */
+.fc .fc-button {
+  background: #4f8a8b;
+  color: #fff;
+  border: 1px solid #386471;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Active (selected) button */
+.fc .fc-button.fc-button-active {
+  background: #b5daf3;
+  color: #3a435e;
+}
+
+/* Button hover */
+.fc .fc-button:hover, .fc .fc-button:focus {
+  background: #43b29d;
+  color: #fff;
+}
+
+/* Disabled button */
+.fc .fc-button.fc-button-disabled {
+  background: #cccccc;
+  color: #999999;
+  border-color: #bbbbbb;
+}
+
+/* Specific button: Today button */
+.fc .fc-today-button {
+  background: #849c9d;
+  color: white;
+}
+
+.fc .fc-today-button.fc-button-active {
+  background: #fff;
+  color: #f6416c;
+}
+
+/* Make toolbar spacing consistent */
+.fc .fc-toolbar {
+  margin-bottom: 20px;
+}
+
