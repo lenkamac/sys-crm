@@ -1,5 +1,9 @@
+import json
+
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Event
 
 
@@ -20,3 +24,17 @@ def events_json(request):
             'description': event.description,
         })
     return JsonResponse(events, safe=False)
+
+
+@csrf_exempt
+def add_event(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        Event.objects.create(
+            title=data.get('title'),
+            start=data.get('start'),
+            end=data.get('end'),
+            description=data.get('description')
+        )
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
