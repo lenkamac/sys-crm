@@ -26,6 +26,7 @@ def events_json(request):
     return JsonResponse(events, safe=False)
 
 
+# add event
 @csrf_exempt
 def add_event(request):
     if request.method == "POST":
@@ -40,12 +41,31 @@ def add_event(request):
     return JsonResponse({'success': False})
 
 
+# delete event
 @csrf_exempt
 def delete_event(request, event_id):
     if request.method == "DELETE":
         try:
             event = Event.objects.get(id=event_id)
             event.delete()
+            return JsonResponse({'success': True})
+        except Event.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Event not found'})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+# edit event
+@csrf_exempt
+def update_event(request, event_id):
+    if request.method == "PUT":
+        try:
+            data = json.loads(request.body)
+            event = Event.objects.get(id=event_id)
+            event.title = data.get('title')
+            event.start = data.get('start')
+            event.end = data.get('end') or None
+            event.description = data.get('description')
+            event.save()
             return JsonResponse({'success': True})
         except Event.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Event not found'})

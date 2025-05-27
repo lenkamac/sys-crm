@@ -66,6 +66,43 @@
                     </form>
                   </div>
                 </div>
+
+                <!-- Edit Event Modal -->
+                <div class="modal fade" id="editEventModal" tabindex="-1">
+                  <div class="modal-dialog">
+                    <form id="editEventForm">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5>Edit Event</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                          <input type="hidden" id="editEventId">
+                          <div class="mb-3">
+                            <label>Title</label>
+                            <input type="text" id="editEventTitle" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                            <label>Start</label>
+                            <input type="datetime-local" id="editEventStart" class="form-control" required>
+                          </div>
+                          <div class="mb-3">
+                            <label>End</label>
+                            <input type="datetime-local" id="editEventEnd" class="form-control">
+                          </div>
+                          <div class="mb-3">
+                            <label>Description</label>
+                            <textarea id="editEventDesc" class="form-control"></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
             </div>
         </div>
 

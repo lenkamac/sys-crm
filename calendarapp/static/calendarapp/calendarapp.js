@@ -4,25 +4,38 @@ document.addEventListener('DOMContentLoaded', function() {
         initialView: 'dayGridMonth',
         events: calendarEventsUrl,  // We'll define this in template!
         eventClick: function(info) {
-            if (confirm('Delete this event?')) {
-                fetch(`delete_event/${info.event.id}/`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
+                // You can use a prompt, a custom modal, or whatever suits your UI
+                const action = prompt("Type 'edit' to edit, 'delete' to delete this event, or Cancel to abort.", "edit");
+
+                if (action === "delete") {
+                    if (confirm('Are you sure you want to delete this event?')) {
+                        fetch(`delete_event/${info.event.id}/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': getCookie('csrftoken'),
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                info.event.remove();
+                            } else {
+                                alert('Failed to delete event.');
+                            }
+                        })
+                        .catch(() => alert('Error deleting event.'));
                     }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        info.event.remove(); // Remove from calendar
-                    } else {
-                        alert('Failed to delete event.');
-                    }
-                })
-                .catch(() => alert('Error deleting event.'));
-            }
-        }
-,
+                } else if (action === "edit") {
+                    // Fill the edit modal with event data
+                    document.getElementById('editEventId').value = info.event.id;
+                    document.getElementById('editEventTitle').value = info.event.title;
+                    document.getElementById('editEventStart').value = info.event.start.toISOString().slice(0, 16);
+                    document.getElementById('editEventEnd').value = info.event.end ? info.event.end.toISOString().slice(0, 16) : '';
+                    document.getElementById('editEventDesc').value = info.event.extendedProps.description || "";
+                    var editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
+                    editModal.show();
+                }
+            },
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
@@ -77,6 +90,62 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error adding event');
         });
     });
+
+    // Handle edit form submit
+    document.getElementById('editEventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const eventId = document.getElementById('editEventId').value;
+        const data = {
+            title: document.getElementById('editEventTitle').value,
+            start: document.getElementById('editEventStart').value,
+            end: document.getElementById('editEventEnd').value,
+            description: document.getElementById('editEventDesc').value,
+        };
+
+        fetch(`update_event/${eventId}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                calendar.refetchEvents();
+                bootstrap.Modal.getInstance(document.getElementById('editEventModal')).hide();
+            } else {
+                alert('Failed to update event');
+            }
+        });
+    });
+
+    // Drag & Drop/resize logic
+    function updateEvent(info) {
+        fetch(`update_event/${info.event.id}/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                title: info.event.title,
+                start: info.event.start.toISOString(),
+                end: info.event.end ? info.event.end.toISOString() : null,
+                description: info.event.extendedProps.description
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                alert('Failed to update event');
+                info.revert(); // Revert to original position
+            }
+        });
+    }
+
+
 });
 
 // Helper to get CSRF token
