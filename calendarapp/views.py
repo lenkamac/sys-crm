@@ -7,12 +7,13 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Event
 
 
-# Create your views here.
+# html page for event and calendar
 def calendar_view(request):
 
     return render(request, 'calendarapp/calendar.html')
 
 
+# events
 def events_json(request):
     events = []
     for event in Event.objects.all():

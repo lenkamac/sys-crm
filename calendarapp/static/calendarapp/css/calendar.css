@@ -1,21 +1,15 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
   body {
     display: flex;
     justify-content: center;  /* horizontal centering */
     align-items: center;      /* vertical centering */
     min-height: 100vh;
   }
+
   #calendar {
     width: 100%;
     background: white;
     box-shadow: 0 4px 24px rgba(0,0,0,0.07);
     border-radius: 8px;
-    padding: 16px;
-
   }
 
   /* Base style for all calendar buttons */
@@ -54,13 +48,31 @@ body, html {
   color: white;
 }
 
-.fc .fc-today-button.fc-button-active {
-  background: #fff;
-  color: #f6416c;
-}
-
 /* Make toolbar spacing consistent */
 .fc .fc-toolbar {
   margin-bottom: 20px;
 }
 
+#addEventBtn {
+  background: #0d3f3f;
+  color: #fff;
+  font-size: 1.1rem;
+  border: 1px solid #386471;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Example for a generic modal dialog */
+.modal-dialog {
+    max-width: 55vw;    /* Change this value as needed (default is usually 500px) */
+    width: 55vw;        /* Make it larger, e.g., 70% of viewport */
+    min-width: 400px;   /* Optional: ensure a sensible minimum width */
+}
+
+.modal-content {
+    min-height: 60vh;   /* Make taller if needed */
+    /* optionally, set max-height if needed */
+}
