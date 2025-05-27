@@ -4,8 +4,25 @@ document.addEventListener('DOMContentLoaded', function() {
         initialView: 'dayGridMonth',
         events: calendarEventsUrl,  // We'll define this in template!
         eventClick: function(info) {
-            alert('Event: ' + info.event.title);
-        },
+            if (confirm('Delete this event?')) {
+                fetch(`delete_event/${info.event.id}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        info.event.remove(); // Remove from calendar
+                    } else {
+                        alert('Failed to delete event.');
+                    }
+                })
+                .catch(() => alert('Error deleting event.'));
+            }
+        }
+,
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',

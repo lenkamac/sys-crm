@@ -38,3 +38,15 @@ def add_event(request):
         )
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
+
+
+@csrf_exempt
+def delete_event(request, event_id):
+    if request.method == "DELETE":
+        try:
+            event = Event.objects.get(id=event_id)
+            event.delete()
+            return JsonResponse({'success': True})
+        except Event.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Event not found'})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
