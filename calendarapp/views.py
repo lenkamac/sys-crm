@@ -34,7 +34,7 @@ def add_event(request):
         Event.objects.create(
             title=data.get('title'),
             start=data.get('start'),
-            end=data.get('end'),
+            end=data.get('end') or None,
             description=data.get('description')
         )
         return JsonResponse({'success': True})
