@@ -5,12 +5,78 @@
 
 {% block content %}
 
+    {% block css %}
+    	<link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+    {% endblock %}
+
     {% include 'core/partials/offcanvas_menu.html' %}
 
     <!-- Page Content -->
-    <div class="container mt-5">
-        <h1>Welcom to the dashboard {{ user.username }}</h1>
-        <p>Here is your main content area. The offcanvas (drawer) is always visible on the left.</p>
+    <div class="container vh-100 w-100 my-lg-4">
+        <div class="row mx-lg-5 justify-content-center">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h1 class="px-5 py-lg-3">Welcome to the dashboard "<span style="color: #0f5132;">{{ user.username }}</span>"</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-lg-2 mx-lg-3 justify-content-between">
+            <div class="col-lg-6">
+                <div class="d-flex justify-content-center">
+                    <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+                      <div class="card-header text-center">Total number of leads.</div>
+                      <div class="card-body">
+                        <h3 class="card-title text-center"><i class="fa fa-users px-2"></i> {{ lead_count }}</h3>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex justify-content-center">
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                      <div class="card-header text-center">Total number of clients.</div>
+                      <div class="card-body">
+                        <h3 class="card-title text-center"><i class="fa fa-users px-2"></i> {{ client_count }}</h3>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mx-lg-5 mt-lg-5">
+            <div class="col-lg-6">
+                <h4>Latest Leads</h4>
+                <table>
+                    {% for lead in latest_leads %}
+                        <tr>
+                            <td>{{ lead.created_at }}</td>
+                            <td><a href="{% url 'lead:detail' lead.pk %}">{{ lead.last_name }}, {{ lead.first_name }}</a></td> <!-- or use the field(s) you prefer -->
+                            <td>{{ lead.company }}</td>
+                            <td>{{ lead.email }}</td>
+                            <td>{{ lead.priority }}</td>
+                        </tr>
+                    {% empty %}
+                        <li class="list-group-item">No leads found.</li>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <h4>Latest Clients</h4>
+                <table>
+                    {% for client in latest_clients %}
+                        <tr>
+                            <td>{{ client.created_at }}</td>
+                            <td><a href="{% url 'client:detail' client.pk %}">{{ client.last_name }}, {{ client.first_name }}</a></td> <!-- or use the field(s) you prefer -->
+                            <td>{{ client.company }}</td>
+                            <td>{{ client.email }}</td>
+                        </tr>
+                    {% empty %}
+                        <li class="list-group-item">No clients found.</li>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
     </div>
 
 
