@@ -302,3 +302,20 @@ span {
     margin-bottom: 80px; /* Adjust for the fixed footer */
 }
 
+/* Index page */
+.index-p {
+    font-size: 1.3rem;
+    color: #023564;
+    font-weight: bold;
+}
+
+.p-index {
+    font-size: 1.1rem;
+    color: #023564;
+    text-align: justify;
+}
+
+.h5-index {
+    color: #023564;
+    text-align: center;
+}

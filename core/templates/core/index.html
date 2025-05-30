@@ -3,6 +3,52 @@
 
 {% block content %}
 
-    <h1>Index</h1>
+    <div class="container my-5" style="height: 85vh;">
+
+            <div class="row my-lg-3">
+                <div class="col-12">
+                    <div class="text-center">
+                        <h1 class="index-h1 py-lg-4">Welcome, Sales Manager!</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-lg-3">
+                <div class="col-12">
+                    <div class="text-center">
+                        <p class="index-p py-lg-4">Your productivity hub for managing leads, clients, and deals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-lg-3">
+                <div class="col-md-3 col-sm-6 mb-4 py-lg-4">
+                    <div class="mx-auto mb-2"><h5 class="h5-index py-lg-4"><i class="fa-solid fa-user-plus px-2"></i>Manage Leads</h5></div>
+                    <p class="p-index px-3">Effortlessly add, track, and nurture new leads. Stay in control of your sales funnel.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 py-lg-4 ">
+                    <div class="mx-auto mb-2"><h5 class="h5-index py-lg-4"><i class="fa-solid fa-users px-2"></i>Clients & Contacts</h5></div>
+                    <p class="p-index px-3">Organize clients, store notes, and quickly access key contacts.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 py-lg-4">
+                    <div class="mx-auto mb-2"><h5 class="h5-index py-lg-4"><i class="fa-solid fa-list-check px-2"></i>Tasks & Calendar</h5></div>
+                    <p class="p-index px-3">Stay on top of tasks, appointments, and deadlines with your integrated calendar.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4 py-lg-4">
+                    <div class="mx-auto mb-2"><h5 class="h5-index py-lg-4"><i class="fa-solid fa-chart-line px-2"></i>Performance Insights</h5></div>
+                    <p class="p-index px-3">Analyze sales activities and track your progress with built-in dashboards.</p>
+                </div>
+            </div>
+           <div class="row my-lg-3">
+               <div class="col-12">
+                   <div class="text-center">
+                        <a href="{% url 'login' %}" class="btn custom-back-a" style="font-size: 1.3rem; padding: 1rem 2rem;">
+                            Login and go to Dashboard <i class="fa-solid fa-arrow-right ms-2"></i>
+                        </a>
+                       <img src="{% static 'images/crm.png' %}" alt="crm" height="300px">
+                   </div>
+               </div>
+           </div>
+
+    </div>
+
 
 {% endblock %}
