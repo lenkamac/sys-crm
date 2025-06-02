@@ -92,8 +92,11 @@ def task_delete(request, pk):
 
     if request.method == 'POST':
         task.delete()
-        messages.success(request, 'Task was deleted successfully.')
-        return redirect('task:task_list')
+        next_url = request.POST.get('next') or request.GET.get('next')
+        if next_url:
+            return redirect(next_url)
+        else:
+            return redirect('task:task_list')
 
     return render(request, 'task/task_confirm_delete.html', {
         'task': task
