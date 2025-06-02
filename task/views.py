@@ -112,8 +112,11 @@ def task_edit(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Task was updated successfully.')
-            return redirect('task:task_detail', pk=task.pk)
+            next_url = request.POST.get('next') or request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
+            else:
+                return redirect('task:task_detail', pk=task.pk)
     else:
         form = TaskForm(instance=task)
 
