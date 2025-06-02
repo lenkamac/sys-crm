@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
+from lead.models import Lead
 from .forms import TaskForm, TaskCommentForm
 from .models import Task, TaskComment
 
@@ -181,5 +182,28 @@ def delete_task_comment(request, comment_id):
         return JsonResponse({"success": True})
 
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+@login_required
+def task_add_lead(request, lead_id):
+    lead = get_object_or_404(Lead, pk=lead_id)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        due_date = request.POST.get('due_date')
+
+        # Add other fields as needed
+        if title:
+            Task.objects.create(
+                lead=lead,
+                title=title,
+                description=description,
+                due_date=due_date,
+                created_by=request.user,
+                # ...other fields...
+            )
+        return redirect('lead:detail', lead_id)
+    return redirect('lead:detail', lead_id)
+
 
 

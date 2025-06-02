@@ -276,14 +276,18 @@
                                             <span>Due:</span> {{ task.due_date }}
                                         </div>
                                         <div class="col-lg-6">
+                                            <!--status
                                             <span>Status:</span>
-                                            <span class="{% if lead.status == 'open' %}status-open
-                                                        {% elif lead.status == 'in_progress' %}status-in-progress
-                                                        {% elif lead.status == 'completed' %}status-completed
-                                                        {% elif lead.status == 'closed' %}status-closed
+                                            <span class="{% if lead.status == 'open' %}open
+                                                        {% elif lead.status == 'in_progress' %}in-progress
+                                                        {% elif lead.status == 'completed' %}completed
+                                                        {% elif lead.status == 'closed' %}closed
                                                         {% else %}status-default{% endif %}">
                                                {{ lead.get_status_display }}
                                            </span>
+
+
+                                            -->
 
                                         </div>
                                         <div class="col-lg-12 mt-lg-3">
@@ -309,9 +313,29 @@
                                     </div>
 
                                 </div>
-                                {% empty %}
-                                    <p class="not-found-message">No tasks found for this lead.</p>
-                                {% endfor %}
+                            {% empty %}
+                                <p class="not-found-message">No tasks found for this lead.</p>
+                            {% endfor %}
+
+                            <!-- The task creation form: -->
+                            <form method="post" action="{% url 'task:task_add_lead' lead.id %}">
+                                {% csrf_token %}
+                                <div class="mb-2">
+                                    <input type="text" name="title" class="form-control" placeholder="Task title" required>
+                                </div>
+                                <div class="mb-2">
+                                    <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                </div>
+                                <div class="mb-2">
+                                    <input type="date" name="due_date" class="form-control" placeholder="Due date" required>
+                                </div>
+                                <!-- Add any other task fields as needed -->
+                                <button type="submit" class="btn btn-primary">Add Task</button>
+                            </form>
+
+
+
+
                         </div>
                     </div>
                 </div>

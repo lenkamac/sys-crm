@@ -14,5 +14,5 @@ urlpatterns = [
     path('<int:pk>/comment/add/', views.add_task_comment, name='add_task_comment'),
     path("task_comment/edit/<int:comment_id>/", edit_tasks_comment, name="edit_tasks_comment"),
     path("task_comment/delete/<int:comment_id>/", delete_task_comment, name="delete_task_comment"),
-
+    path('<int:lead_id>/task/add/', views.task_add_lead, name='task_add_lead'),
 ]
