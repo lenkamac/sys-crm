@@ -276,19 +276,7 @@
                                             <span>Due:</span> {{ task.due_date }}
                                         </div>
                                         <div class="col-lg-6">
-                                            <!--status
-                                            <span>Status:</span>
-                                            <span class="{% if lead.status == 'open' %}open
-                                                        {% elif lead.status == 'in_progress' %}in-progress
-                                                        {% elif lead.status == 'completed' %}completed
-                                                        {% elif lead.status == 'closed' %}closed
-                                                        {% else %}status-default{% endif %}">
-                                               {{ lead.get_status_display }}
-                                           </span>
-
-
-                                            -->
-
+                                            <span>Status:</span> {{ task.status }}
                                         </div>
                                         <div class="col-lg-12 mt-lg-3">
                                             <span>Description:</span> {{ task.description }}
@@ -325,6 +313,15 @@
                                 </div>
                                 <div class="mb-2">
                                     <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                                </div>
+                                <div class="mb-2">
+                                    <select name="status" class="form-select" aria-label="Default select example">
+                                        <option selected>---</option>
+                                        <option value="open">Open</option>
+                                        <option value="in_progress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="canceled">Canceled</option>
+                                    </select>
                                 </div>
                                 <div class="mb-2">
                                     <input type="date" name="due_date" class="form-control" placeholder="Due date" required>
