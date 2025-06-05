@@ -7,33 +7,29 @@
 
     <div class="container d-flex justify-content-center align-items-center mt-4" style="height: 75vh;">
 
-        <div class="row w-50 justify-content-center">
+        <div class="row w-100 w-md-50 justify-content-center">
 
-            <div class="col-md-10">
+            <div class="col-12 col-md-10">
 
                 <div class="text-center">
                     <h1 class="py-2 my-4">Login</h1>
                 </div>
 
-                <div class="border p-4 rounded shadow my-form">
+                <div class="border py-4 rounded shadow my-form text-center">
                     <form method="post" action="." class="login-form">
                         {% csrf_token %}
-                        <div class="my-4 row">
-                            <label for="username" class="col-sm-4 col-form-label">Username</label>
-                            <div class="col-sm-8 input-field">
-                                {{ form.username }}
-                            </div>
+                        <div class="col-lg-12 mb-3">
+                            <label for="username" class="form-label px-sm-0 px-lg-3">Username</label>
+                            {{ form.username }}
                         </div>
 
-                        <div class="my-4 row">
-                            <label for="password" class="col-sm-4 col-form-label">Password</label>
-                            <div class="col-sm-8 input-field">
-                                {{ form.password }}
-                            </div>
+                        <div class="col-lg-12 mb-3">
+                            <label for="password" class="form-label px-lg-3">Password</label>
+                            {{ form.password }}
                         </div>
 
                         <div class="text-center">
-                            <button class="btn">Submit</button>
+                            <button class="btn custom-btn">Submit</button>
                         </div>
 
                     </form>

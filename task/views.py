@@ -1,12 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseForbidden, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from lead.models import Lead
@@ -14,6 +12,8 @@ from .forms import TaskForm, TaskCommentForm
 from .models import Task, TaskComment
 
 
+# Create your views here.
+# Task list view function
 @login_required
 def tasks(request):
     # Get all users for the filter dropdown
@@ -48,6 +48,7 @@ def tasks(request):
     return render(request, 'task/task_list.html', context)
 
 
+# Task detail view function, with comments and files attached to the task.
 @login_required
 def task_detail(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -83,6 +84,7 @@ def task_add(request):
     })
 
 
+# Delete task view function, with confirmation page.
 @login_required
 def task_delete(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -104,6 +106,7 @@ def task_delete(request, pk):
     })
 
 
+# Edit task view function, with confirmation page.
 @login_required
 def task_edit(request, pk):
     task = get_object_or_404(Task, pk=pk)
@@ -148,6 +151,7 @@ def add_task_comment(request, pk):
     return redirect('task:task_detail', pk=task.pk)
 
 
+# Edit task comment view function, with confirmation page.
 @csrf_exempt
 def edit_tasks_comment(request, comment_id):
     if request.method == "POST":
@@ -168,6 +172,7 @@ def edit_tasks_comment(request, comment_id):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
+# Delete task comment view function, with confirmation page.
 @login_required
 def delete_task_comment(request, comment_id):
     if request.method == "POST":
@@ -184,6 +189,7 @@ def delete_task_comment(request, comment_id):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
+# add task directly from lead detail page
 @login_required
 def task_add_lead(request, lead_id):
     lead = get_object_or_404(Lead, pk=lead_id)

@@ -2,15 +2,12 @@ html, body {
     height: 100%;
     margin: 0;
 }
-
-
 body {
     background-color: #f0f4f6;
     position: relative;
     padding-bottom: 58px;
     min-height: 100vh;
 }
-
 
 /* Navbar */
 .navbar {
@@ -41,6 +38,21 @@ body {
     font-weight: bold;
     background-color: #849c9d;
 }
+.nav-item-delete {
+    background-color: #d61010;
+    margin-right: 20px;
+    width: 120px;
+    height: 30px;
+    border-radius: 5px;
+}
+.nav-link-delete {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px;
+}
 
 
 /* main content*/
@@ -48,6 +60,21 @@ main {
     margin: 0 auto;
     padding: 30px 20px;
 }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 400px; /* Adjust as needed */
+  position: relative;
+  background: #fff;
+    padding-top: 20px;
+}
+@media (max-width: 1280px) {
+    .main-container {
+        width: 95%;
+        margin-right: 0;
+    }
+}
+
 
 .custom-form-bg {
     background-color: rgba(205, 231, 227, 0.68);
@@ -55,7 +82,19 @@ main {
     border-radius: 5px;
     margin-bottom: 20px;
 }
-
+.custom-submit-btn {
+    background-color: #1c4e6a;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100px;
+    color: #e9ecf6;
+    border: 1px solid #1c4e6a;
+    border-radius: 5px;
+}
+.custom-submit-btn:hover {
+    background-color: #dbe0ef;
+    color: #023564;
+}
 .custom-btn {
     background-color: #4d6167;
     border: none;
@@ -70,10 +109,11 @@ main {
 }
 
 .add-button {
-    background-color: #1c4e6a;
+    background-color: #225b7b;
     font-weight: bold;
     width: 200px;
     color: white;
+    font-size: 1.2rem;
 }
 .add-button:hover {
     background-color: #23523c;
@@ -81,10 +121,11 @@ main {
 }
 
 .export-button {
-    background-color: #1c4e6a;
+    background-color: #023564;
     font-weight: bold;
     width: 200px;
     color: white;
+    font-size: 1.1rem;
 }
 .export-button:hover {
     background-color: #606567;
@@ -103,19 +144,35 @@ main {
     color: #113649;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 .custom-back-a:hover {
     color: #23523c;
 }
 
+.back-to-dashboard {
+  margin-top: auto;
+  display: block;
+  width: fit-content;
+  color: #113649;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding-top: 30px;
+  transition: color 0.2s;
+}
+.back-to-dashboard:hover {
+  color: #23523c;
+  text-decoration: underline;
+}
 
+
+/* custom delete button and a*/
 .btn-delete {
     font-size: 1.2rem;
     font-weight: bold;
     width: 80px;
 }
-
 .a-delete {
     color: #113649;
     text-decoration: none;
@@ -174,12 +231,27 @@ h2 {
 }
 
 /* custom table styling*/
+.table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+}
+.table-responsive-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Optional: set a minimum width for better horizontal scrolling */
+}
 .th-custom tr th {
     background-color: rgba(137, 168, 165, 0.68);
+    font-size: 17px;
+    border: 1px solid #3b4869;
 }
-
 tbody tr td a {
     text-decoration: none;
+}
+tbody tr td {
+    border: 1px solid #3b4869;
+    font-size: 16px;
+    text-align: center;
 }
 
 /* Offcanvas style*/
@@ -205,8 +277,6 @@ tbody tr td a {
     color: #023564;
     font-weight: bold;
 }
-
-/* Adjust Font Awesome icon placement */
 .offcanvas-custom ul li a i {
     margin-right: 10px; /* Space between icon and text */
     font-size: 1.2rem; /* Adjust font size */
@@ -215,14 +285,63 @@ tbody tr td a {
 .offcanvas-custom ul li a i:hover {
     color: #023564;
 }
-
-
+.img-dashboard {
+    padding-right: 2px;
+}
+.dashb-span {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #23523c;
+    margin-left: 10px;
+}
 span {
     font-weight: bold;
     color: #23523c;
     margin-left: 10px;
 }
-
+@media (max-width: 1280px) {
+    .offcanvas-custom {
+        width: 180px;
+    }
+    .offcanvas-custom ul li a {
+        font-size: 1rem;
+    }
+    .offcanvas-custom ul li a i {
+        font-size: 1rem;
+    }
+    .dashb-span {
+        font-size: 1rem;
+    }
+    .img-dashboard {
+        padding-right: 0;
+        height: 22px;
+    }
+}
+@media (max-width: 550px) {
+    .offcanvas-custom {
+        width: 100px;
+    }
+    .offcanvas-custom ul li a {
+        font-size: 0.6rem;
+    }
+    .offcanvas-custom ul li a i {
+        font-size: 0.6rem;
+    }
+    .img-dashboard {
+        height: 15px;
+        padding-right: 0;
+    }
+    .span {
+        font-size: 0.6rem;
+    }
+    .dashb-span {
+        font-size: 0.7rem;
+    }
+    .img-dashboard {
+        padding-right: 0;
+        height: 18px;
+    }
+}
 
 
 /* Styling for files*/
@@ -318,4 +437,23 @@ span {
 .h5-index {
     color: #023564;
     text-align: center;
+}
+
+
+/* custom.css, link it in your base.html */
+.login-form input {
+    min-width: 0; /* so inputs don't overflow on very small screens */
+    width: 25%;
+}
+@media (max-width: 576px) {
+    .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .form-label {
+        font-size: 1rem;
+        width: 50%;
+        margin-left: 0;
+        padding: 2px;
+    }
 }

@@ -9,19 +9,19 @@
 
    {% include 'core/partials/offcanvas_menu.html' %}
 
-	<div class="container">
+	<div class="container main-container vh-100">
 
         <div class="row mx-lg-5 justify-content-center">
-            <div class="col-lg-12">
+            <div class="col-12">
                 <div class="text-center">
-                    <h1 class="px-5">Leads</h1>
+                    <h1>Leads</h1>
                 </div>
             </div>
-            <div class="col-lg-12">
+            <div class="col-12">
                <div class="text-center">
                     <!-- Display messages -->
                    {% if messages %}
-                       <div class="row">
+                       <div class="row justify-content-center">
                            {% for message in messages %}
                                <div class="alert alert-{{ message.tags }}" role="alert">
                                    <div class="text-center">
@@ -35,28 +35,28 @@
             </div>
         </div>
 
-        <div class="row mt-lg-2 mx-lg-3 justify-content-center">
+        <div class="row mt-lg-2 mx-lg-5 justify-content-center">
 
-            <div class="col-lg-12">
+            <div class="col-12">
 
-                <div class="row my-lg-3 mx-lg-3 py-lg-4">
+                <div class="row my-lg-3 mx-lg-5 py-lg-4 bg-body">
 
                     <form method="post" action="{% url 'lead:delete_bulk' %}">
                         {% csrf_token %}
 
-                        <div class="row justify-content-center w-100 my-lg-3 mx-lg-5">
+                        <div class="row justify-content-center my-lg-3 mx-lg-5">
 
-                            <div class="col-3 mx-lg-3 my-lg-2">
+                            <div class="col mx-lg-5 px-lg-3">
                                 <a class="btn add-button" href="{% url 'lead:add' %}">Add lead</a>
                             </div>
 
-                            <div class="col-3 mx-lg-3 my-lg-2">
+                            <div class="col mx-lg-5 px-lg-3">
                                 <a class="btn export-button" href="{% url 'lead:export' %}">Export leads to csv</a>
                             </div>
 
-                            <div class="col-3 mx-lg-3 my-lg-2">
+                            <div class="col mx-lg-5 px-lg-3">
                                 <!-- Button to delete selected clients -->
-                                <button type="submit" class="btn btn-danger"
+                                <button type="submit" class="btn btn-danger" style="font-size: 1.1rem; font-weight: bold;"
                                         onclick="return confirm('Are you sure you want to delete selected leads?')">
                                     Delete Selected
                                 </button>
@@ -65,75 +65,77 @@
 
                         </div>
 
-                        <div class="row justify-content-center mt-lg-4 mx-lg-5">
+                        <div class="row justify-content-center w-100 mt-lg-4">
 
-                            <div class="col-lg-12 my-lg-3">
+                            <div class="col-12 my-lg-3">
 
-                                <table class="table">
-                                    <thead class="th-custom">
+                                <div class="table-responsive-custom">
+                                    <table class="table">
+                                        <thead class="th-custom">
 
-                                        <tr>
-                                            <th scope="col">
-                                                <!-- Select All checkbox -->
-                                                <label for="select-all"></label>
-                                                <input type="checkbox" id="select-all" />
-                                            </th>
-                                            <th scope="col">Created at</th>
-                                            <th scope="col">Company</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Status sales</th>
-                                            <th scope="col">Detail</th>
-                                            <th scope="col">Edit</th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                    </thead>
+                                            <tr>
+                                                <th scope="col">
+                                                    <!-- Select All checkbox -->
+                                                    <label for="select-all"></label>
+                                                    <input type="checkbox" id="select-all" />
+                                                </th>
+                                                <th scope="col">Created at</th>
+                                                <th scope="col">Company</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Status sales</th>
+                                                <th scope="col">Detail</th>
+                                                <th scope="col">Edit</th>
+                                                <th scope="col">Delete</th>
+                                            </tr>
+                                        </thead>
 
-                                    {% if object_list %}
-                                        <tbody>
-                                            {% for lead in object_list %}
-                                                <tr>
-                                                    <td>
-                                                        <label>
-                                                            <input type="checkbox"
-                                                                   name="lead_ids"
-                                                                   class="row-checkbox"
-                                                                   value="{{ lead.id }}"/>
-                                                        </label>
-                                                    </td>
-                                                    <td>{{ lead.created_at|date:"M-d-Y H:i" }}</td>
-                                                    <td>{{ lead.company }}</td>
-                                                    <td>{{ lead.last_name }}, {{ lead.first_name }}</td>
-                                                    <td>{{ lead.email }}</td>
+                                        {% if object_list %}
+                                            <tbody>
+                                                {% for lead in object_list %}
+                                                    <tr>
+                                                        <td>
+                                                            <label>
+                                                                <input type="checkbox"
+                                                                       name="lead_ids"
+                                                                       class="row-checkbox"
+                                                                       value="{{ lead.id }}"/>
+                                                            </label>
+                                                        </td>
+                                                        <td>{{ lead.created_at|date:"M-d-Y H:i" }}</td>
+                                                        <td>{{ lead.company }}</td>
+                                                        <td>{{ lead.last_name }}, {{ lead.first_name }}</td>
+                                                        <td>{{ lead.email }}</td>
 
-                                                    <td>{{ lead.get_status_display }}</td>
-                                                    <td>{{ lead.status_sale }}</td>
-                                                    <td>
-                                                        <a class="a-detail" href="{% url 'lead:detail' lead.pk %}">Detail</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="edit" href="{% url 'lead:edit' lead.pk %}">Edit</a>
-                                                    </td>
-                                                    <td>
-                                                        <button type="submit" class="delete-icon bg-transparent border-0">
-                                                            <img src="{% static 'images/empty.png' %}"
-                                                                 alt="empty"
-                                                                 height="22">
-                                                        </button>
-                                                    </td>
+                                                        <td>{{ lead.get_status_display }}</td>
+                                                        <td>{{ lead.status_sale }}</td>
+                                                        <td>
+                                                            <a class="a-detail" href="{% url 'lead:detail' lead.pk %}">Detail</a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="edit" href="{% url 'lead:edit' lead.pk %}">Edit</a>
+                                                        </td>
+                                                        <td>
+                                                            <button type="submit" class="delete-icon bg-transparent border-0">
+                                                                <img src="{% static 'images/empty.png' %}"
+                                                                     alt="empty"
+                                                                     height="22">
+                                                            </button>
+                                                        </td>
 
-                                                </tr>
+                                                    </tr>
 
-                                            {% endfor %}
+                                                {% endfor %}
 
-                                        </tbody>
+                                            </tbody>
 
-                                    {% else %}
-                                        <p>There are no clients in the database yet...</p>
-                                    {% endif %}
+                                        {% else %}
+                                            <p>There are no clients in the database yet...</p>
+                                        {% endif %}
 
-                                </table>
+                                    </table>
+                                </div>
 
                             </div>
 
@@ -149,9 +151,9 @@
 
         <div class="row mt-lg-2 mx-lg-3 justify-content-center">
             <div class="col-lg-12">
-                <div>
-                    <a href="{% url 'dashboard:dashboard' %}" class="custom-back-a">Back to the dashboard</a>
-                </div>
+                <a href="{% url 'dashboard:dashboard' %}" class="back-to-dashboard">
+                    <i class="fa-solid fa-arrow-left px-3"></i>Back to the dashboard
+                </a>
             </div>
         </div>
 
@@ -159,4 +161,5 @@
 
     <!-- Include your JS file -->
     <script src="{% static 'lead/js/lead.js' %}"></script>
+
 {% endblock %}

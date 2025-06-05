@@ -12,13 +12,14 @@
     {% include 'core/partials/offcanvas_menu.html' %}
 
 
-    <div class="container mt-5">
+    <div class="container mt-4">
         <h2 class="text-center mb-4">Lead Form</h2>
 
         <form method="post" class="needs-validation" action="." novalidate>
             {% csrf_token %}
             <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
+                <div class="col-12 col-sm-10 col-md-8 col-lg-6
+">
                     <!-- Render Form Fields -->
                     {% for field in form %}
                         <div class="mb-3">
@@ -40,8 +41,12 @@
                     {% endfor %}
 
                     <!-- Submit Button -->
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="custom-submit-btn w-100 w-md-auto">Submit</button>
+                        <button type="button" class="btn btn-secondary w-100 w-md-auto" onclick="window.location.href='{% url 'lead:list' %}'">
+                            Cancel
+                        </button>
+
                     </div>
                 </div>
             </div>

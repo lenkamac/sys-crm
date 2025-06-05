@@ -29,6 +29,13 @@
 .content-lead {
     margin-left: 380px;
 }
+@media (max-width: 1536px) {
+    .content-lead {
+        margin-left: 180px;
+        padding-left: 125px;
+    }
+}
+
 
 /* lead delete form*/
 #lead_delete_form {
