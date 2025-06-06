@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-	Lead Detail
+	Lead Detail- {{ lead.last_name }}, {{ lead.first_name }}
 {% endblock %}
 
 {% block content %}
@@ -175,17 +175,15 @@
                             <div class="col-lg-12">
                                 <div class="row mx-5 comment-row justify-content-center">
                                     <div class="col-lg-12"> <!-- Full width column -->
-                                    <label class="comment-label">Comment</label>
-                                </div>
-                                <div class="col-lg-12"> <!-- Make the text area full width -->
-                                    <label>
-                                        <textarea name="content" class="form-control comment-form" rows="4" placeholder="Enter your comment here"></textarea>
-                                    </label>
-                                </div>
-
+                                        <label class="comment-label">Comment</label>
+                                    </div>
+                                    <div class="col-lg-12"> <!-- Make the text area full width -->
+                                        <textarea name="content" class="form-control w-100 comment-form" rows="4"
+                                                  placeholder="Enter your comment here"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row justify-content-center mx-lg-5">
                                 <div class="text-center">
                                     <button class="comment-btn my-3">Submit</button>
                                 </div>
@@ -272,13 +270,19 @@
                                     <div class="row">
                                         <div class="col-lg-12 my-lg-2">
                                             <a class="custom-a" href="{% url 'task:task_detail' task.pk %}">
-                                                <strong>Title: {{ task.title }}</strong></a>
+                                                <strong>{{ task.title }}</strong></a>
                                         </div>
                                         <div class="col-lg-6">
                                             <span>Due:</span> {{ task.due_date }}
                                         </div>
                                         <div class="col-lg-6">
-                                            <span>Status:</span> {{ task.status }}
+                                            <span>Status:</span>
+                                            <span {% if task.status == "open" %} class="status-open"
+                                                  {% elif task.status == "in_progress" %}class="status-in-progress"
+                                                  {% elif task.status == "completed" %}class="status-completed"
+                                                  {% elif task.status == "canceled" %}class="status-canceled"
+                                                  {% else %}class=""{% endif %}
+                                            >{{ task.status }}</span>
                                         </div>
                                         <div class="col-lg-12 mt-lg-3">
                                             <span>Description:</span> {{ task.description }}

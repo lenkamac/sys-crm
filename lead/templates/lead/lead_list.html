@@ -72,7 +72,6 @@
                                 <div class="table-responsive-custom">
                                     <table class="table">
                                         <thead class="th-custom">
-
                                             <tr>
                                                 <th scope="col">
                                                     <!-- Select All checkbox -->
@@ -111,10 +110,10 @@
                                                         <td>{{ lead.get_status_display }}</td>
                                                         <td>{{ lead.status_sale }}</td>
                                                         <td>
-                                                            <a class="a-detail" href="{% url 'lead:detail' lead.pk %}">Detail</a>
+                                                            <a href="{% url 'lead:detail' lead.pk %}">Detail</a>
                                                         </td>
                                                         <td>
-                                                            <a class="edit" href="{% url 'lead:edit' lead.pk %}">Edit</a>
+                                                            <a href="{% url 'lead:edit' lead.pk %}">Edit</a>
                                                         </td>
                                                         <td>
                                                             <button type="submit" class="delete-icon bg-transparent border-0">
@@ -127,33 +126,26 @@
                                                     </tr>
 
                                                 {% endfor %}
-
                                             </tbody>
-
                                         {% else %}
                                             <p>There are no clients in the database yet...</p>
                                         {% endif %}
-
                                     </table>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </form>
-
                 </div>
-
             </div>
-
         </div>
 
         <div class="row mt-lg-2 mx-lg-3 justify-content-center">
             <div class="col-lg-12">
-                <a href="{% url 'dashboard:dashboard' %}" class="back-to-dashboard">
-                    <i class="fa-solid fa-arrow-left px-3"></i>Back to the dashboard
-                </a>
+                <div class="text-start px-lg-5">
+                    <a href="{% url 'dashboard:dashboard' %}" class="back-to-dashboard">
+                        <i class="fa-solid fa-arrow-left px-3"></i>Back to the dashboard
+                    </a>
+                </div>
             </div>
         </div>
 

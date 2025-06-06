@@ -151,15 +151,16 @@ main {
 }
 
 .back-to-dashboard {
-  margin-top: auto;
-  display: block;
-  width: fit-content;
-  color: #113649;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.2rem;
-  padding-top: 30px;
-  transition: color 0.2s;
+    margin-top: auto;
+    display: block;
+    width: fit-content;
+    color: #113649;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-top: 30px;
+    transition: color 0.2s;
+    padding-left: 20px;
 }
 .back-to-dashboard:hover {
   color: #23523c;
@@ -247,6 +248,9 @@ h2 {
 }
 tbody tr td a {
     text-decoration: none;
+    font-size: 1.1rem;
+    color: #23523c;
+    font-weight: bold;
 }
 tbody tr td {
     border: 1px solid #3b4869;
@@ -377,6 +381,8 @@ span {
     border-radius: 5px;
     width: 100px;
     font-weight: bold;
+    font-size: 1.1rem;
+    height: 38px;
 }
 .comment-btn:hover {
     background-color: rgb(35, 82, 60);
