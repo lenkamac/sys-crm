@@ -223,14 +223,26 @@
                                     {{ file.filename }}
                                 </div>
                                 <div class="col-6">
+                                    <!-- Download Button -->
                                     <a href="{{ file.file.url }}" class="download-a">Download files</a>
                                     <img src="{% static 'images/input.png' %}" alt="input" height="20" class="download-icon">
+                                    <!-- Delete Button -->
+                                    <form action="{% url 'lead:delete_file' lead.id file.id %}" method="post"
+                                          style="display:inline;">
+                                      {% csrf_token %}
+                                      <button type="submit" class="btn btn-danger px-3"
+                                              style="width: 100px; height: 30px; margin-left: 50px; text-align: center; padding-top: 3px;"
+                                              onclick="return confirm('Are you sure you want to delete this file?');">
+                                        Delete
+                                      </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
 
+                <!-- Add file form -->
                 <div class="row my-3 py-2">
                     <form method="post" action="{% url 'lead:add_file' lead.id %}" enctype="multipart/form-data">
                     {% csrf_token %}

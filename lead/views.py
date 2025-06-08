@@ -11,7 +11,7 @@ from django.views import View
 
 from client.models import Client
 from task.models import Task
-from .models import Lead, Comment
+from .models import Lead, Comment, LeadFile
 from .forms import AddCommentForm, AddFileForm
 
 
@@ -231,6 +231,17 @@ class EditCommentView(LoginRequiredMixin, View):
             messages.error(request, "Content cannot be empty.")
 
         return redirect('lead:detail', pk=lead_id)
+
+
+# Delete lead file
+def delete_file(request, lead_id, file_id):
+    if request.method == "POST":
+        lead = get_object_or_404(Lead, id=lead_id)
+        file_instance = get_object_or_404(LeadFile, id=file_id, lead=lead)
+        file_instance.delete()
+        messages.success(request, "File deleted successfully.")
+    return redirect('lead:detail', pk=lead_id)
+
 
 
 
