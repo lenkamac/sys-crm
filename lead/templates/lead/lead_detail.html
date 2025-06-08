@@ -14,19 +14,19 @@
     {% include 'core/partials/offcanvas_menu.html' %}
 
     <!-- Content -->
-	<div class="container my-lg-5 content-lead bg-danger">
+	<div class="container my-lg-4 pt-lg-3 content-lead">
 
-        <div class="row mx-md-3 mx-lg-5 pt-lg-3 ">
-             <div class="col-lg-12 py-lg-4">
+        <div class="row" style="background-image: url('{% static 'images/banner1.png' %}');
+                background-size: cover; background-position: center;">
+             <div class="col-lg-12 py-lg-3 px-lg-2">
                  <div class="text-center">
-                     <h3 class="py-2"><span class="span-h3">{{ lead.last_name }} {{ lead.first_name }}</span></h3>
+                     <h3 class="py-2"><span>{{ lead.last_name }} {{ lead.first_name }}</span></h3>
                  </div>
              </div>
         </div>
 
         <div class="row">
             <div class="col-6">
-
                 <div class="row">
                     <div class="row my-2">
                         <div class="col-lg-4">
@@ -108,8 +108,8 @@
         </div>
 
         <!-- Comment section -->
-        <div class="row justify-content-center border-top border-2">
-            <div class="col-lg-12" style="background:#f0f4f6;">
+        <div class="row justify-content-center border-top border-3 pt-2">
+            <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
@@ -123,6 +123,7 @@
                         <div class="col-lg-12">
                             <p class="comment mt-2"><strong class="px-2">@{{ comment.created_by }}</strong>
                                 {{ comment.created_at|date:"M-d-Y H:i" }}</p>
+                            <!-- Comment content -->
                             <p class="comment-p mx-5 px-2 py-1">{{ comment.content }}</p>
 
                             <!-- Delete Button -->
@@ -197,7 +198,7 @@
         <div class="row pt-2" style="background:#f0f4f6;">
 
             <!-- File section -->
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
@@ -211,21 +212,26 @@
                     {% for file in lead.files.all %}
                         <div class="col-lg-12">
                             <div class="row">
-                                <hr>
+                                <hr class="mb-lg-2 pb-lg-2">
                                 <div class="col-12 mt-2">
                                     <strong class="px-2">@{{ file.created_by }}</strong>
                                     {{ file.created_at|date:"M-d-Y H:i" }}
                                 </div>
                             </div>
 
-                            <div class="row mx-5 justify-content-center">
+                            <div class="row mx-5 py-lg-3 justify-content-center">
                                 <div class="files-p col-6">
                                     {{ file.filename }}
                                 </div>
                                 <div class="col-6">
                                     <!-- Download Button -->
-                                    <a href="{{ file.file.url }}" class="download-a">Download files</a>
-                                    <img src="{% static 'images/input.png' %}" alt="input" height="20" class="download-icon">
+                                    <div class="row">
+                                        <div class="col-12 justify-content-end py-lg-2">
+                                            <a href="{{ file.file.url }}" class="download-a">Download files</a>
+                                            <img src="{% static 'images/input.png' %}" alt="input" class="download-icon">
+                                        </div>
+
+                                    </div>
                                     <!-- Delete Button -->
                                     <form action="{% url 'lead:delete_file' lead.id file.id %}" method="post"
                                           style="display:inline;">
@@ -262,7 +268,7 @@
             </div>
 
             <!-- Task section -->
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
@@ -328,20 +334,16 @@
                             {% endfor %}
 
                             <!-- The task creation form: -->
-                            <form method="post" action="{% url 'task:task_add_lead' lead.id %}">
+                            <form method="post" action="{% url 'task:task_add_lead' lead.id %}" class="custom-form-bg">
                                 {% csrf_token %}
                                 <div class="mb-2">
-                                    <label>
-                                        <input type="text" name="title" class="form-control" placeholder="Task title" required>
-                                    </label>
+                                    <input type="text" name="title" class="form-control w-50" placeholder="Task title" required>
                                 </div>
                                 <div class="mb-2">
-                                    <label>
-                                        <textarea name="description" class="form-control" placeholder="Description"></textarea>
-                                    </label>
+                                    <textarea name="description" class="form-control w-100" rows="4" placeholder="Description"></textarea>
                                 </div>
                                 <div class="mb-2">
-                                    <select name="status" class="form-select" aria-label="Default select example">
+                                    <select name="status" class="form-select w-50" aria-label="Default select example">
                                         <option selected>---</option>
                                         <option value="open">Open</option>
                                         <option value="in_progress">In Progress</option>
@@ -355,7 +357,7 @@
                                     </label>
                                 </div>
                                 <!-- Add any other task fields as needed -->
-                                <button type="submit" class="btn btn-primary">Add Task</button>
+                                <button type="submit" class="custom-submit-btn">Add Task</button>
                             </form>
 
 

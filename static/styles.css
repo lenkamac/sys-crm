@@ -350,24 +350,28 @@ span {
 
 /* Styling for files*/
 .download-a {
-    padding-left: 40px;
-    font-size: 1.1rem;
+    padding-left: 18px;
+    padding-top: 2px;
+    font-size: 1.3rem;
     color: #023564;
 }
 .download-icon {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
 }
 .files-p {
     border-left: 3px solid #3b4869;
     height: auto;
     padding: 0 5px;
     margin-top: 13px;
+    background-color: white;
 }
 
 /* Comment */
 .comment-p {
     border-left: 3px solid #3b4869;
+    background-color: white;
+    height: auto;
 }
 .comment-label {
     font-weight: bold;
