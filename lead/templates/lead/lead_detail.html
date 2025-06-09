@@ -108,12 +108,14 @@
         </div>
 
         <!-- Comment section -->
-        <div class="row justify-content-center border-top border-3 pt-2">
+        <div class="row justify-content-center" style="background:#d4e0e0;">
             <div class="col-lg-12">
-                <div class="row">
+                <div class="row" style="background-image: url('{% static 'images/banner-comment.png' %}');
+                background-size: cover; background-position: center; border-bottom: 1px solid #0a3622;">
                     <div class="col-lg-12">
                         <div class="text-center">
-                            <h2 class="pt-2 mt-3">Comments</h2>
+                            <h2 class="pt-2"><img src="{% static 'images/comments.png' %}"
+                                                       alt="files" height="100">Comments</h2>
                         </div>
                     </div>
                 </div>
@@ -170,7 +172,7 @@
                     {% endfor %}
                 </div>
 
-                <div class="row my-3 py-2" style="background:#bbd0da;">
+                <div class="row my-3 py-2" style="background:#d4e0e0;">
                     <form method="post" action="{% url 'lead:add_comment' lead.id %}">
                         {% csrf_token %}
                             <div class="col-lg-12">
