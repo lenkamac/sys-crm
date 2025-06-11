@@ -123,7 +123,9 @@
                             <p class="comment mt-2"><strong class="px-2">@{{ comment.created_by }}</strong>
                                 {{ comment.created_at|date:"M-d-Y H:i" }}</p>
                             <!-- Comment content -->
-                            <p class="comment-p mx-5 px-2 py-1">{{ comment.content }}</p>
+                            <div class="comment-content">
+                                {{ comment.content|linebreaks }}
+                            </div>
 
                             <!-- Delete Button -->
                             <form method="post" action="{% url 'lead:delete_comment' lead.id comment.id %}" style="display: inline;">
