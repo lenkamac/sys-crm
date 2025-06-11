@@ -3,7 +3,7 @@ html, body {
     margin: 0;
 }
 body {
-    background-color: #f0f4f6;
+    background-color: snow;
     position: relative;
     padding-bottom: 58px;
     min-height: 100vh;
@@ -11,47 +11,77 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: #273D59;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050; /* Ensure it stays above the offcanvas */
+    background-color: #353E46;
     height: 50px;
 }
 .navbar-brand {
-    color: #f0f4f6;
+    color: whitesmoke;
 }
 .navbar-brand:hover {
-    color: #9befe9;
+    color: #ABABAF;
 }
 .nav-item {
-    background-color: #92C3C9;
+    background-color: #C7C8CB;
     margin-right: 20px;
     width: 120px;
     height: 30px;
     border-radius: 5px;
 }
 .nav-link {
-    color: #151f3f;
+    color: black;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
     padding: 2px;
 }
 .nav-link:hover {
-    color: #ecf0f6;
+    color: whitesmoke;
     font-weight: bold;
     background-color: #849c9d;
 }
 .nav-item-delete {
-    background-color: #d61010;
+    background-color: #C7C8CB;
     margin-right: 20px;
-    width: 120px;
+    width: 110px;
     height: 30px;
     border-radius: 5px;
 }
+.nav-item-delete:hover {
+    color: whitesmoke;
+    font-weight: bold;
+    background-color: #EFEFE6;
+}
 .nav-link-delete {
-    color: white;
+    color: #710c0c;
     text-align: center;
     text-decoration: none;
     font-size: 22px;
     font-weight: bold;
     padding: 12px;
+}
+
+/* Footer */
+.footer {
+    font-size: 0.8rem;
+    padding: 20px;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    width: 100%;
+    height: 58px;
+    background-color: #353E46;
+}
+.text-footer {
+    color: #b0c4de;
+}
+@media(max-width: 550px) {
+    .text-footer {
+       font-size: 14px;
+    }
 }
 
 
@@ -61,11 +91,11 @@ main {
     padding: 30px 20px;
 }
 .main-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 400px; /* Adjust as needed */
-  position: relative;
-  background: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px; /* Adjust as needed */
+    position: relative;
+    background: #EFEFE6;
     padding-top: 20px;
 }
 @media (max-width: 1280px) {
@@ -75,187 +105,12 @@ main {
     }
 }
 
-
-.custom-form-bg {
-    background-color: rgba(205, 231, 227, 0.68);
-    padding: 20px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-.custom-submit-btn {
-    background-color: #1c4e6a;
-    font-size: 1.2rem;
-    font-weight: bold;
-    width: 100px;
-    color: #e9ecf6;
-    border: 1px solid #1c4e6a;
-    border-radius: 5px;
-}
-.custom-submit-btn:hover {
-    background-color: #dbe0ef;
-    color: #023564;
-}
-.custom-btn {
-    background-color: #4d6167;
-    border: none;
-    border-radius: 5px;
-    width: 80px;
-    color: white;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-.custom-btn:hover {
-    background-color: #859196;
-}
-
-.add-button {
-    background-color: #225b7b;
-    font-weight: bold;
-    width: 200px;
-    color: white;
-    font-size: 1.2rem;
-}
-.add-button:hover {
-    background-color: #23523c;
-    color: white;
-}
-
-.export-button {
-    background-color: #023564;
-    font-weight: bold;
-    width: 200px;
-    color: white;
-    font-size: 1.1rem;
-}
-.export-button:hover {
-    background-color: #606567;
-    color: white;
-}
-
-
-/* custom a edit*/
-.a-edit {
-    color: white;
-    text-decoration: none;
-}
-
-/* custom back to a*/
-.custom-back-a {
-    color: #113649;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.3rem;
-}
-.custom-back-a:hover {
-    color: #23523c;
-}
-
-.back-to-dashboard {
-    margin-top: auto;
-    display: block;
-    width: fit-content;
-    color: #113649;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding-top: 30px;
-    transition: color 0.2s;
-    padding-left: 20px;
-}
-.back-to-dashboard:hover {
-  color: #23523c;
-  text-decoration: underline;
-}
-
-
-/* custom delete button and a*/
-.btn-delete {
-    font-size: 1.2rem;
-    font-weight: bold;
-    width: 80px;
-}
-.a-delete {
-    color: #113649;
-    text-decoration: none;
-}
-
-.span-task {
-    font-weight: bold;
-    color: #113649;
-    padding: 6px;
-
-}
-
-.btn-for-edit {
-    background-color: #1c4e6a;
-    font-weight: bold;
-    width: 100px;
-    color: #e9ecf6;
-    border: 1px solid #1c4e6a;
-}
-.btn-for-edit:hover {
-    background-color: #dbe0ef;
-    color: #023564;
-    border: 1px solid #1c4e6a;
-}
-
-.custom-a {
-    color: #1c4e6a;
-    text-decoration: none;
-    font-size: 1.1rem;
-}
-.custom-a:hover {
-    color: #849c9d;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-label {
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
 /* main header */
 h1 {
-    color: #3b4869;
+    color: #353E46;
 }
 h2 {
-    color: #023564;
-}
-
-
-/* not found message*/
-.not-found-message {
-    text-align: center;
-    padding-top: 6px;
-    font-size: 1.2rem;
-}
-
-/* custom table styling*/
-.table-responsive-custom {
-  width: 100%;
-  overflow-x: auto;
-}
-.table-responsive-custom table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 600px; /* Optional: set a minimum width for better horizontal scrolling */
-}
-.th-custom tr th {
-    background-color: rgba(137, 168, 165, 0.68);
-    font-size: 17px;
-    border: 1px solid #3b4869;
-}
-tbody tr td a {
-    text-decoration: none;
-    font-size: 1.1rem;
-    color: #23523c;
-    font-weight: bold;
-}
-tbody tr td {
-    border: 1px solid #3b4869;
-    font-size: 16px;
-    text-align: center;
+    color: #3D4851;
 }
 
 /* Offcanvas style*/
@@ -266,37 +121,41 @@ tbody tr td {
     bottom: 60px;
     width: 250px; /* Set your desired width */
     z-index: 1045; /* Set appropriate z-index */
-    background-color: #d4e0e0; /* Optional: Customize the background color */
-    border-right: 1px solid #ddd; /* Optional: Add a border */
+    background-color: #C7C8CB; /* Optional: Customize the background color */
+    border-right: 1px solid #b9b9bb; /* Optional: Add a border */
      }
-.canv-h5 {
-    color: #113649;
+.offcanvas-a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
     font-size: 1.6rem;
+    text-align: center;
+    padding: 20px;
+    margin: 5px;
+}
+.offcanvas-a:hover {
+    color: #353E46;
+    font-weight: bold;
 }
 .offcanvas-custom ul li a {
-    color: #0b2330;
-    font-size: 1.2rem;
+    color:black;
+    font-size: 1.4rem;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    transition: color 0.2s;
 }
 .offcanvas-custom ul li a:hover {
     color: #023564;
     font-weight: bold;
 }
 .offcanvas-custom ul li a i {
-    margin-right: 10px; /* Space between icon and text */
-    font-size: 1.2rem; /* Adjust font size */
-    color: #113649; /* Icon color */
+    margin-right: 15px; /* Space between icon and text */
+    font-size: 1.4rem; /* Adjust font size */
+    color: black; /* Icon color */
 }
 .offcanvas-custom ul li a i:hover {
     color: #023564;
-}
-.img-dashboard {
-    padding-right: 2px;
-}
-.dashb-span {
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #23523c;
-    margin-left: 10px;
 }
 span {
     font-weight: bold;
@@ -347,6 +206,218 @@ span {
     }
 }
 
+/* status */
+.status-open {
+   color: green;
+   font-weight: bold;
+}
+.status-in-progress {
+   color: orange;
+   font-weight: bold;
+}
+.status-completed {
+   color: blue;
+   font-weight: bold;
+}
+.status-canceled {
+   color: red;
+   font-weight: bold;
+}
+
+/* custom button*/
+.add-button {
+    background-color: #ABABAF;
+    font-weight: bold;
+    width: 200px;
+    color: black;
+    font-size: 1.2rem;
+}
+.add-button:hover {
+    background-color: #697272;
+    color: white;
+}
+
+.export-button {
+    background-color: #C7C8CB;
+    font-weight: bold;
+    width: 220px;
+    color: black;
+    font-size: 1.2rem;
+}
+.export-button:hover {
+    background-color: #697272;
+    color: white;
+}
+
+.btn-delete-selected {
+    width: 220px;
+    background-color: #697272;
+    color: #e9ecf6;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border: none;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.back-to-dashboard {
+    margin-top: auto;
+    display: block;
+    width: fit-content;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    padding-top: 30px;
+    transition: color 0.2s;
+    padding-left: 20px;
+}
+.back-to-dashboard:hover {
+  color: #697272;
+  text-decoration: underline;
+}
+
+/* Comment */
+.comment-p {
+    border-left: 3px solid #697272;
+    background-color: white;
+    height: auto;
+}
+.comment-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 5px;
+    padding: 5px;
+}
+.comment-btn {
+    background-color: #ABABAF;
+    text-align: center;
+    border-radius: 5px;
+    width: 100px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    height: 38px;
+}
+.comment-btn:hover {
+    background-color: #353E46;
+    color: white;
+}
+.comment-form {
+    width: 100%; /* Make the form span 100% of its parent container */
+    padding: 10px; /* Add some padding to improve aesthetics */
+    background-color: #f4f4f4; /* Optional: Add background to make it stand out */
+    border-radius: 5px; /* Optional: Rounded edges for better styling */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+.comment-row {
+    margin: 0; /* Ensure no margin cuts into the column/grid space */
+    padding: 0; /* Reset padding for alignment */
+}
+
+
+/* custom a edit*/
+.a-edit {
+    color: white;
+    text-decoration: none;
+}
+
+/* custom back to a*/
+.custom-back-a {
+    color: #113649;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.custom-back-a:hover {
+    color: #23523c;
+}
+
+
+
+/* custom delete button and a*/
+.btn-delete {
+    font-weight: bold;
+    width: 80px;
+}
+.a-delete {
+    color: #113649;
+    text-decoration: none;
+}
+
+.span-task {
+    font-weight: bold;
+    color: #113649;
+    padding: 6px;
+
+}
+
+.btn-for-edit {
+    background-color: #1c4e6a;
+    font-weight: bold;
+    width: 100px;
+    color: #e9ecf6;
+    border: 1px solid #1c4e6a;
+}
+.btn-for-edit:hover {
+    background-color: #dbe0ef;
+    color: #023564;
+    border: 1px solid #1c4e6a;
+}
+
+.custom-a {
+    color: #1c4e6a;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.custom-a:hover {
+    color: #849c9d;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+
+
+
+/* not found message*/
+.not-found-message {
+    text-align: center;
+    padding-top: 6px;
+    font-size: 1.2rem;
+}
+
+/* custom table styling*/
+.table-responsive-custom {
+  width: 100%;
+  overflow-x: auto;
+}
+.table-responsive-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Optional: set a minimum width for better horizontal scrolling */
+}
+.th-custom tr th {
+    background-color: rgba(137, 168, 165, 0.68);
+    font-size: 17px;
+    border: 1px solid #3b4869;
+}
+tbody tr td a {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #23523c;
+    font-weight: bold;
+}
+tbody tr td {
+    border: 1px solid #3b4869;
+    font-size: 16px;
+    text-align: center;
+}
+
+
 
 /* Styling for files*/
 .download-a {
@@ -367,62 +438,6 @@ span {
     background-color: white;
 }
 
-/* Comment */
-.comment-p {
-    border-left: 3px solid #3b4869;
-    background-color: white;
-    height: auto;
-}
-.comment-label {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 5px;
-    padding: 5px;
-}
-.comment-btn {
-    background-color: rgba(113, 175, 167, 0.68);
-    text-align: center;
-    border-radius: 5px;
-    width: 100px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    height: 38px;
-}
-.comment-btn:hover {
-    background-color: rgb(35, 82, 60);
-    color: white;
-}
-.comment-form {
-    width: 100%; /* Make the form span 100% of its parent container */
-    padding: 10px; /* Add some padding to improve aesthetics */
-    background-color: #f4f4f4; /* Optional: Add background to make it stand out */
-    border-radius: 5px; /* Optional: Rounded edges for better styling */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-}
-.comment-row {
-    margin: 0; /* Ensure no margin cuts into the column/grid space */
-    padding: 0; /* Reset padding for alignment */
-}
-
-/* Footer */
-.footer {
-    font-size: 0.8rem;
-    padding: 20px;
-    position: fixed;
-    z-index: 1;
-    bottom: 0;
-    width: 100%;
-    height: 58px;
-    background-color: #273D59;
-}
-.text-footer {
-    color: #b0c4de;
-}
-@media(max-width: 550px) {
-    .text-footer {
-       font-size: 14px;
-    }
-}
 
 
 /* Page content adjustment for fixed nav/footer */

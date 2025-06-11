@@ -9,7 +9,7 @@
 
    {% include 'core/partials/offcanvas_menu.html' %}
 
-	<div class="container main-container vh-100">
+	<div class="container">
 
         <div class="row mx-lg-5 justify-content-center">
             <div class="col-12">
@@ -39,28 +39,32 @@
 
             <div class="col-12">
 
-                <div class="row my-lg-3 mx-lg-5 py-lg-4 bg-body">
-
+                <div class="row my-lg-3 mx-lg-5 py-lg-4">
                     <form method="post" action="{% url 'lead:delete_bulk' %}">
                         {% csrf_token %}
 
                         <div class="row justify-content-center my-lg-3 mx-lg-5">
 
-                            <div class="col mx-lg-5 px-lg-3">
-                                <a class="btn add-button" href="{% url 'lead:add' %}">Add lead</a>
+                            <div class="col">
+                                <div class="text-center">
+                                    <a class="btn add-button" href="{% url 'lead:add' %}">Add lead</a>
+                                </div>
                             </div>
 
-                            <div class="col mx-lg-5 px-lg-3">
-                                <a class="btn export-button" href="{% url 'lead:export' %}">Export leads to csv</a>
+                            <div class="col">
+                                <div class="text-center">
+                                    <a class="btn export-button" href="{% url 'lead:export' %}">Export leads to csv</a>
+                                </div>
                             </div>
 
-                            <div class="col mx-lg-5 px-lg-3">
-                                <!-- Button to delete selected clients -->
-                                <button type="submit" class="btn btn-danger" style="font-size: 1.1rem; font-weight: bold;"
-                                        onclick="return confirm('Are you sure you want to delete selected leads?')">
-                                    Delete Selected
-                                </button>
-
+                            <div class="col">
+                                <div class="text-center">
+                                    <!-- Button to delete selected clients -->
+                                    <button type="submit" class="btn-delete-selected"
+                                            onclick="return confirm('Are you sure you want to delete selected leads?')">
+                                        Delete Selected
+                                    </button>
+                                </div>
                             </div>
 
                         </div>
