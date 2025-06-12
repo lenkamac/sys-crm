@@ -16,7 +16,7 @@
     <!-- Content -->
 	<div class="container my-lg-4 pt-lg-3">
 
-        <div class="row">
+        <div class="row bg-danger">
              <div class="col-lg-12 py-lg-3 px-lg-2">
                  <div class="text-center">
                      <h3 class="py-2"><span>{{ lead.last_name }} {{ lead.first_name }}</span></h3>
@@ -24,7 +24,7 @@
              </div>
         </div>
 
-        <div class="row">
+        <div class="row bg-success">
             <div class="col-6">
                 <div class="row">
                     <div class="row my-2">
@@ -107,7 +107,7 @@
         </div>
 
         <!-- Comment section -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center bg-info">
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
@@ -195,10 +195,10 @@
         </div>
 
         <!-- Section for files and tasks -->
-        <div class="row pt-2">
+        <div class="row pt-2 bg-body-secondary">
 
             <!-- File section -->
-            <div class="col-lg-12">
+            <div class="col-lg-12 bg-success">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
@@ -265,7 +265,7 @@
             </div>
 
             <!-- Task section -->
-            <div class="col-lg-12">
+            <div class="col-lg-12 bg-warning">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
@@ -279,7 +279,6 @@
                         <div class="row">
                             {% for task in tasks %}
                                 <div class="col-lg-12">
-                                    <hr>
                                     <div class="row">
                                         <div class="col-lg-12 my-lg-2">
                                             <a href="{% url 'task:task_detail' task.pk %}">
@@ -363,7 +362,7 @@
         </div>
 
         <!-- Section for backt to, delete, edit and convert lead -->
-        <div class="row pt-2">
+        <div class="row pt-2 bg-danger">
             <div class="col-lg-6">
                 <div class="py-3">
                     <img src="{% static 'images/arrow.png' %}" alt="arrow" class="arrow-icon" height="20">
@@ -384,7 +383,7 @@
                                 <button class="btn btn-convert mx-2 px-2">
                                     <a href="{% url 'lead:convert_lead' lead.id %}" id="convert">Convert to client</a>
                                 </button>
-                                <button class="btn mx-2" style="width: 80px;">
+                                <button class="btn">
                                     <a href="#" onclick="document.getElementById('lead_delete_form').submit();">Delete</a>
                                 </button>
                             </form>
@@ -393,7 +392,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 

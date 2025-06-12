@@ -224,6 +224,17 @@ span {
    font-weight: bold;
 }
 
+/* form style */
+.form-submit-btn {
+    background-color: #849c9d;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 100px;
+    color: #e9ecf6;
+    border: 1px solid #1c4e6a;
+    border-radius: 5px;
+}
+
 /* custom button*/
 .add-button {
     background-color: #ABABAF;
@@ -236,7 +247,6 @@ span {
     background-color: #697272;
     color: white;
 }
-
 .export-button {
     background-color: #C7C8CB;
     font-weight: bold;
@@ -248,7 +258,6 @@ span {
     background-color: #697272;
     color: white;
 }
-
 .btn-delete-selected {
     width: 220px;
     background-color: #697272;
@@ -259,7 +268,6 @@ span {
     height: 40px;
     border-radius: 5px;
 }
-
 .back-to-dashboard {
     margin-top: auto;
     display: block;
@@ -331,56 +339,6 @@ span {
 .custom-back-a:hover {
     color: #23523c;
 }
-
-
-
-/* custom delete button and a*/
-.btn-delete {
-    font-weight: bold;
-    width: 80px;
-}
-.a-delete {
-    color: #113649;
-    text-decoration: none;
-}
-
-.span-task {
-    font-weight: bold;
-    color: #113649;
-    padding: 6px;
-
-}
-
-.btn-for-edit {
-    background-color: #1c4e6a;
-    font-weight: bold;
-    width: 100px;
-    color: #e9ecf6;
-    border: 1px solid #1c4e6a;
-}
-.btn-for-edit:hover {
-    background-color: #dbe0ef;
-    color: #023564;
-    border: 1px solid #1c4e6a;
-}
-
-.custom-a {
-    color: #1c4e6a;
-    text-decoration: none;
-    font-size: 1.1rem;
-}
-.custom-a:hover {
-    color: #849c9d;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-label {
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
-
 
 
 /* not found message*/

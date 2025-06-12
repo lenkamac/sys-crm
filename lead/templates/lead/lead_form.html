@@ -11,9 +11,15 @@
 
     {% include 'core/partials/offcanvas_menu.html' %}
 
+    <style>
+    body{
+        background-color: #f2f2f8;
+    }
+    </style>
 
-    <div class="container mt-4">
-        <h2 class="text-center mb-4">Lead Form</h2>
+
+    <div class="container w-100 mt-4">
+        <h2 class="text-center mb-4 pt-lg-3">Edit</h2>
 
         <form method="post" class="needs-validation" action="." novalidate>
             {% csrf_token %}
@@ -42,8 +48,8 @@
 
                     <!-- Submit Button -->
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="custom-submit-btn w-100 w-md-auto">Submit</button>
-                        <button type="button" class="btn btn-secondary w-100 w-md-auto" onclick="window.location.href='{% url 'lead:list' %}'">
+                        <button type="submit" class="form-submit-btn w-100 w-md-auto py-lg-2">Submit</button>
+                        <button type="button" class="btn btn-secondary w-100 w-md-auto py-lg-2" onclick="window.location.href='{% url 'lead:list' %}'">
                             Cancel
                         </button>
 

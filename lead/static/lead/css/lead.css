@@ -1,25 +1,4 @@
 /* Lead list page*/
-.delete-icon {
-    border: none;
-}
-
-.btn-danger {
-    color: #fff;
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.content-lead {
-    margin-left: 380px;
-}
-@media (max-width: 1536px) {
-    .content-lead {
-        margin-left: 180px;
-        padding-left: 125px;
-    }
-}
-
 
 /* lead delete form*/
 #lead_delete_form {
