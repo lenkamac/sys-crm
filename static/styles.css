@@ -113,6 +113,17 @@ h2 {
     color: #3D4851;
 }
 
+.span-detail {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #353E46;
+    margin-left: 10px;
+}
+.span-value {
+    font-size: 1.1rem;
+    color: #353E46;
+}
+
 /* Offcanvas style*/
 .offcanvas-custom {
     position: fixed !important; /* Fix it on the left side */
@@ -239,9 +250,9 @@ span {
 .add-button {
     background-color: #ABABAF;
     font-weight: bold;
-    width: 200px;
+    width: auto;
     color: black;
-    font-size: 1.2rem;
+    font-size: 18px;
 }
 .add-button:hover {
     background-color: #697272;
@@ -250,20 +261,20 @@ span {
 .export-button {
     background-color: #C7C8CB;
     font-weight: bold;
-    width: 220px;
+    width: auto;
     color: black;
-    font-size: 1.2rem;
+    font-size: 18px;
 }
 .export-button:hover {
     background-color: #697272;
     color: white;
 }
 .btn-delete-selected {
-    width: 220px;
+    width: auto;
     background-color: #697272;
     color: #e9ecf6;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 18px;
     border: none;
     height: 40px;
     border-radius: 5px;
@@ -283,6 +294,27 @@ span {
 .back-to-dashboard:hover {
   color: #697272;
   text-decoration: underline;
+}
+.edit-btn {
+    background-color: #ABABAF;
+    font-weight: bold;
+    width: 200px;
+    color: black;
+    font-size: 1.2rem;
+}
+.btn-edit{
+    font-weight: bold;
+    color: #353E46;
+    font-size: 18px;
+    border: none;
+}
+.btn-edit:hover {
+    color: #697272;
+}
+.btn-delete {
+    font-weight: bold;
+    font-size: 18px;
+    color: #bb0808;
 }
 
 /* Comment */
@@ -313,13 +345,23 @@ span {
 .comment-form {
     width: 100%; /* Make the form span 100% of its parent container */
     padding: 10px; /* Add some padding to improve aesthetics */
-    background-color: #f4f4f4; /* Optional: Add background to make it stand out */
+    background-color: white; /* Optional: Add background to make it stand out */
     border-radius: 5px; /* Optional: Rounded edges for better styling */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
 }
 .comment-row {
     margin: 0; /* Ensure no margin cuts into the column/grid space */
     padding: 0; /* Reset padding for alignment */
+}
+.comment-content {
+    background-color: white;
+    padding: 10px;
+    margin: 0;
+}
+.comment {
+    font-size: 1.1rem;
+    background-color: white;
+    color: black;
 }
 
 
@@ -381,7 +423,7 @@ tbody tr td {
 .download-a {
     padding-left: 18px;
     padding-top: 2px;
-    font-size: 1.3rem;
+    font-size: 20px;
     color: #023564;
 }
 .download-icon {

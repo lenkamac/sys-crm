@@ -4,10 +4,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseForbidden
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.views import View
+from django.db.models import Q
 
 from client.models import Client
 from task.models import Task
@@ -22,7 +23,16 @@ class LeadListView(ListView):
 
     def get_queryset(self):
         queryset = super(LeadListView, self).get_queryset()
-        return queryset.filter(created_by=self.request.user, converted_to_client=False)
+        queryset = queryset.filter(created_by=self.request.user, converted_to_client=False)
+
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(last_name__icontains=query) |
+                Q(company__icontains=query) |
+                Q(email__icontains=query)
+            )
+        return queryset
 
 
 # Lead detail page
@@ -241,6 +251,9 @@ def delete_file(request, lead_id, file_id):
         file_instance.delete()
         messages.success(request, "File deleted successfully.")
     return redirect('lead:detail', pk=lead_id)
+
+
+
 
 
 
