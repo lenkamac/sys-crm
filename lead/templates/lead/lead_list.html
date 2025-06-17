@@ -45,69 +45,57 @@
         </div>
 
         <div class="row mt-lg-2 mx-lg-5 justify-content-center">
-
             <div class="col-12">
-
-                <div class="row my-lg-3 mx-lg-5 py-lg-4">
-
-
-                    <div class="col-lg-12">
+                <div class="row my-lg-3 mx-lg-5 py-lg-4 justify-content-center">
+                    <div class="col-lg-12 w-100 justify-content-center">
                         <!-- Filters --><!-- Add this above your table -->
-                        <form method="get" class="mb-3">
-                            <div class="col-lg-6">
-                                <div class="row align-items-start">
-                                    <div class="col-8">
-                                        <input
-                                        type="text"
-                                        name="q"
-                                        class="form-control"
-                                        placeholder="Find lead by name, email, or company"
-                                        value="{{ request.GET.q|default:'' }}"
-                                        >
+                        <div class="row my-lg-3">
+                            <div class="col-lg-12">
+                                <form method="get">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <input type="text" name="q" class="form-control"
+                                                   placeholder="Find lead by name, email, or company"
+                                                   value="{{ request.GET.q|default:'' }}">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <button type="submit" class="btn mx-lg-0"
+                                                            style="background-color: #4f8a8b;color: white;">Search
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="row justify-content-end">
+                                                <a class="btn add-button mx-lg-2" href="{% url 'lead:add' %}">Add lead</a>
+
+                                                <a class="btn export-button mx-lg-2" href="{% url 'lead:export' %}">Export to csv</a>
+
+                                                <!-- Button to delete selected clients -->
+                                                <button type="submit"
+                                                        form="bulk-delete-form"
+                                                        class="btn-delete-selected mx-lg-2" id="delete-selected-btn"
+                                                        onclick="return confirm('Are you sure you want to delete selected leads?');">
+                                                    Delete Selected
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </div>
 
-                                    <div class="col-auto">
-                                        <button type="submit" class="btn" style="background-color: #4f8a8b;color: white;">Search</button>
-                                    </div>
-                                </div>
-
+                                </form>
                             </div>
-
-                        </form>
-
-                        <form method="post" action="{% url 'lead:delete_bulk' %}">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 w-100">
+                        <form id="bulk-delete-form" method="post" action="{% url 'lead:delete_bulk' %}">
                             {% csrf_token %}
-
-                            <div class="row justify-content-end">
-
-                                <div class="col-lg-2">
-                                    <div class="text-center">
-                                        <a class="btn add-button" href="{% url 'lead:add' %}">Add lead</a>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="text-center">
-                                        <a class="btn export-button" href="{% url 'lead:export' %}">Export to csv</a>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="text-center">
-                                        <!-- Button to delete selected clients -->
-                                        <button type="submit" class="btn-delete-selected"
-                                                onclick="return confirm('Are you sure you want to delete selected leads?')">
-                                            Delete Selected
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="row justify-content-center w-100 mt-lg-4">
-
+                            <div class="row justify-content-center">
                                 <div class="col-12 my-lg-3">
-
                                     <div class="table-responsive-custom">
                                         <table class="table">
                                             <thead class="th-custom">
