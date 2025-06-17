@@ -9,12 +9,21 @@
 
     {% include 'core/partials/offcanvas_menu.html' %}
 
+    <style>
+         body {
+             background-image: url("{% static 'images/34637.png' %}");
+             background-size: cover;
+             background-repeat: no-repeat;
+             background-position: center;
+         }
+    </style>
+
     <div class="container">
 
         <div class="row mx-lg-5 justify-content-center">
             <div class="col-lg-12">
                 <div class="text-center">
-                    <h1 class="px-5">Clients</h1>
+                    <h1>Clients</h1>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -35,113 +44,135 @@
             </div>
         </div>
 
-        <div class="row mt-lg-2 mx-lg-3 justify-content-center">
-
+        <div class="row mt-lg-2 mx-lg-5 justify-content-center">
             <div class="col-lg-12">
+                <div class="row my-lg-3 mx-lg-3 py-lg-4 justify-content-center">
+                    <div class="col-lg-12 w-100 justify-content-center">
+                        <!-- Filters --><!-- Add this above your table -->
+                        <div class="row my-lg-3">
+                            <div class="col-lg-12">
+                                <form method="get">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <input type="text" name="q" class="form-control"
+                                                   placeholder="Find lead by name, email, or company"
+                                                   value="{{ request.GET.q|default:'' }}">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <button type="submit" class="btn mx-lg-0"
+                                                            style="background-color: #4f8a8b;color: white;">Search
+                                                    </button>
+                                                </div>
+                                            </div>
 
-                <div class="row my-lg-3 mx-lg-3 py-lg-4">
+                                        </div>
 
-                    <form method="post" action="{% url 'client:delete_bulk' %}">
-                        {% csrf_token %}
+                                        <div class="col-lg-6">
+                                            <div class="row justify-content-end">
+                                                <a class="btn add-button mx-lg-2" href="{% url 'client:add' %}">Add client</a>
 
-                        <div class="row justify-content-center w-100 my-lg-3 mx-lg-5">
+                                                <a class="btn export-button mx-lg-2"
+                                                   href="{% url 'client:export' %}"
+                                                   style="background-color: #353E46; color: white;">Export to csv</a>
 
-                            <div class="col-3 mx-lg-3 my-lg-2">
-                                <a class="btn add-button" href="{% url 'client:add' %}">Add client</a>
+                                                <!-- Button to delete selected clients -->
+                                                <button type="submit"
+                                                        form="bulk-client-delete-form"
+                                                        class="btn-delete-selected mx-lg-2" id="delete-selected-btn"
+                                                        onclick="return confirm('Are you sure you want to delete selected clients?');">
+                                                    Delete Selected
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
                             </div>
-
-                            <div class="col-3 mx-lg-3 my-lg-2">
-                                <a class="btn export-button" href="{% url 'client:export' %}">Export clients to csv</a>
-                            </div>
-
-                            <div class="col-3 mx-lg-3 my-lg-2">
-                                <!-- Button to delete selected clients -->
-                                <button type="submit" class="btn btn-danger"
-                                        onclick="return confirm('Are you sure you want to delete selected clients?')">
-                                    Delete Selected
-                                </button>
-
-                            </div>
-
                         </div>
+                    </div>
 
-                        <div class="row justify-content-center mt-lg-4 mx-lg-5">
-
-                            <div class="col-lg-12 my-lg-3">
-
-                                <table class="table">
-                                    <thead class="th-custom">
-
-                                        <tr>
-                                            <th scope="col">
-                                                <!-- Select All checkbox -->
-                                                <label for="select-all"></label>
-                                                <input type="checkbox" id="select-all" />
-                                            </th>
-                                            <th scope="col">Created at</th>
-                                            <th scope="col">Company</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Detail</th>
-                                            <th scope="col">Edit</th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                    </thead>
-
-                                    {% if object_list %}
-                                        <tbody>
-                                            {% for client in object_list %}
+                    <div class="col-lg-12 w-100">
+                        <form id="bulk-client-delete-form" method="post" action="{% url 'client:delete_bulk' %}">
+                            {% csrf_token %}
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12 my-lg-3">
+                                    <div class="table-responsive-custom">
+                                        <table class="table">
+                                            <thead class="th-custom">
                                                 <tr>
-                                                    <td>
-                                                        <label>
-                                                            <input type="checkbox"
-                                                                   name="client_ids"
-                                                                   class="row-checkbox"
-                                                                   value="{{ client.id }}"/>
-                                                        </label>
-                                                    </td>
-                                                    <td>{{ client.created_at|date:"M-d-Y H:i" }}</td>
-                                                    <td>{{ client.company }}</td>
-                                                    <td>{{ client.last_name }}, {{ client.first_name }}</td>
-                                                    <td>{{ client.email }}</td>
-                                                    <td>{{ client.get_status_display }}</td>
-                                                    <td>
-                                                        <a class="a-detail" href="{% url 'client:detail' client.pk %}">Detail</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="edit" href="{% url 'client:edit' client.pk %}">Edit</a>
-                                                    </td>
-                                                    <td>
-                                                        <button type="submit" class="delete-icon bg-transparent border-0">
-                                                            <img src="{% static 'client/images/empty.png' %}"
-                                                                 alt="empty"
-                                                                 height="20">
-                                                        </button>
-                                                    </td>
-
+                                                    <th scope="col">
+                                                        <!-- Select All checkbox -->
+                                                        <label for="select-all"></label>
+                                                        <input type="checkbox" id="select-all" />
+                                                    </th>
+                                                    <th scope="col">Created at</th>
+                                                    <th scope="col">Company</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Detail</th>
+                                                    <th scope="col">Edit</th>
+                                                    <th scope="col">Delete</th>
                                                 </tr>
+                                            </thead>
 
-                                            {% endfor %}
-
-                                        </tbody>
-
-                                    {% else %}
-                                        <p>There are no leads in the database yet...</p>
-                                    {% endif %}
-
-                                </table>
-
+                                            {% if object_list %}
+                                                <tbody>
+                                                    {% for client in object_list %}
+                                                        <tr>
+                                                            <td>
+                                                                <label>
+                                                                    <input type="checkbox"
+                                                                           name="client_ids"
+                                                                           class="row-checkbox"
+                                                                           value="{{ client.id }}"/>
+                                                                </label>
+                                                            </td>
+                                                            <td>{{ client.created_at|date:"M-d-Y H:i" }}</td>
+                                                            <td>{{ client.company }}</td>
+                                                            <td>{{ client.last_name }}, {{ client.first_name }}</td>
+                                                            <td>{{ client.email }}</td>
+                                                            <td>{{ client.get_status_display }}</td>
+                                                            <td>
+                                                                <a class="a-detail" href="{% url 'client:detail' client.pk %}">Detail</a>
+                                                            </td>
+                                                            <td>
+                                                                <a class="edit" href="{% url 'client:edit' client.pk %}">Edit</a>
+                                                            </td>
+                                                            <td>
+                                                                <button type="submit" class="delete-icon bg-transparent border-0">
+                                                                    <img src="{% static 'images/empty.png' %}"
+                                                                         alt="empty"
+                                                                         height="22">
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            {% else %}
+                                                <p>There are no leads in the database yet...</p>
+                                            {% endif %}
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-
-                        </div>
-
-                    </form>
-
+                        </form>
+                    </div>
                 </div>
-
             </div>
+        </div>
 
+        <div class="row mt-lg-2 mx-lg-3 justify-content-center">
+            <div class="col-lg-12">
+                <div class="text-start px-lg-5">
+                    <a href="{% url 'dashboard:dashboard' %}" class="back-to-dashboard">
+                        <i class="fa-solid fa-arrow-left px-3"></i>Back to the dashboard
+                    </a>
+                </div>
+            </div>
         </div>
 
     </div>

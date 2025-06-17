@@ -3,24 +3,35 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.db.models import Q
+from django.http import HttpResponse, HttpResponseForbidden
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 from client.forms import AddCommentForm, AddFileForm
-from client.models import Client
+from client.models import Client, Comment, ClientFile
 from task.models import Task
 
 
 # Create your views here.
+# Client list
 class ClientListView(ListView):
     model = Client
 
     def get_queryset(self):
         queryset = super(ClientListView, self).get_queryset()
-        return queryset.filter(created_by=self.request.user)
+        queryset = queryset.filter(created_by=self.request.user)
+
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(last_name__icontains=query) |
+                Q(company__icontains=query) |
+                Q(email__icontains=query)
+            )
+        return queryset
 
 
 # Client detail page
@@ -32,6 +43,7 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
         context['form'] = AddCommentForm()
         context['tasks'] = Task.objects.filter(client_id=self.kwargs.get('pk'))
         context['fileform'] = AddFileForm()
+        context['comments'] = Comment.objects.filter(client_id=self.kwargs.get('pk'))
         return context
 
     def get_queryset(self):
@@ -51,6 +63,9 @@ class AddCommentView(LoginRequiredMixin, View):
             comment.created_by = request.user
             comment.client_id = pk
             comment.save()
+            messages.success(request, "Comment added successfully.")
+        else:
+            messages.error(request, "Failed to add comment. Please try again.")
 
         return redirect('client:detail', pk=pk)
 
@@ -160,4 +175,51 @@ def clients_bulk_delete(request):
             messages.warning(request, 'No clients were selected.')
 
     return redirect('client:list')
+
+# Delete client comment
+@login_required
+def delete_client_comment(request, client_id, comment_id):
+    client = get_object_or_404(Client, id=client_id)
+    comment = get_object_or_404(Comment, id=comment_id, client=client)
+
+    # Optional: Only allow the creator of the comment or an admin to delete it
+    if request.user == comment.created_by or request.user.is_staff:
+        comment.delete()
+        messages.success(request, "Comment deleted successfully.")
+    else:
+        messages.error(request, "You do not have permission to delete this comment.")
+
+    return redirect('client:detail', pk=client.id)
+
+# Edit Comment View
+class EditCommentView(LoginRequiredMixin, View):
+    def post(self, request, client_id, comment_id):
+        client = get_object_or_404(Client, id=client_id)
+        comment = get_object_or_404(Comment, id=comment_id, client=client)
+
+        # Restrict to the owner or an admin
+        if request.user != comment.created_by and not request.user.is_staff:
+            return HttpResponseForbidden("You are not authorized to edit this comment.")
+
+        # Update the comment
+        content = request.POST.get("content")
+        if content:
+            comment.content = content
+            comment.save()
+            messages.success(request, "Comment updated successfully.")
+        else:
+            messages.error(request, "Content cannot be empty.")
+
+        return redirect('lead:detail', pk=client_id)
+
+# Delete lead file
+def delete_file(request, client_id, file_id):
+    if request.method == "POST":
+        client = get_object_or_404(Client, id=client_id)
+        file_instance = get_object_or_404(ClientFile, id=file_id, client=client)
+        file_instance.delete()
+        messages.success(request, "File deleted successfully.")
+    return redirect('client:detail', pk=client_id)
+
+
 
