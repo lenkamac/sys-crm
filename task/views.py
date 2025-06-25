@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
+from client.models import Client
 from lead.models import Lead
 from .forms import TaskForm, TaskCommentForm
 from .models import Task, TaskComment
@@ -212,6 +213,30 @@ def task_add_lead(request, lead_id):
             )
         return redirect('lead:detail', lead_id)
     return redirect('lead:detail', lead_id)
+
+# add task directly from client detail page
+@login_required
+def task_add_client(request, client_id):
+    client = get_object_or_404(Client, pk=client_id)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        status = request.POST.get('status')
+        due_date = request.POST.get('due_date')
+
+        # Add other fields as needed
+        if title:
+            Task.objects.create(
+                client=client,
+                title=title,
+                description=description,
+                status=status,
+                due_date=due_date,
+                created_by=request.user,
+                # ...other fields...
+            )
+        return redirect('client:detail', client_id)
+    return redirect('client:detail', client_id)
 
 
 

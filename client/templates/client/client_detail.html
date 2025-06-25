@@ -8,157 +8,94 @@
 {% block content %}
 
     {% block css %}
-    	<link rel="stylesheet" href="{% static 'lead/css/lead.css' %}">
+    	<link rel="stylesheet" href="#">
     {% endblock %}
 
 
 	{% include 'core/partials/offcanvas_menu.html' %}
 
     <!-- Page Content -->
-    <div class="container my-lg-5 content-lead bg-body">
+    <div class="container vh-100 w-100 my-lg-4">
 
-        <div class="row mx-lg-5 pt-lg-3">
-             <div class="col-lg-12 py-lg-4">
-                 <div class="text-center">
-                     <h3 class="py-2"><span class="span-h3">{{ client.last_name }} {{ client.first_name }}</span></h3>
+        <div class="row my-lg-4 py-lg-4">
+
+            <div class="col-lg-4">
+                 <div class="card" style="height: 100%;">
+                     <div class="card-header">
+                         <h3 class="card-title text-center">{{ client.last_name }} {{ client.first_name }}</h3>
+                     </div>
+                     <div class="card-body">
+                         <p>Company: {{ client.company }}</p>
+                         <p>Email: {{ client.email }}</p>
+                         <p>Phone: {{ client.phone }}</p>
+                         {% if client.description %}
+                            <p>Description: {{ client.description }}</p>
+                         {% endif %}
+                        <p>Status: {{ client.status }}</p>
+                     </div>
+                     <div class="card-footer">
+                         <p>Created at: {{ client.created_at|date:"M-d-Y H:i" }}</p>
+                         <p>Modifed at: {{ client.modified_at|date:"M-d-Y H:i" }}</p>
+                     </div>
                  </div>
-             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <div class="row">
-                    <div class="row my-2">
-                        <div class="col-lg-4">
-                            <span>Company:</span>
-                        </div>
-                        <div class="col-lg-8 px-lg-4">
-                            {{ client.company }}
-                        </div>
-                    </div>
-                    <div class="row my-2">
-                        <div class="col-lg-4">
-                            <span>Email:</span>
-                        </div>
-                        <div class="col-lg-8 px-lg-4">
-                            {{ client.email }}
-                        </div>
-                    </div>
-                    <div class="row my-2">
-                        <div class="col-lg-4">
-                            <span>Phone:</span>
-                        </div>
-                        <div class="col-lg-8 px-lg-4">
-                            {{ client.phone }}
-                        </div>
-                    </div>
-
-                    {% if client.description %}
-                        <div class="row my-2">
-                            <div class="col-lg-4">
-                                <span>Description:</span>
-                            </div>
-                            <div class="col-lg-8 px-lg-4">
-                                {{ client.description }}
-                            </div>
-                        </div>
-                    {% endif %}
-
-                </div>
             </div>
-            <div class="col-6">
-                <div class="row my-2">
-                    <div class="col-lg-4">
-                        <span>Status:</span>
-                    </div>
-                    <div class="col-lg-8 px-lg-4">
-                        {{ client.status }}
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row justify-content-start my-lg-4">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <span style="font-size: 1.1rem;padding-right: 14px;">Created at: </span>{{ client.created_at|date:"M-d-Y H:i" }}
-                    </div>
+            <div class="col-lg-8 bg-warning">
 
-                    <div class="col-lg-4">
-                        <span style="font-size: 1.1rem;padding-right: 14px;">Modifed at: </span>{{ client.modified_at|date:"M-d-Y H:i" }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comment section -->
-        <div class="row justify-content-center border-top border-2">
-            <div class="col-lg-12" style="background:#f0f4f6;">
-                <div class="row">
+                <div class="row bg-white mx-lg-2 my-lg-2 py-lg-2">
                     <div class="col-lg-12">
                         <div class="text-center">
                             <h2 class="pt-2 mt-3">Comments</h2>
                         </div>
                     </div>
-                </div>
-                <div class="row mx-2 mt-3 py-3">
-                    {% for comment in client.comments.all %}
-                        <div class="col-lg-12">
-                            <p class="comment mt-2"><strong class="px-2">@{{ comment.created_by }}</strong>
-                                {{ comment.created_at|date:"M-d-Y H:i" }}</p>
-                            <p class="comment-p mx-5 px-2 py-1">{{ comment.content }}</p>
-                    {% endfor %}
-                </div>
-
-                <div class="row my-3 py-2">
-                    <form method="post" action="{% url 'client:add_comment' client.id %}">
-                        {% csrf_token %}
+                    <div class="col-lg-12">
+                        <div class="row">
+                            {% for comment in client.comments.all %}
+                                <div class="col-lg-12">
+                                    <p class="comment mt-2"><strong class="px-2">@{{ comment.created_by }}</strong>
+                                    {{ comment.created_at|date:"M-d-Y H:i" }}</p>
+                                    <p class="comment-p mx-5 px-2 py-1">{{ comment.content }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
                             <div class="col-lg-12">
-                                <div class="row mx-5 comment-row justify-content-center">
-                                    <div class="col-lg-12">
-                                        <label class="comment-label">Comment</label>
-                                    </div>
-                                    <div class="col-lg-12">
-                                       <textarea name="content" class="form-control comment-form" rows="4" placeholder="Enter your comment here"></textarea>
-                                    </div>
-                                </div>
+                                <form method="post" action="{% url 'client:add_comment' client.id %}">
+                                    {% csrf_token %}
+                                        <div class="col-lg-12">
+                                            <div class="row mx-5 comment-row justify-content-center">
+                                                <div class="col-lg-12">
+                                                    <label class="comment-label">Comment</label>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                   <textarea name="content" class="form-control comment-form" rows="4" placeholder="Enter your comment here"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="text-center">
+                                                <button class="comment-btn my-3">Submit</button>
+                                            </div>
+                                        </div>
+                                </form>
                             </div>
-                            <div class="row">
-                                <div class="text-center">
-                                    <button class="comment-btn my-3">Submit</button>
-                                </div>
-                            </div>
-                    </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- files and task-->
-        <div  class="row pt-2" style="background:#f0f4f6;">
-
-            <!--file-->
-            <div class="col-lg-6">
-                <div class="row">
+                <div class="row bg-white mx-lg-2 my-lg-2 py-lg-2">
                     <div class="col-lg-12">
                         <div class="text-center">
                             <h2 class="pt-2 mt-3">Files</h2>
                         </div>
                     </div>
-                </div>
-
-                <div class="row mx-2 mt-2 py-3">
                     {% for file in client.files.all %}
                         <div class="col-lg-12">
-
                             <div class="row">
                                 <div class="col-12 mt-2">
                                     <strong class="px-2">@{{ file.created_by }}</strong>
                                     {{ file.created_at|date:"M-d-Y H:i" }}
                                 </div>
                             </div>
-
                             <div class="row mx-5 justify-content-center">
                                 <div class="files-p col-6">
                                     {{ file.file }}
@@ -170,12 +107,8 @@
                             </div>
                         </div>
                     {% endfor %}
-                </div>
-
-                <div class="row my-3 py-2">
                     <form method="post" action="{% url 'client:add_file' client.pk %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-
+                        {% csrf_token %}
                         <div class="col-lg-12  d-flex align-items-start">
                             <div class="row">
                                 <div class="col-10 py-3">{{ fileform.as_p }}</div>
@@ -186,81 +119,114 @@
                         </div>
                     </form>
                 </div>
-            </div>
-
-            <!--Task-->
-            <div class="col-lg-6">
-                <div class="row">
+                <div class="row mx-lg-2 my-lg-2 py-lg-2 bg-white">
                     <div class="col-lg-12">
                         <div class="text-center">
                             <h2 class="pt-2 mt-3">Tasks</h2>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                         {% for task in tasks %}
                             <div class="col-lg-12">
-                                <hr>
                                 <div class="row">
                                     <div class="col-lg-12 my-lg-2">
                                         <a href="{% url 'task:task_detail' task.pk %}">
-                                            <strong>{{ task.title }}</strong></a>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span>Due: {{ task.due_date }}</span>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <span>Status:</span> {{ task.status }}
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <span>Description</span> {{ task.description }}
-                                    </div>
-                                </div>
-                                <div class="row my-3 py-2">
-                                    <div class="col-lg-12 mt-lg-3">
-                                        <a href="{% url 'task:task_edit' task.pk %}">
-                                            <button class="btn btn-for-edit btn-sm">
-                                                Edit Task
-                                            </button>
+                                            <p>{{ task.title }}</p>
                                         </a>
                                     </div>
+                                    <div class="col-lg-6">
+                                        <p>Due: {{ task.due_date }}</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p>Status: {{ task.status }}</p>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p>Description: {{ task.description }}</p>
+                                    </div>
+                                    <div class="col-lg-12 mt-lg-3">
+                                        <a href="{% url 'task:task_edit' task.pk %}">
+                                        <button class="btn btn-for-edit btn-sm">
+                                            Edit Task
+                                        </button>
+                                    </a>
+                                    </div>
+
                                 </div>
                             </div>
                         {% empty %}
                             <p>No tasks found for this lead.</p>
                         {% endfor %}
+                    <div class="col-lg-12 mt-lg-3">
+                        <!-- The task creation form: -->
+                            <div class="row justify-content-start">
+                                <form method="post" action="{% url 'task:task_add_client' client.id %}">
+                                    {% csrf_token %}
+                                    <div class="col-lg-4">
+                                        <input type="text" name="title" class="form-control w-50" placeholder="Task title" required>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <textarea name="description" class="form-control w-100" rows="4" placeholder="Description"></textarea>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select name="status" class="form-select w-50" aria-label="Default select example">
+                                            <option selected>---</option>
+                                            <option value="open">Open</option>
+                                            <option value="in_progress">In Progress</option>
+                                            <option value="completed">Completed</option>
+                                            <option value="canceled">Canceled</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>
+                                            <input type="date" name="due_date" class="form-control" placeholder="Due date" required>
+                                        </label>
+                                    </div>
+                                    <!-- Add any other task fields as needed -->
+                                    <div col-lg-4>
+                                        <button type="submit" class="add-button" style="border-radius: 5px;">
+                                        <i class="fa-solid fa-plus px-lg-2"></i>Add Task</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
-            </div>
-
-
-        <!-- Edit and Delete Buttons and Backt to -->
-        <div class="row pt-2" style="background:#f0f4f6;">
-            <div class="col-lg-6">
-                <div class="py-3">
-                    <img src="{% static 'images/arrow.png' %}" alt="arrow" class="arrow-icon" height="20">
-                    <a class="custom-back-a" href="{% url 'client:list' %}">Back to Clients</a>
                 </div>
+
             </div>
-            <div class="col-lg-6">
-                <div class="row py-lg-2">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <form id="client_delete_form" method="post" action="{% url 'client:delete' client.pk %}">
-                                {% csrf_token %}
 
-                                <button class="btn custom-btn mx-2 px-2">
-                                    <a href="{% url 'client:edit' client.pk %}" class="a-edit">Edit</a>
-                                </button>
-
-                                <button class="btn btn-danger" style="width: 100px;">
-                                    <a href="#" onclick="document.getElementById('client_delete_form').submit();"
-                                       class="btn-danger">Delete</a>
-                                </button>
-                            </form>
+            <div class="col-lg-12">
+                <!-- Edit and Delete Buttons and Backt to -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <img src="{% static 'images/arrow.png' %}" alt="arrow" class="arrow-icon" height="20">
+                                <a class="custom-back-a" href="{% url 'client:list' %}">Back to Clients</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center">
+                                    <form id="client_delete_form" method="post" action="{% url 'client:delete' client.pk %}">
+                                        {% csrf_token %}
+                                        <button>
+                                            <a href="{% url 'client:edit' client.pk %}">Edit</a>
+                                        </button>
+                                        <button>
+                                            <a href="#" onclick="document.getElementById('client_delete_form').submit();">Delete</a>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
+
 {% endblock %}
