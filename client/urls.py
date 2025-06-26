@@ -13,9 +13,9 @@ urlpatterns = [
     path('<int:pk>/delete/', ClientDeleteView.as_view(), name='delete'),
     path('delete_bulk/', views.clients_bulk_delete, name='delete_bulk'),
     path('<int:pk>/add-comment/', AddCommentView.as_view(), name='add_comment'),
-    path('<int:client_id>/edit-comment/<int:comment_id>/', EditCommentView.as_view(), name='edit-comment'),
+    path('<int:client_id>/edit-comment/<int:comment_id>/', EditCommentView.as_view(), name='edit-client-comment'),
     path('<int:client_id>/comment/<int:comment_id>/delete/', views.delete_client_comment, name='delete_comment'),
-    path('<int:pk>/add-file/', AddFileView.as_view(), name='add_file'),
+    path('<int:pk>/add-file/', AddFileView.as_view(), name='add_client_file'),
     path('export/', views.clients_export, name='export'),
-    path('<int:client_id>/file/<int:file_id>/delete/', views.delete_file, name='delete_file'),
+    path('<int:client_id>/file/<int:file_id>/delete/', views.delete_client_file, name='delete_client_file'),
 ]

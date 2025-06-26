@@ -210,10 +210,10 @@ class EditCommentView(LoginRequiredMixin, View):
         else:
             messages.error(request, "Content cannot be empty.")
 
-        return redirect('lead:detail', pk=client_id)
+        return redirect('client:detail', pk=client_id)
 
 # Delete lead file
-def delete_file(request, client_id, file_id):
+def delete_client_file(request, client_id, file_id):
     if request.method == "POST":
         client = get_object_or_404(Client, id=client_id)
         file_instance = get_object_or_404(ClientFile, id=file_id, client=client)

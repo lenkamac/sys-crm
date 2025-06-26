@@ -190,31 +190,6 @@ def delete_task_comment(request, comment_id):
     return JsonResponse({"error": "Invalid request"}, status=400)
 
 
-# add task directly from lead detail page
-@login_required
-def task_add_lead(request, lead_id):
-    lead = get_object_or_404(Lead, pk=lead_id)
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        status = request.POST.get('status')
-        due_date = request.POST.get('due_date')
-
-        # Add other fields as needed
-        if title:
-            Task.objects.create(
-                lead=lead,
-                title=title,
-                description=description,
-                status=status,
-                due_date=due_date,
-                created_by=request.user,
-                # ...other fields...
-            )
-        return redirect('lead:detail', lead_id)
-    return redirect('lead:detail', lead_id)
-
-# add task directly from client detail page
 @login_required
 def task_add_client(request, client_id):
     client = get_object_or_404(Client, pk=client_id)
@@ -237,6 +212,27 @@ def task_add_client(request, client_id):
             )
         return redirect('client:detail', client_id)
     return redirect('client:detail', client_id)
+
+@login_required
+def task_add_lead(request, lead_id):
+    lead = get_object_or_404(Lead, pk=lead_id)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        status = request.POST.get('status')
+        due_date = request.POST.get('due_date')
+
+        if title:
+            Task.objects.create(
+                lead=lead,
+                title=title,
+                description=description,
+                status=status,
+                due_date=due_date,
+                created_by=request.user,
+            )
+        return redirect('lead:detail', lead_id)
+    return redirect('lead:detail', lead_id)
 
 
 

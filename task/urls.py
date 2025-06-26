@@ -15,4 +15,5 @@ urlpatterns = [
     path("task_comment/edit/<int:comment_id>/", edit_tasks_comment, name="edit_tasks_comment"),
     path("task_comment/delete/<int:comment_id>/", delete_task_comment, name="delete_task_comment"),
     path('<int:client_id>/task/add/', views.task_add_client, name='task_add_client'),
+    path('leads/<int:lead_id>/task/add/', views.task_add_lead, name='task_add_lead'),
 ]
