@@ -3,7 +3,7 @@ html, body {
     margin: 0;
 }
 body {
-    background-color: snow;
+    background-color: #f1f1f5;
     position: relative;
     padding-bottom: 58px;
     min-height: 100vh;
@@ -383,6 +383,12 @@ span {
 }
 
 
+.card-detail {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #3b4869;
+}
+
 /* not found message*/
 .not-found-message {
     text-align: center;
@@ -438,6 +444,13 @@ tbody tr td {
     background-color: white;
 }
 
+/* table for task on detail page*/
+#task-table {
+    border: none !important;
+}
+#task-table th, tr td {
+    border: none !important;
+}
 
 
 /* Page content adjustment for fixed nav/footer */
