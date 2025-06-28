@@ -46,7 +46,7 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
         context['fileform'] = AddFileForm()
 
         comment_list = Comment.objects.filter(client_id=self.kwargs.get('pk')).order_by('-created_at')
-        paginator = Paginator(comment_list, 8)
+        paginator = Paginator(comment_list, 5)
 
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -99,7 +99,7 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     success_url = reverse_lazy('client:list')
     fields = ('company', 'first_name', 'last_name','phone', 'address', 'city', 'country', 'zipcode', 'email', 'description',
-                  'status')
+                  'status', 'website',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -136,7 +136,7 @@ class ClientUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
     fields = ('company', 'first_name', 'last_name', 'phone','email', 'address', 'city', 'zipcode', 'description',
-              'status')
+              'status', 'website',)
     success_url = reverse_lazy('client:list')
 
     def get_queryset(self):

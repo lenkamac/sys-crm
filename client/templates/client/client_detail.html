@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
+{% load filename_filters %}
 {% load static %}
+
+
 
 {% block title %}
 	Client Detail
@@ -15,12 +18,31 @@
 	{% include 'core/partials/offcanvas_menu.html' %}
 
     <!-- Page Content -->
-    <div class="container w-100 my-lg-4">
+    <div class="container-fluid my-lg-4">
 
-        <div class="row mx-lg-2 mt-lg-4 py-lg-4">
+        <div class="row mx-lg-2">
+            <div class="col-lg-12">
+               <div class="text-center">
+                    <!-- Display messages -->
+                   {% if messages %}
+                       <div class="row">
+                           {% for message in messages %}
+                               <div class="alert alert-{{ message.tags }}" role="alert">
+                                   <div class="text-center">
+                                       {{ message }}
+                                   </div>
+                               </div>
+                           {% endfor %}
+                       </div>
+                   {% endif %}
+               </div>
+            </div>
+        </div>
+
+        <div class="row mt-lg-4 py-lg-4" style="margin-left: 250px">
 
             <div class="col-lg-3">
-                 <div class="card card-detail border shadow-sm" style="height: 55%;">
+                 <div class="card card-detail border shadow-sm" style="height: auto;">
                      <div class="card-header" style="background-color: #697272; color: white;">
                          <h3 class="card-title my-0 py-lg-2 text-center">
                              {{ client.last_name }} {{ client.first_name }}
@@ -30,6 +52,21 @@
                          <p class="fs-6 py-lg-2"><span class="fw-bolder">Company:</span> {{ client.company }}</p>
                          <p class="fs-6 py-lg-2"><span class="fw-bolder">Email:</span> {{ client.email }}</p>
                          <p class="fs-6 py-lg-2"><span class="fw-bolder">Phone:</span> {{ client.phone }}</p>
+                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Address:</span>
+                            {% if client.address %}
+                                <span style="margin-left: 8px; font-weight: normal;">{{ client.address }},
+                                    {{ client.zipcode }} {{ client.city }}</span>
+                            {% else %}
+                                n/a
+                            {% endif %}
+                        </p>
+                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Country:</span>
+                            {% if client.country %}
+                                {{ client.country }}
+                            {% else %}
+                                n/a
+                            {% endif %}
+                        </p>
                          {% if client.description %}
                             <p class="fs-6 py-lg-2"><span class="fw-bolder">Description:</span>
                                <br>
@@ -39,6 +76,19 @@
                             </p>
                          {% endif %}
                         <p class="fs-6 py-lg-2"><span class="fw-bolder">Status:</span> {{ client.status }}</p>
+                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Converted from lead:</span> {% if client.converted_from_lead_id %}
+                            Yes
+                            {% else %}
+                            No
+                            {% endif %}
+                        </p>
+                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Website:</span>
+                            {% if client.website %}
+                                {{ client.website }}
+                            {% else %}
+                                n/a
+                            {% endif %}
+                        </p>
                      </div>
                      <img src="{% static 'images/card-image.jpg' %} " alt="card-image" width="100%"
                          class="card-img-bottom mt-auto" height="auto">
@@ -53,7 +103,7 @@
                  </div>
             </div>
 
-            <div class="col-lg-9">
+            <div class="col-lg-9 col-12">
                 <!-- Comment section -->
                 <div class="row mx-lg-2 bg-white border border-3">
                     <div class="col-lg-12" style="background-color: #697272;">
@@ -61,7 +111,7 @@
                     </div>
                     <div class="col-lg-12 mt-lg-3 pt-lg-2">
                         <div class="row mx-lg-2 bg-body">
-                            {% for comment in client.comments.all %}
+                            {% for comment in comments %}
                                 <div class="col-lg-12 mb-lg-0" style="height: 30px;">
                                     <p class="fw-bolder mb-lg-0" style="font-size: 18px;">
                                         @{{ comment.created_by }} {{ comment.created_at|date:"M-d-Y H:i" }}
@@ -90,7 +140,7 @@
                                         <div class="col-lg-1">
                                             <!-- Edit Button -->
                                            <a href="#" data-bs-toggle="modal"
-                                              data-bs-target="#editCommentModal-{{ comment.id }}" class="btn-edit"
+                                              data-bs-target="#editCommentModal-{{ comment.id }}" class="btn-edit px-lg-3"
                                               style="font-size: 18px; text-decoration: none;">Edit
                                            </a>
                                            <!-- Edit Comment Modal -->
@@ -129,8 +179,8 @@
                         <div class="row mx-lg-2">
                         <!-- Pagination -->
                             <div class="col-lg-12">
-                                <nav aria-label="Comments pagination">
-                                    <ul class="pagination justify-content-center">
+                                <nav aria-label="Comments pagination" class="nav-pagination">
+                                    <ul class="pagination justify-content-center" >
                                     {% if comments.has_previous %}
                                       <li class="page-item">
                                         <a class="page-link" href="?page=1">&laquo; First</a>
@@ -144,7 +194,7 @@
                                     {% endif %}
 
                                     <li class="page-item active">
-                                      <span class="page-link">
+                                      <span class="page-link" style="background-color: #bfd6d7; color: black;">
                                         Page {{ comments.number }} of {{ comments.paginator.num_pages }}
                                       </span>
                                     </li>
@@ -202,7 +252,7 @@
                             </div>
                             <div class="row mx-5 justify-content-center">
                                 <div class="files-p col-6">
-                                    {{ file.file }}
+                                    {{ file.file.name|basename }}
                                 </div>
                                 <div class="col-6">
                                     <a href="{{ file.file.url }}" class="download-a">Download files</a>
@@ -361,15 +411,15 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="text-center">
-                                    <form id="client_delete_form" method="post" action="{% url 'client:delete' client.pk %}">
+                                    <form id="client_delete_form" method="post" action="{% url 'client:delete' client.id %}">
                                         {% csrf_token %}
-                                        <button class="edit-btn">
-                                            <a href="{% url 'client:edit' client.pk %}" class="a-edit">Edit</a>
+
+                                        <button class="btn mx-2 px-2">
+                                            <a href="{% url 'client:edit' client.id %}" class="btn edit-btn">Edit</a>
                                         </button>
-                                        <button class="btn-delete-selected mx-lg-4" style="border: 2px solid black;
-                                            border-radius: 0; font-weight: bold; width: 200px; font-size: 1.2rem; height: 35px;">
-                                            <a href="#" onclick="document.getElementById('client_delete_form').submit();"
-                                            class="a-edit">Delete</a>
+                                        <button class="btn">
+                                            <a href="#" style="color: #bb0808; font-size: 22px; font-weight: bold;"
+                                               onclick="document.getElementById('client_delete_form').submit();">Delete</a>
                                         </button>
                                     </form>
                                 </div>
@@ -380,5 +430,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+    // Automatically hide alert messages after 3 seconds (3000 milliseconds)
+    document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.querySelectorAll('.alert').forEach(function(alert) {
+        // Fade out for a smooth effect (optional)
+        alert.style.transition = "opacity 0.5s linear";
+        alert.style.opacity = 0;
+        setTimeout(function() { alert.remove(); }, 500); // remove from DOM after fade out
+      });
+    }, 3000); // Show message for 3 seconds
+    });
+    </script>
 
 {% endblock %}

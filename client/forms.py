@@ -7,7 +7,7 @@ class AddClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ('first_name', 'last_name','phone', 'address', 'city', 'country', 'zipcode', 'email',
-                  'description', 'company', 'status')
+                  'description', 'company', 'status', 'website',)
 
 
 class AddCommentForm(forms.ModelForm):

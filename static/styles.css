@@ -364,6 +364,17 @@ span {
     color: black;
 }
 
+/* nav for pagination */
+.nav-pagination {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.nav-pagination .page-link {
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 
 /* custom a edit*/
 .a-edit {

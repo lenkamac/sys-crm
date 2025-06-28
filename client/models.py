@@ -24,6 +24,7 @@ class Client(models.Model):
     zipcode = models.CharField(max_length=255, blank=True)
     country = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
+    website = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
     modified_at = models.DateTimeField(auto_now=True)
