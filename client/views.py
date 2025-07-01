@@ -45,18 +45,17 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
         context['fileform'] = AddFileForm()
 
         comment_list = Comment.objects.filter(client_id=self.kwargs.get('pk')).order_by('-created_at')
-        paginator = Paginator(comment_list, 5)
-
-        page_number = self.request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context['comments'] = page_obj
+        comment_paginator = Paginator(comment_list, 5)
+        comment_page_number = self.request.GET.get('comment_page')
+        comments_page = comment_paginator.get_page(comment_page_number)
 
         task_list = Task.objects.filter(client_id=self.kwargs.get('pk')).order_by('-created_at')
-        paginator_task = Paginator(task_list, 5)
+        task_paginator = Paginator(task_list, 8)  # 10 tasks per page
+        task_page_number = self.request.GET.get('task_page')
+        tasks_page = task_paginator.get_page(task_page_number)
 
-        page_number = self.request.GET.get('page')
-        page_obj_task = paginator_task.get_page(page_number)
-        context['tasks'] = page_obj_task
+        context['comments'] = comments_page
+        context['tasks'] = tasks_page
 
         return context
 
