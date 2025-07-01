@@ -20,6 +20,7 @@ from task.models import Task
 # Client list
 class ClientListView(ListView):
     model = Client
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super(ClientListView, self).get_queryset()
@@ -32,6 +33,7 @@ class ClientListView(ListView):
                 Q(company__icontains=query) |
                 Q(email__icontains=query)
             )
+
         return queryset
 
 

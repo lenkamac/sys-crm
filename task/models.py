@@ -32,6 +32,7 @@ class Task(models.Model):
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='-', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='-', blank=True, null=True)
     due_date = models.DateTimeField(blank=True, null=True)
+    due_time = models.TimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
