@@ -438,9 +438,9 @@ tbody tr td {
 
 /* Styling for files*/
 .download-a {
-    padding-left: 18px;
+    padding-right: 5px;
     padding-top: 2px;
-    font-size: 20px;
+    font-size: 19px;
     color: #023564;
 }
 .download-icon {

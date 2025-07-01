@@ -42,7 +42,6 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AddCommentForm()
-        context['tasks'] = Task.objects.filter(client_id=self.kwargs.get('pk'))
         context['fileform'] = AddFileForm()
 
         comment_list = Comment.objects.filter(client_id=self.kwargs.get('pk')).order_by('-created_at')
@@ -51,6 +50,13 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['comments'] = page_obj
+
+        task_list = Task.objects.filter(client_id=self.kwargs.get('pk')).order_by('-created_at')
+        paginator_task = Paginator(task_list, 5)
+
+        page_number = self.request.GET.get('page')
+        page_obj_task = paginator_task.get_page(page_number)
+        context['tasks'] = page_obj_task
 
         return context
 
