@@ -3,6 +3,7 @@ import csv
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -20,6 +21,7 @@ from .forms import AddCommentForm, AddFileForm
 # Lead list
 class LeadListView(ListView):
     model = Lead
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super(LeadListView, self).get_queryset()
@@ -42,9 +44,20 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = AddCommentForm()
-        context['tasks'] = Task.objects.filter(lead_id=self.kwargs.get('pk'))
         context['fileform'] = AddFileForm()
-        context['comments'] = Comment.objects.filter(lead_id=self.kwargs.get('pk'))
+
+        comment_list = Comment.objects.filter(lead_id=self.kwargs.get('pk')).order_by('-created_at')
+        comment_paginator = Paginator(comment_list, 5)
+        comment_page_number = self.request.GET.get('comment_page')
+        comments_page = comment_paginator.get_page(comment_page_number)
+
+        task_list = Task.objects.filter(lead_id=self.kwargs.get('pk')).order_by('-created_at')
+        task_paginator = Paginator(task_list, 8)
+        task_page_number = self.request.GET.get('task_page')
+        tasks_page = task_paginator.get_page(task_page_number)
+
+        context['comments'] = comments_page
+        context['tasks'] = tasks_page
 
         return context
 
