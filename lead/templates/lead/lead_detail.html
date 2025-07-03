@@ -88,7 +88,7 @@
                         <p class="fs-6 py-lg-2"><span class="fw-bolder">Priority:</span>
                             {{ lead.get_priority_display }}
                         </p>
-                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Status Sale</span>{{ lead.status_sale }}</p>
+                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Status Sale:</span> {{ lead.status_sale }}</p>
                         <p class="fs-6 py-lg-2"><span class="fw-bolder">Website:</span>
                             {% if lead.website %}
                                 {{ lead.website }}
@@ -97,8 +97,6 @@
                             {% endif %}
                         </p>
                      </div>
-                     <img src="{% static 'images/card-image.jpg' %} " alt="card-image" width="100%"
-                         class="card-img-bottom mt-auto" height="auto">
                      <div class="card-footer">
                          <p class="fs-6 py-lg-2"><span class="fw-bolder">Created at:</span>
                              {{ lead.created_at|date:"M-d-Y H:i" }}
