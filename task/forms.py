@@ -8,8 +8,8 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description', 'status', 'priority', 'lead', 'client', 'assigned_to','due_date', 'due_time']
         widgets = {
-            'due_date':forms.DateField(required=False),
-            'due_time':forms.TimeField(required=False),
+            'due_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'due_time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-select'}),
@@ -52,10 +52,14 @@ class TaskCommentForm(forms.ModelForm):
 class TaskEditForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'due_date', 'status', 'priority', 'assigned_to' ]
+        fields = ['title', 'description', 'due_date', 'due_time', 'status', 'priority', 'assigned_to' ]
         widgets = {
             'due_date': forms.DateInput(attrs={
                 'type': 'date',
+                'class': 'form-control'
+            }),
+            'due_time': forms.TimeInput(attrs={
+                'type': 'time',
                 'class': 'form-control'
             }),
             'title': forms.TextInput(attrs={'class': 'form-control'}),

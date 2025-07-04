@@ -96,28 +96,31 @@
                     <!-- Tasks List -->
                     <div class="table-responsive">
                         <table class="table table-hover">
-                            <thead>
+                            <thead class="th-custom">
                                 <tr>
                                     <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Assigned To</th>
-                                    <th>Due Date</th>
-                                    <th>Related To</th>
-                                    <th>Actions</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Priority</th>
+                                    <th class="text-center">Assigned To</th>
+                                    <th class="text-center">Due Date</th>
+                                    <th class="text-center">Due Time</th>
+                                    <th class="text-center">Related To</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for task in tasks %}
                                 <tr>
-                                    <td>
+                                    <td class="text-start" style="width: auto;">
                                         <a href="#" class="text-decoration-none">
                                             {{ task.title }}
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         {% if task.status == 'todo' %}
                                             <span class="badge bg-secondary">To Do</span>
+                                        {% elif task.status == 'open' %}
+                                            <span class="badge bg-info">Open</span>
                                         {% elif task.status == 'in_progress' %}
                                             <span class="badge bg-primary">In Progress</span>
                                         {% elif task.status == 'completed' %}
@@ -135,18 +138,25 @@
                                             <span class="badge bg-info">Low</span>
                                         {% endif %}
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         {% if task.assigned_to %}
                                             {{ task.assigned_to.get_full_name|default:task.assigned_to.username }}
                                         {% else %}
                                             <span class="text-muted">Unassigned</span>
                                         {% endif %}
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         {% if task.due_date %}
                                             {{ task.due_date }}
                                         {% else %}
                                             <span class="text-muted">No due date</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if task.due_time %}
+                                            {{ task.due_time }}
+                                        {% else %}
+                                            <span class="text-muted">--:--</span>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -222,4 +232,5 @@
     <script>
         import '@fortawesome/fontawesome-free/css/all.min.css';
     </script>
+    <script src="{% static 'js/project.js' %}"></script>
 {% endblock %}

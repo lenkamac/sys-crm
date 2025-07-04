@@ -175,12 +175,6 @@
 
                                         </div>
                                     </div>
-
-
-
-
-
-
                                 </div>
                             {% empty %}
                                 <p class="not-found-message">No comments found for this lead.</p>
@@ -227,8 +221,6 @@
                                 </form>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 <!--Task section-->
@@ -243,8 +235,8 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" class="text-start" style="width: 160px; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Created at</th>
-                                            <th scope="col" class="text-start" style="width: 200px; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Title</th>
-                                            <th scope="col" class="text-start" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Due date</th>
+                                            <th scope="col" class="text-start" style="width: auto; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Title</th>
+                                            <th scope="col" class="text-start" style="width: 180px; background-color: rgba(137, 168, 165, 0.68);">Due date, time</th>
                                             <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Status</th>
                                             <th scope="col" class="text-start" style="width: auto; background-color: rgba(137, 168, 165, 0.68);">Description</th>
                                             <th scope="col" class="text-center" style="width: 150px; background-color: rgba(137, 168, 165, 0.68);">Action</th>
@@ -255,7 +247,9 @@
                                             <tr>
                                                 <td class="text-start">{{ task.created_at|date:'M-d-Y' }}</td>
                                                 <td class="text-start">{{ task.title }}</td>
-                                                <td class="text-start">{{ task.due_date|date:'M-d-Y H:i' }}</td>
+                                                <td class="text-start">{{ task.due_date }}<br>
+                                                    {{ task.due_time }}
+                                                </td>
                                                 <td class="text-center">
                                                     {% if task.status == '----' %}
                                                         <span class="badge bg-white">----</span>
@@ -276,6 +270,7 @@
                                                     <a href="{% url 'task:task_detail' task.pk %}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
+                                                    <!-- Edit Task Button -->
                                                     <a href="{% url 'task:task_edit' task.pk %}?next={% url 'lead:detail' lead.id %}" class="px-3">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
@@ -291,7 +286,7 @@
                                                 </td>
                                             </tr>
                                         {% empty %}
-                                            <p>No tasks found for this lead.</p>
+                                            <p class="text-center fw-bolder fs-5">No tasks found for this lead.</p>
                                         {% endfor %}
                                     </tbody>
                                 </table>
@@ -473,18 +468,6 @@
 
     </div>
 
-    <script>
-    // Automatically hide alert messages after 3 seconds (3000 milliseconds)
-    document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      document.querySelectorAll('.alert').forEach(function(alert) {
-        // Fade out for a smooth effect (optional)
-        alert.style.transition = "opacity 0.5s linear";
-        alert.style.opacity = 0;
-        setTimeout(function() { alert.remove(); }, 500); // remove from DOM after fade out
-      });
-    }, 3000); // Show message for 3 seconds
-    });
-    </script>
+    <script src="{% static 'js/project.js' %}"></script>
 
 {% endblock %}
