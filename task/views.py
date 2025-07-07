@@ -36,6 +36,15 @@ def tasks(request):
     if assigned_to:
         tasks_list = tasks_list.filter(assigned_to_id=assigned_to)
 
+    related_to = request.GET.get('related_to')
+
+    if related_to == "lead":
+        tasks_list = tasks_list.filter(lead__isnull=False)
+    elif related_to == "client":
+        tasks_list = tasks_list.filter(client__isnull=False)
+    elif related_to == "none":
+        tasks_list = tasks_list.filter(lead__isnull=True, client__isnull=True)
+
     # Pagination
     paginator = Paginator(tasks_list, 10)  # Show 10 tasks per page
     page = request.GET.get('page')
