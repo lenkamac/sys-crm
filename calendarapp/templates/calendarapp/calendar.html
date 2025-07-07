@@ -9,19 +9,19 @@
 
     {% include 'core/partials/offcanvas_menu.html' %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="text-center">
-                    <h1>Calendar</h1>
-                </div>
+    <div class="container-fluid">
+        <div class="row mt-lg-1">
+            <div class="col-lg-12 ">
+                <h1 class="text-center pt-lg-2" style="width:100vw;">Calendar</h1>
             </div>
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="calendar"></div>
-                    </div>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div id="calendar"></div>
+            </div>
+            <div class="col-lg-3">
+                <h3 class="text-start pt-lg-4">Upcomming Events</h3>
+                <ul id="upcoming-events-list" class="list-group"></ul>
             </div>
         </div>
         <div class="row">

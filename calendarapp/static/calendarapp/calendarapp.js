@@ -164,6 +164,41 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// upcomming events
+document.addEventListener('DOMContentLoaded', function () {
+    fetch(calendarEventsUrl)
+        .then(response => response.json())
+        .then(function(events) {
+            // Get current date/time
+            const now = new Date();
+            // Filter for events after now, and sort by start
+            const upcoming = events
+                .filter(e => new Date(e.start) > now)
+                .sort((a, b) => new Date(a.start) - new Date(b.start))
+                .slice(0, 5); // Show next 5, adjust as needed
+
+            const list = document.getElementById('upcoming-events-list');
+            list.innerHTML = ''; // Clear existing
+
+            if (upcoming.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = "No upcoming events";
+                li.className = "list-group-item";
+                list.appendChild(li);
+                return;
+            }
+            upcoming.forEach(e => {
+                const li = document.createElement('li');
+                li.className = "list-group-item";
+                li.innerHTML = `<strong>${e.title}</strong><br>
+                    <small>${new Date(e.start).toLocaleString()}</small>
+                    ${e.description ? '<br>'+e.description : ''}`;
+                list.appendChild(li);
+            });
+        });
+});
+
+
 
 
 

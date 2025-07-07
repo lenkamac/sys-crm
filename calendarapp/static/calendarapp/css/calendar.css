@@ -6,11 +6,24 @@
   }
 
   #calendar {
-    width: 100%;
+    width: 75%;
+    min-height: 60vh;   /* Adjust as needed (e.g., 60vh, 80vh) */
+    height: 65vh;       /* You can use a fixed px or vh value */
     background: white;
     box-shadow: 0 4px 24px rgba(0,0,0,0.07);
     border-radius: 8px;
+    margin-left: 320px;
+    margin-top: 25px;
   }
+
+  #upcoming-events-list {
+    margin-right: 35px;
+  }
+  #upcoming-events-list li {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
 
   /* Base style for all calendar buttons */
 .fc .fc-button {
