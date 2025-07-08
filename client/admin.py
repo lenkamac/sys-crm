@@ -4,9 +4,9 @@ from .models import Client, ClientFile, Comment
 
 # Register your models here.
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'email', 'phone', 'created_at', 'status', 'is_converted')
-    list_filter = ('created_at', 'status')
-    search_fields = ('last_name', 'email')
+    list_display = ('company', 'last_name', 'first_name', 'email', 'phone', 'created_at', 'status', 'is_converted')
+    list_filter = ('created_at', 'status', 'last_name', 'company')
+    search_fields = ('last_name', 'email', 'company')
 
     ordering = ('-created_at',)
 

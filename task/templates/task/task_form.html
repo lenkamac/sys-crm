@@ -122,29 +122,27 @@
         </form>
 
     </div>
-    {% endblock %}
 
-    {% block extra_js %}
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const leadSelect = document.getElementById('id_lead');
-        const clientSelect = document.getElementById('id_client');
+        document.addEventListener('DOMContentLoaded', function() {
+            const leadSelect = document.getElementById('id_lead');
+            const clientSelect = document.getElementById('id_client');
 
-        function handleLeadChange() {
-            if (leadSelect.value) {
-                clientSelect.value = '';
+            function handleLeadChange() {
+                if (leadSelect.value) {
+                    clientSelect.value = '';
+                }
             }
-        }
 
-        function handleClientChange() {
-            if (clientSelect.value) {
-                leadSelect.value = '';
+            function handleClientChange() {
+                if (clientSelect.value) {
+                    leadSelect.value = '';
+                }
             }
-        }
 
-        leadSelect.addEventListener('change', handleLeadChange);
-        clientSelect.addEventListener('change', handleClientChange);
-    });
-    </script>
+            leadSelect.addEventListener('change', handleLeadChange);
+            clientSelect.addEventListener('change', handleClientChange);
+        });
+        </script>
 
-{% endblock %}
+    {% endblock %}

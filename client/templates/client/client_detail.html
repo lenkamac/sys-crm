@@ -160,7 +160,7 @@
                                                            <form method="post"
                                                                  action="{% url 'client:edit-client-comment' client.id comment.id %}">
                                                                {% csrf_token %}
-                                                               <textarea name="content" class="form-control" rows="4">
+                                                               <textarea name="content" class="form-control" rows="4" autofocus>
                                                                    {{ comment.content }}
                                                                </textarea>
                                                                <button type="submit">Save</button>
@@ -226,7 +226,7 @@
                         <h2 class="py-lg-2 my-0 text-center text-white">Tasks</h2>
                     </div>
                     <div class="col-lg-12">
-                        <div class="row">
+                        <div class="row justify-content-center">
                             <div class="col-12">
                                 <table class="table mt-lg-3 w-100" id="task-table">
                                     <thead>
@@ -250,8 +250,6 @@
                                                         <span class="badge bg-white">----</span>
                                                     {% elif task.status == 'todo' %}
                                                         <span class="badge bg-secondary">To Do</span>
-                                                    {% elif task.status == 'open' %}
-                                                        <span class="badge" style="background-color: blueviolet;">Open</span>
                                                     {% elif task.status == 'in_progress' %}
                                                         <span class="badge bg-primary">In Progress</span>
                                                     {% elif task.status == 'completed' %}
@@ -330,7 +328,6 @@
                                                     <label for="id_status" class="form-label">Status</label>
                                                     <select name="status" class="form-select w-100" aria-label="Default select example">
                                                 <option selected>----</option>
-                                                <option value="open">Open</option>
                                                 <option value="todo">To Do</option>
                                                 <option value="in_progress">In Progress</option>
                                                 <option value="completed">Completed</option>

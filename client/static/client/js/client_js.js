@@ -37,8 +37,6 @@ document.getElementById('select-all').addEventListener('change', function(e) {
             });
         });
 
-
-
 // Automatically hide alert messages after 3 seconds (3000 milliseconds)
 document.addEventListener('DOMContentLoaded', function() {
 setTimeout(function() {

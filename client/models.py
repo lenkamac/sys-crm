@@ -45,6 +45,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.created_by.username
 
+
 class ClientFile(models.Model):
     client = models.ForeignKey(Client, related_name='files', on_delete=models.CASCADE)
     file = models.FileField(upload_to='clientfiles')

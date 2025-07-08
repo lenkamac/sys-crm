@@ -4,7 +4,7 @@ from .models import Task, TaskComment
 
 # Register your models here.
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'status', 'priority', 'created_at')
+    list_display = ('title', 'status', 'priority', 'due_date', 'due_time', 'created_at')
     list_filter = ('status', 'priority', 'created_at')
     search_fields = ('priority', 'title', 'status')
 
