@@ -1,4 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    // === Add flatpickr initialization at the start of this function ===
+    flatpickr("#eventStart", {
+        enableTime: true,
+        dateFormat: "Y-m-d\\TH:i",
+        time_24hr: true
+    });
+    flatpickr("#eventEnd", {
+        enableTime: true,
+        dateFormat: "Y-m-d\\TH:i",
+        time_24hr: true
+    });
+    flatpickr("#editEventStart", {
+        enableTime: true,
+        dateFormat: "Y-m-d\\TH:i",
+        time_24hr: true
+    });
+    flatpickr("#editEventEnd", {
+        enableTime: true,
+        dateFormat: "Y-m-d\\TH:i",
+        time_24hr: true
+    });
+
+
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -23,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Prefill and show the edit modal
                 document.getElementById('editEventId').value = info.event.id;
                 document.getElementById('editEventTitle').value = info.event.title;
-                document.getElementById('editEventStart').value = info.event.start.toISOString().slice(0, 16);
-                document.getElementById('editEventEnd').value = info.event.end ? info.event.end.toISOString().slice(0, 16) : '';
+                document.getElementById('editEventStart').value = toDatetimeLocal(info.event.start);
+                document.getElementById('editEventEnd').value = info.event.end ? toDatetimeLocal(info.event.end) : '';
                 document.getElementById('editEventDesc').value = info.event.extendedProps.description || "";
                 var editModal = new bootstrap.Modal(document.getElementById('editEventModal'));
                 editModal.show();
@@ -163,6 +187,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 });
+
+function toDatetimeLocal(date) {
+    if (!date) return '';
+    const d = (date instanceof Date) ? date : new Date(date);
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0,16);
+}
+
 
 // format for date and time
 function formatDateDisplay(dateString) {

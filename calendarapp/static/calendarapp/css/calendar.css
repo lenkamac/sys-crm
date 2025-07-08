@@ -143,5 +143,40 @@
   border: none !important;
 }
 
+/* Show strong grid lines in time-based (timeGrid) views of FullCalendar 6+ */
+
+/* Vertical lines between days */
+.fc-timegrid-col {
+  border-right: 1px solid #d3d3d3 !important;
+  background: #fff;
+}
+
+.fc-timegrid-col:last-child {
+  border-right: none !important;
+}
+
+/* Horizontal lines between time slots */
+.fc-timegrid-slot {
+  border-bottom: 1px solid #e0e0e0 !important;
+  background: #fff;
+}
+
+/* Make the outer box a bit rounder and separate from background */
+.fc-timegrid-body {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #b0b0b0;
+}
+
+/* Remove possible double borders at the bottom */
+.fc-timegrid-slots tr:last-child .fc-timegrid-slot {
+  border-bottom: none !important;
+}
+
+/* If using 'timeGrid' view and want a visible line on now indicator */
+.fc .fc-timegrid-now-indicator-line {
+  border-top: 2px solid #43b29d !important;
+}
+
 
 
