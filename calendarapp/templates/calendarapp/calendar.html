@@ -41,6 +41,7 @@
                             <input type="hidden" id="eventActionEventId">
                             <button id="editEventBtn" class="btn btn-primary me-2">Edit</button>
                             <button id="deleteEventBtn" class="btn btn-danger">Delete</button>
+                            <button id="detailEventBtn" type="button" class="btn btn-info">Show Details</button>
                         </div>
                     </div>
                 </div>
@@ -118,6 +119,26 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Event Details Modal -->
+            <div class="modal fade" id="eventDetailModal" tabindex="-1" aria-labelledby="eventDetailModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="eventDetailModalLabel">Event Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p><strong>Title:</strong> <span id="detailEventTitle"></span></p>
+                    <p><strong>Start:</strong> <span id="detailEventStart"></span></p>
+                    <p><strong>End:</strong> <span id="detailEventEnd"></span></p>
+                    <p><strong>Description:</strong> <span id="detailEventDesc"></span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
         </div>
 

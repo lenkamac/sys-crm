@@ -36,6 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Store event id and title in the modal for easy access
             document.getElementById('eventActionEventId').value = info.event.id;
             document.getElementById('eventActionModalTitle').textContent = info.event.title;
+            document.getElementById('detailEventBtn').onclick = function() {
+            // Fill in the details modal with the event's data
+            document.getElementById('detailEventTitle').textContent = info.event.title || '';
+            document.getElementById('detailEventStart').textContent = info.event.start ? formatDateDisplay(info.event.start) : '';
+            document.getElementById('detailEventEnd').textContent = info.event.end ? formatDateDisplay(info.event.end) : 'No end';
+            document.getElementById('detailEventDesc').textContent = info.event.extendedProps.description || '';
+
+            actionModal.hide();
+            var detailModal = new bootstrap.Modal(document.getElementById('eventDetailModal'));
+            detailModal.show();
+        };
+
 
             // Open action modal
             var actionModal = new bootstrap.Modal(document.getElementById('eventActionModal'));
