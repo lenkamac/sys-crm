@@ -37,7 +37,6 @@ def tasks(request):
         tasks_list = tasks_list.filter(assigned_to_id=assigned_to)
 
     related_to = request.GET.get('related_to')
-
     if related_to == "lead":
         tasks_list = tasks_list.filter(lead__isnull=False)
     elif related_to == "client":
@@ -217,10 +216,11 @@ def task_add_client(request, client_id):
                 status=status,
                 due_date=due_date,
                 created_by=request.user,
-                # ...other fields...
             )
         return redirect('client:detail', client_id)
+
     return redirect('client:detail', client_id)
+
 
 @login_required
 def task_add_lead(request, lead_id):
