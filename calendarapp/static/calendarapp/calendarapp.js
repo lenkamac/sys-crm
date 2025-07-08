@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
     // Handle edit form submit
     document.getElementById('editEventForm').addEventListener('submit', function(e) {
         e.preventDefault();

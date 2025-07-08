@@ -14,7 +14,27 @@
     border-radius: 8px;
     margin-left: 320px;
     margin-top: 25px;
+    padding: 7px;
   }
+
+  /* Make sure the day grid table uses collapsed borders */
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border: 1px solid #697272;
+  border-collapse: collapse !important;
+}
+
+/* Remove doubled-up right/bottom borders */
+.fc-theme-standard td:last-child,
+.fc-theme-standard th:last-child {
+  border-right: none;
+}
+.fc-theme-standard tr:last-child > td,
+.fc-theme-standard tr:last-child > th {
+  border-bottom: none;
+}
+
 
   #upcoming-events-list {
     margin-right: 35px;
@@ -81,12 +101,47 @@
 
 /* Example for a generic modal dialog */
 .modal-dialog {
-    max-width: 55vw;    /* Change this value as needed (default is usually 500px) */
-    width: 55vw;        /* Make it larger, e.g., 70% of viewport */
-    min-width: 400px;   /* Optional: ensure a sensible minimum width */
+    width: auto;    /* Change this value as needed (default is usually 500px) */
+    min-width: 25vw;        /* Make it larger, e.g., 70% of viewport */   /* Optional: ensure a sensible minimum width */
 }
 
 .modal-content {
-    min-height: 60vh;   /* Make taller if needed */
+    min-height: 25vh; /* Make taller if needed */
     /* optionally, set max-height if needed */
 }
+
+
+/* Ensure the calendar table uses border-collapse for tight grid lines */
+.fc .fc-scrollgrid {
+  border-collapse: collapse !important;
+}
+
+/* Add all-side border to each day cell for maximum inner line visibility */
+.fc-daygrid-day {
+  border: 1px solid #d3d3d3 !important;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+/* Remove double border on rightmost (last) cell and bottom row */
+.fc-daygrid-day:last-child {
+  border-right: none !important;
+}
+.fc-daygrid-row:last-child .fc-daygrid-day {
+  border-bottom: none !important;
+}
+
+.fc-daygrid-day-frame {
+  border: 1px solid #d3d3d3 !important;
+  border-radius: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Edge case helper: Remove border on calendar's outer frame for smooth look */
+.fc .fc-scrollgrid-section > td {
+  border: none !important;
+}
+
+
+
