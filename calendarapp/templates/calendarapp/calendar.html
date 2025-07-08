@@ -20,12 +20,12 @@
                 <div id="calendar"></div>
             </div>
             <div class="col-lg-3">
-                <h3 class="text-start pt-lg-4">Upcomming Events</h3>
+                <h3 class="text-start pt-lg-4">Upcoming Events  <button class="btn p-2 my-lg-2" data-bs-toggle="modal" data-bs-target="#addEventModal"
+                        id="addEventBtn"><i class="fa-solid fa-plus"></i>Add Event
+                </button></h3>
                 <ul id="upcoming-events-list" class="list-group"></ul>
-                <!-- Add Event Button -->
-                <button class="btn btn-primary p-2" data-bs-toggle="modal" data-bs-target="#addEventModal"
-                        id="addEventBtn">Add Event
-                </button>
+                <div id="upcoming-pagination" class="mt-2 text-center"></div>
+
             </div>
 
             <!-- Event Action Modal -->
@@ -119,17 +119,7 @@
                 </div>
             </div>
 
-
-
         </div>
-
-
-
-
-
-
-
-
 
 
     </div>

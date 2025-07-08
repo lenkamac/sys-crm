@@ -3,6 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         events: calendarEventsUrl,  // We'll define this in template!
+        eventTimeFormat: {  // uppercase H for 24h, lowercase i for minutes
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+        },
         eventClick: function(info) {
             // Store event id and title in the modal for easy access
             document.getElementById('eventActionEventId').value = info.event.id;
@@ -158,21 +163,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// format for date and time
+function formatDateDisplay(dateString) {
+    const d = new Date(dateString);
+    const pad = n => n < 10 ? '0' + n : n;
+    return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ` +
+           `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+
 function localToUTC(dateLocalString) {
     if (!dateLocalString) return null; // Return null for blank inputs (e.g., end date)
     const local = new Date(dateLocalString);
     if (isNaN(local)) return null;     // Also cover any invalid date
     return local.toISOString();
 }
-
-function formatDateDisplay(dtString) {
-    if (!dtString) return "";
-    const dateObj = new Date(dtString);
-    // Show local string, or you can adjust the format as needed
-    return dateObj.toLocaleString();
-}
-
-
 
 // Helper to get CSRF token
 function getCookie(name) {
@@ -192,6 +197,7 @@ function getCookie(name) {
 
 // upcomming events
 document.addEventListener('DOMContentLoaded', function () {
+    loadUpcomingEvents();
     fetch(calendarEventsUrl)
         .then(response => response.json())
         .then(function(events) {
@@ -230,10 +236,53 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
+let currentPage = 1;
 
+function loadUpcomingEvents(page=1) {
+    fetch(`upcoming_events/?page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            const ul = document.getElementById('upcoming-events-list');
+            ul.innerHTML = '';
+            data.events.forEach(event => {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item');
+                let display = `<strong>${event.title}</strong><br>
+                    <span>Start: ${formatDateDisplay(event.start)}</span>`;
+                if (event.end) {
+                    display += `<br><span>End: ${formatDateDisplay(event.end)}</span>`;
+                }
+                if (event.description) {
+                    display += `<br><small class="text-muted">${event.description}</small>`;
+                }
+                li.innerHTML = display;
+                ul.appendChild(li);
+            });
 
-
-
+            // Pagination controls
+            const paginationDiv = document.getElementById('upcoming-pagination');
+            paginationDiv.innerHTML = '';
+            if (data.has_prev) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'btn btn-secondary btn-sm me-2';
+                prevBtn.textContent = 'Previous';
+                prevBtn.onclick = () => {
+                    loadUpcomingEvents(data.page - 1);
+                };
+                paginationDiv.appendChild(prevBtn);
+            }
+            if (data.has_next) {
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'btn btn-secondary btn-sm';
+                nextBtn.textContent = 'Next';
+                nextBtn.onclick = () => {
+                    loadUpcomingEvents(data.page + 1);
+                };
+                paginationDiv.appendChild(nextBtn);
+            }
+            currentPage = data.page;
+        });
+}
 
 
 
