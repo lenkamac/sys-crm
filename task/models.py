@@ -7,6 +7,7 @@ from client.models import Client
 # Create your models here.
 class Task(models.Model):
     PRIORITY_CHOICES = (
+        ('', '---------'),
         ('low', 'Low'),
         ('medium', 'Medium'),
         ('high', 'High'),
@@ -29,7 +30,7 @@ class Task(models.Model):
     client = models.ForeignKey(Client, related_name='tasks_client', null=True, blank=True, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='-', blank=True, null=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='-', blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='', blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
     due_time = models.TimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

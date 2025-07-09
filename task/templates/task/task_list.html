@@ -139,8 +139,10 @@
                                             <span class="badge bg-danger">High</span>
                                         {% elif task.priority == 'medium' %}
                                             <span class="badge bg-warning">Medium</span>
-                                        {% else %}
+                                        {% elif task.priority == 'low' %}
                                             <span class="badge bg-info">Low</span>
+                                        {% else %}
+                                            <span>------</span>
                                         {% endif %}
                                     </td>
                                     <td class="text-center">
