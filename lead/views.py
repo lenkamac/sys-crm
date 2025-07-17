@@ -106,7 +106,7 @@ class LeadCreateView(LoginRequiredMixin, CreateView):
     model = Lead
     success_url = reverse_lazy('lead:list')
     fields = ('company', 'first_name', 'last_name','phone', 'address', 'city', 'country', 'zipcode', 'email', 'description',
-                  'priority', 'status', 'status_sale')
+                  'website', 'priority', 'status', 'status_sale')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -142,7 +142,7 @@ class LeadUpdateView(LoginRequiredMixin, UpdateView):
         context['title'] = 'Edit Lead'
         return context
 
-    fields = ('company', 'first_name', 'last_name', 'phone','email', 'address', 'city', 'zipcode', 'description',
+    fields = ('company', 'first_name', 'last_name', 'phone','email', 'address', 'city', 'zipcode', 'description', 'website',
               'priority', 'status', 'status_sale')
     success_url = reverse_lazy('lead:list')
 

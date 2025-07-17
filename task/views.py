@@ -228,6 +228,7 @@ def task_add_lead(request, lead_id):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
+        priority = request.POST.get('priority')
         status = request.POST.get('status')
         due_date = request.POST.get('due_date')
 
@@ -236,6 +237,7 @@ def task_add_lead(request, lead_id):
                 lead=lead,
                 title=title,
                 description=description,
+                priority=priority,
                 status=status,
                 due_date=due_date,
                 created_by=request.user,

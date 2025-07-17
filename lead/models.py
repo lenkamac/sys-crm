@@ -48,6 +48,7 @@ class Lead(models.Model):
     description = models.TextField(blank=True)
     priority = models.CharField(max_length=255, choices=CHOICES_PRIORITY, default=MEDIUM)
     status = models.CharField(max_length=255, choices=CHOICES_STATUS, default='----')
+    website = models.URLField(blank=True, null=True)
     converted_to_client = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name='leads', on_delete=models.CASCADE)

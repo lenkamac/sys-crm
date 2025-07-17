@@ -236,8 +236,10 @@
                                         <tr>
                                             <th scope="col" class="text-start" style="width: 160px; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Created at</th>
                                             <th scope="col" class="text-start" style="width: auto; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Title</th>
-                                            <th scope="col" class="text-start" style="width: 180px; background-color: rgba(137, 168, 165, 0.68);">Due date, time</th>
-                                            <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Status</th>
+                                            <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Due date</th>
+                                            <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Due time</th>
+                                            <th scope="col" class="text-center" style="width: 80px; background-color: rgba(137, 168, 165, 0.68);">Status</th>
+                                            <th scope="col" class="text-center" style="width: 80px; background-color: rgba(137, 168, 165, 0.68);">Priority</th>
                                             <th scope="col" class="text-start" style="width: auto; background-color: rgba(137, 168, 165, 0.68);">Description</th>
                                             <th scope="col" class="text-center" style="width: 150px; background-color: rgba(137, 168, 165, 0.68);">Action</th>
                                         </tr>
@@ -247,8 +249,19 @@
                                             <tr>
                                                 <td class="text-start">{{ task.created_at|date:'M-d-Y' }}</td>
                                                 <td class="text-start">{{ task.title }}</td>
-                                                <td class="text-start">{{ task.due_date }}<br>
-                                                    {{ task.due_time }}
+                                                <td class="text-center">
+                                                    {% if task.due_date %}
+                                                        {{ task.due_date }}
+                                                    {% else %}
+                                                        <span class="text-muted">No due date</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if task.due_time %}
+                                                        {{ task.due_time }}
+                                                    {% else %}
+                                                        <span class="text-muted">--:--</span>
+                                                    {% endif %}
                                                 </td>
                                                 <td class="text-center">
                                                     {% if task.status == '----' %}
@@ -263,6 +276,19 @@
                                                         <span class="badge bg-success">Completed</span>
                                                     {% else %}
                                                         <span class="badge bg-danger">Canceled</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if task.priority == '----' %}
+                                                        <span class="badge bg-white">----</span>
+                                                    {% elif task.priority == 'low' %}
+                                                        <span class="badge bg-secondary">Low</span>
+                                                    {% elif task.priority == 'medium' %}
+                                                        <span class="badge bg-primary">Medium</span>
+                                                    {% elif task.priority == 'high' %}
+                                                        <span class="badge bg-success">High</span>
+                                                    {% else %}
+                                                        <span>n/a</span>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-start">{{ task.description|truncatechars:40 }}</td>
@@ -335,7 +361,6 @@
                                                     <label for="id_status" class="form-label">Status</label>
                                                     <select name="status" class="form-select w-100" aria-label="Default select example">
                                                         <option selected>----</option>
-                                                        <option value="open">Open</option>
                                                         <option value="todo">To Do</option>
                                                         <option value="in_progress">In Progress</option>
                                                         <option value="completed">Completed</option>
@@ -344,7 +369,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 py-lg-1">
+                                        <div class="col-lg-2">
+                                            <label for="id_priority" class="form-label">Priority</label>
+                                            <select class="form-select" id="id_priority" name="priority" required>
+                                                <option value="">---------</option>
+                                                <option value="low">Low</option>
+                                                <option value="medium">Medium</option>
+                                                <option value="high">High</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 py-lg-1">
                                             <div class="row justify-content-center">
                                                 <div class="col-lg-6 py-lg-1">
                                                     <label for="id_due_date" class="form-label">Due Date</label>
