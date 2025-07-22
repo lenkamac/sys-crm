@@ -231,6 +231,7 @@ def task_add_lead(request, lead_id):
         priority = request.POST.get('priority')
         status = request.POST.get('status')
         due_date = request.POST.get('due_date')
+        due_time = request.POST.get('due_time')
 
         if title:
             Task.objects.create(
@@ -240,6 +241,7 @@ def task_add_lead(request, lead_id):
                 priority=priority,
                 status=status,
                 due_date=due_date,
+                due_time=due_time,
                 created_by=request.user,
             )
         return redirect('lead:detail', lead_id)
