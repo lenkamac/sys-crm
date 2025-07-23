@@ -59,27 +59,7 @@
                                         <div class="card-body">
                                             {% if task_comments %}
                                                 <div id="task-comments">
-                                                    {% for comment in task.comments.all %}
-                                                        <div class="task-comment" data-comment-id="{{ comment.id }}">
-                                                            <div class="comment mb-3 pb-3 border-bottom">
-                                                                <div class="d-flex align-items-start">
-                                                                    <strong>@{{ comment.created_by.username }}</strong>
-                                                                    <small class="text-muted ms-3">
-                                                                        {{ comment.created_at|date:"M d, Y H:i" }}
-                                                                    </small>
-                                                                </div>
-                                                                <p class="comment-content" id="comment-content-{{ comment.id }}">{{ comment.content|linebreaks }}</p>
-                                                                <button class="delete-comment-btn" data-comment-id="{{ comment.id }}">Delete</button>
-                                                                <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">Edit</button>
-
-                                                                <form class="edit-comment-form" id="edit-comment-form-{{ comment.id }}" style="display: none;">
-                                                                    <textarea name="content" id="edit-comment-textarea-{{ comment.id }}">{{ comment.content }}</textarea>
-                                                                    <button type="button" class="save-comment-btn" data-comment-id="{{ comment.id }}">Save</button>
-                                                                </form>
-                                                            </div>
-
-                                                        </div>
-                                                    {% endfor %}
+                                                    {% include "task/partials/_comments.html" with comments=task.comments.all %}
                                                 </div>
                                             {% endif %}
                                         </div>
@@ -155,7 +135,7 @@
 
         $(document).ready(function () {
             // Handle Edit Button Click
-            $(".edit-comment-btn").on("click", function () {
+            $("#task-comments").on("click", ".edit-comment-btn", function () {
               var commentId = $(this).data("comment-id");
 
               // Toggle the edit form visibility
@@ -165,7 +145,7 @@
             });
 
             // Handle Save Button Click
-            $(".save-comment-btn").on("click", function () {
+            $("#task-comments").on("click", ".save-comment-btn", function () {
               var commentId = $(this).data("comment-id");
               var newContent = $("#edit-comment-textarea-" + commentId).val();
 
@@ -177,14 +157,8 @@
                   content: newContent,
                   csrfmiddlewaretoken: '{{ csrf_token }}'
                 },
-                success: function (response) {
-                  if (response.success) {
-                    // Update the comment content in the DOM
-                    $("#comment-content-" + commentId).text(response.updated_comment);
-                    $("#edit-comment-form-" + commentId).hide();
-                    $("#comment-content-" + commentId).show();
-                    $(".edit-comment-btn[data-comment-id='" + commentId + "']").show();
-                  }
+                success: function () {
+                  refreshComments();
                 },
                 error: function (xhr) {
                   alert(xhr.responseJSON.error);
@@ -195,7 +169,7 @@
 
         $(document).ready(function () {
             // Handle Delete Button Click
-            $(".delete-comment-btn").on("click", function () {
+            $("#task-comments").on("click", ".delete-comment-btn", function () {
               var commentId = $(this).data("comment-id");
 
               if (confirm("Are you sure you want to delete this comment?")) {
@@ -206,13 +180,8 @@
                   data: {
                     csrfmiddlewaretoken: "{{ csrf_token }}"
                   },
-                  success: function (response) {
-                    if (response.success) {
-                      // Remove the comment from the DOM
-                      $("#task-comment-" + commentId).remove();
-                    } else {
-                      alert("Failed to delete the comment. Error: " + response.error);
-                    }
+                  success: function () {
+                    refreshComments();
                   },
                   error: function (xhr) {
                     alert("An error occurred. Please try again.");
@@ -221,6 +190,12 @@
               }
             });
         });
+
+        function refreshComments() {
+          $.get("{% url 'task:task_comments_partial' task.pk %}", function(data) {
+            $("#task-comments").html(data);
+          });
+        }
 
     </script>
 

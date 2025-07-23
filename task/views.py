@@ -221,6 +221,13 @@ def task_add_client(request, client_id):
 
     return redirect('client:detail', client_id)
 
+def task_comments_partial(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    comments = task.comments.all()
+    # Return only the HTML for comments
+    return render(request, 'task/partials/_comments.html', {'comments': comments})
+
+
 
 @login_required
 def task_add_lead(request, lead_id):
