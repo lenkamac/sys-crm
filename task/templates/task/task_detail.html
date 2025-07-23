@@ -67,11 +67,10 @@
                                         <div class="mb-4">
                                             <form method="post" action="{% url 'task:add_task_comment' task.pk %}">
                                                 {% csrf_token %}
-                                                <div class="card-body">Add Comment: {{ form.content }}</div>
+                                                <div class="card-body fw-bolder">Add Comment: {{ form.content }}</div>
                                                 <button class="comment-btn my-3">Submit</button>
                                             </form>
                                         </div>
-
                                     </div>
                                 </div>
 

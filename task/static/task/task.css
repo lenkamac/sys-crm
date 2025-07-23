@@ -1,0 +1,10 @@
+.delete-comment-btn {
+    border: 2px solid black;
+    border-radius: 5px;
+    color: #bb0808;
+}
+
+.edit-comment-btn {
+    border: 2px solid black;
+    border-radius: 5px;
+}

@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     .then(data => {
                         if (data.success) {
                             info.event.remove();
+                            alert('Event deleted.');
+                            refreshUpcomingEvents();
                         } else {
                             alert('Failed to delete event.');
                         }
@@ -126,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 // Optionally refresh the calendar:
                 calendar.refetchEvents();
+                refreshUpcomingEvents();
                 // Hide modal
                 var addEventModal = document.getElementById('addEventModal');
                 var modalInstance = bootstrap.Modal.getInstance(addEventModal);
@@ -166,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success) {
                 calendar.refetchEvents();
+                refreshUpcomingEvents();
                 bootstrap.Modal.getInstance(document.getElementById('editEventModal')).hide();
             } else {
                 alert('Failed to update event');
@@ -329,5 +333,8 @@ function loadUpcomingEvents(page=1) {
         });
 }
 
+function refreshUpcomingEvents() {
+    loadUpcomingEvents(1); // Always load first page, or pass desired page
+}
 
 

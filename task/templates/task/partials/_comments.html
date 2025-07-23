@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'task/task.css' %}">
+
 {% for comment in comments %}
   <div class="task-comment" data-comment-id="{{ comment.id }}">
     <div class="comment mb-3 pb-3 border-bottom">
@@ -7,8 +10,8 @@
       </div>
       <p class="comment-content" id="comment-content-{{ comment.id }}">{{ comment.content|linebreaks }}</p>
       <!-- ...edit/delete buttons as before -->
-        <button class="delete-comment-btn" data-comment-id="{{ comment.id }}">Delete</button>
-        <button class="edit-comment-btn" data-comment-id="{{ comment.id }}">Edit</button>
+        <button class="delete-comment-btn px-lg-3" data-comment-id="{{ comment.id }}">Delete</button>
+        <button class="edit-comment-btn px-lg-3 mx-lg-2" data-comment-id="{{ comment.id }}">Edit</button>
 
         <form class="edit-comment-form" id="edit-comment-form-{{ comment.id }}" style="display: none;">
             <textarea name="content" id="edit-comment-textarea-{{ comment.id }}">{{ comment.content }}</textarea>
