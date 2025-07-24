@@ -204,8 +204,10 @@ def task_add_client(request, client_id):
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
+        priority = request.POST.get('priority')
         status = request.POST.get('status')
         due_date = request.POST.get('due_date')
+        due_time = request.POST.get('due_time')
 
         # Add other fields as needed
         if title:
@@ -214,7 +216,9 @@ def task_add_client(request, client_id):
                 title=title,
                 description=description,
                 status=status,
+                priority=priority,
                 due_date=due_date,
+                due_time=due_time,
                 created_by=request.user,
             )
         return redirect('client:detail', client_id)

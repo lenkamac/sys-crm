@@ -44,9 +44,9 @@
             <div class="col-lg-3">
                  <div class="card card-detail border shadow-sm" style="height: auto;">
                      <div class="card-header" style="background-color: #697272; color: white;">
-                         <h3 class="card-title my-0 py-lg-2 text-center">
+                         <h4 class="card-title my-0 py-lg-2 text-center">
                              {{ client.last_name }} {{ client.first_name }}
-                         </h3>
+                         </h4>
                      </div>
                      <div class="card-body d-flex flex-column">
                          <p class="fs-6 py-lg-2"><span class="fw-bolder">Company:</span> {{ client.company }}</p>
@@ -70,8 +70,8 @@
                          {% if client.description %}
                             <p class="fs-6 py-lg-2"><span class="fw-bolder">Description:</span>
                                <br>
-                                <span style="font-weight: normal; padding-left: 3px;">
-                                    {{ client.description|truncatechars:25 }}
+                                <span style="font-weight: normal; display: block;" title="{{ client.description|escape }}">
+                                                        {{ client.description|truncatewords:10 }}
                                 </span>
                             </p>
                          {% endif %}
@@ -103,11 +103,12 @@
                  </div>
             </div>
 
-            <div class="col-lg-9 col-12">
+            <div class="col-lg-9">
                 <!-- Comment section -->
                 <div class="row mx-lg-2 bg-white border border-3">
                     <div class="col-lg-12" style="background-color: #697272;">
-                        <h3 class="my-0 py-lg-2 text-white text-center">Comments</h3>
+                        <h3 class="my-0 py-lg-2 text-white text-center">
+                            <i class="fa-solid fa-comment mx-lg-2 px-lg-2"></i>Comments</h3>
                     </div>
                     <div class="col-lg-12 mt-lg-3 pt-lg-2">
                         <div class="row mx-lg-2 bg-body">
@@ -173,14 +174,13 @@
                                     </div>
                                 </div>
                             {% empty %}
-                                <p class="lead text-center">No comments found for this client.</p>
+                                <p class="not-found-message">No comments found for this client.</p>
                             {% endfor %}
                         </div>
                         <div class="row mx-lg-2">
                             <!-- Pagination -->
                             <div class="col-lg-12">
                                 <div class="row justify-content-center">
-                                <!-- Pagination -->
                                     <div class="col-lg-4 text-center">
                                         <nav>
                                             <ul class="pagination">
@@ -198,6 +198,7 @@
                             </div>
                         </div>
                         <div class="row mt-lg-4">
+                            <!-- Add Comment Form -->
                             <div class="col-lg-12">
                                 <form method="post" action="{% url 'client:add_comment' client.id %}">
                                     {% csrf_token %}
@@ -223,18 +224,21 @@
                 <!-- Task section -->
                 <div class="row mx-lg-2 bg-white border border-3 mt-lg-4">
                     <div class="col-lg-12" style="background-color: #697272;">
-                        <h2 class="py-lg-2 my-0 text-center text-white">Tasks</h2>
+                        <h3 class="py-lg-2 my-0 text-center text-white">
+                            <i class="fa fa-thumb-tack px-lg-2" aria-hidden="true"></i>Tasks</h3>
                     </div>
                     <div class="col-lg-12">
-                        <div class="row justify-content-center">
+                        <div class="row mx-lg-2 mt-3 bg-transparent">
                             <div class="col-12">
                                 <table class="table mt-lg-3 w-100" id="task-table">
                                     <thead>
                                         <tr>
                                             <th scope="col" class="text-start" style="width: 160px; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Created at</th>
-                                            <th scope="col" class="text-start" style="width: 200px; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Title</th>
-                                            <th scope="col" class="text-start" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Due date, time</th>
-                                            <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Status</th>
+                                            <th scope="col" class="text-start" style="width: auto; padding-left: 15px; background-color: rgba(137, 168, 165, 0.68);">Title</th>
+                                            <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Due date</th>
+                                            <th scope="col" class="text-center" style="width: 120px; background-color: rgba(137, 168, 165, 0.68);">Due time</th>
+                                            <th scope="col" class="text-center" style="width: 80px; background-color: rgba(137, 168, 165, 0.68);">Status</th>
+                                            <th scope="col" class="text-center" style="width: 80px; background-color: rgba(137, 168, 165, 0.68);">Priority</th>
                                             <th scope="col" class="text-start" style="width: auto; background-color: rgba(137, 168, 165, 0.68);">Description</th>
                                             <th scope="col" class="text-center" style="width: 150px; background-color: rgba(137, 168, 165, 0.68);">Action</th>
                                         </tr>
@@ -244,7 +248,20 @@
                                             <tr>
                                                 <td class="text-start">{{ task.created_at|date:'M-d-Y' }}</td>
                                                 <td class="text-start">{{ task.title }}</td>
-                                                <td class="text-start">{{ task.due_date }}<br>{{ task.due_time }}</td>
+                                                <td class="text-center">
+                                                    {% if task.due_date %}
+                                                        {{ task.due_date }}
+                                                    {% else %}
+                                                        <span class="text-muted">No due date</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if task.due_time %}
+                                                        {{ task.due_time }}
+                                                    {% else %}
+                                                        <span class="text-muted">--:--</span>
+                                                    {% endif %}
+                                                </td>
                                                 <td class="text-center">
                                                     {% if task.status == '----' %}
                                                         <span class="badge bg-white">----</span>
@@ -258,7 +275,25 @@
                                                         <span class="badge bg-danger">Canceled</span>
                                                     {% endif %}
                                                 </td>
-                                                <td class="text-start">{{ task.description|truncatechars:40 }}</td>
+                                                <td class="text-center">
+                                                    {% if task.priority == '----' %}
+                                                        <span class="badge bg-white">----</span>
+                                                    {% elif task.priority == 'low' %}
+                                                        <span class="badge bg-secondary">Low</span>
+                                                    {% elif task.priority == 'medium' %}
+                                                        <span class="badge bg-primary">Medium</span>
+                                                    {% elif task.priority == 'high' %}
+                                                        <span class="badge bg-success">High</span>
+                                                    {% else %}
+                                                        <span>n/a</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-start">
+                                                    <span style="font-weight: normal; display: block;" title="{{ task.description|escape }}">
+                                                        {{ task.description|truncatewords:8 }}
+                                                    </span>
+
+                                                </td>
                                                 <td class="text-center">
                                                     <a href="{% url 'task:task_detail' task.pk %}">
                                                         <i class="fas fa-eye"></i>
@@ -311,7 +346,7 @@
                                     <div class="row">
                                         <!-- Add any other task fields as needed -->
                                         <div class="col-lg-12 text-center pb-lg-2">
-                                            <h3 class="py-lg-2">Add Task</h3>
+                                            <h4 class="py-lg-2">Add Task</h4>
                                         </div>
                                         <div class="col-lg-4 py-lg-1">
                                             <div class="row justify-content-center">
@@ -327,16 +362,25 @@
                                                 <div class="col-lg-12 py-lg-1">
                                                     <label for="id_status" class="form-label">Status</label>
                                                     <select name="status" class="form-select w-100" aria-label="Default select example">
-                                                <option selected>----</option>
-                                                <option value="todo">To Do</option>
-                                                <option value="in_progress">In Progress</option>
-                                                <option value="completed">Completed</option>
-                                                <option value="canceled">Canceled</option>
-                                            </select>
+                                                        <option selected>----</option>
+                                                        <option value="todo">To Do</option>
+                                                        <option value="in_progress">In Progress</option>
+                                                        <option value="completed">Completed</option>
+                                                        <option value="canceled">Canceled</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 py-lg-1">
+                                        <div class="col-lg-2 py-lg-1">
+                                            <label for="id_priority" class="form-label">Priority</label>
+                                            <select class="form-select" id="id_priority" name="priority" required>
+                                                <option value="">---------</option>
+                                                <option value="low">Low</option>
+                                                <option value="medium">Medium</option>
+                                                <option value="high">High</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 py-lg-1">
                                             <div class="row justify-content-center">
                                                 <div class="col-lg-6 py-lg-1">
                                                     <label for="id_due_date" class="form-label">Due Date</label>
@@ -367,7 +411,7 @@
                 <!-- File section -->
                 <div class="row mx-lg-2 bg-white border border-3 mt-lg-4">
                     <div class="col-lg-12" style="background-color: #697272;">
-                        <h2 class="py-lg-2 my-0 text-center text-white">Files</h2>
+                        <h3 class="py-lg-2 my-0 text-center text-white">Files</h3>
                     </div>
                     {% for file in client.files.all %}
                         <div class="col-lg-12">
@@ -417,7 +461,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12 py-lg-2">
+            <div class="col-lg-12 mt-lg-3">
                 <!-- Edit and Delete Buttons and Backt to -->
                 <div class="row">
                     <div class="col-lg-6">
@@ -429,18 +473,18 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-lg-12">
+                        <div class="row justify-content-end">
+                            <div class="col-lg-4">
                                 <div class="justify-content-center">
                                     <form id="client_delete_form" method="post" action="{% url 'client:delete' client.id %}">
                                         {% csrf_token %}
 
-                                        <button class="btn mx-2 px-2">
-                                            <a href="{% url 'client:edit' client.id %}" class="btn edit-btn">Edit client</a>
+                                        <button class="btn mx-2 px-2" style="border: none; background-color: transparent">
+                                            <a href="{% url 'client:edit' client.id %}" class="btn-edit" style="font-size: 20px" >Edit</a>
                                         </button>
                                         <button class="btn">
-                                            <a href="#" style="color: #bb0808; font-size: 22px; font-weight: bold;"
-                                               onclick="document.getElementById('client_delete_form').submit();">Delete client</a>
+                                            <a href="#" class="btn-delete" style="font-size: 20px; border: none; background-color: transparent"
+                                               onclick="document.getElementById('client_delete_form').submit();">Delete</a>
                                         </button>
                                     </form>
                                 </div>
