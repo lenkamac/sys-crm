@@ -6,20 +6,16 @@
 }
 
 /* Convert button */
-.btn-convert {
-    background-color: #849c9d;
-    font-size: 1.1rem;
-}
-.btn-convert:hover {
-    background-color: #606567;
-}
 #convert {
-    text-decoration: none;
-    color: white;
+    text-decoration: underline;
+    color: #1c4e6a;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 18px;
 }
-
-
-
-
+#convert:hover {
+    color: #387ea6;
+    font-weight: bold;
+    font-size: 22px;
+    text-decoration: underline;
+    cursor: pointer;
+}

@@ -76,8 +76,9 @@
                             </p>
                          {% endif %}
                         <p class="fs-6 py-lg-2"><span class="fw-bolder">Status:</span> {{ client.status }}</p>
-                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Converted from lead:</span> {% if client.converted_from_lead_id %}
-                            Yes
+                        <p class="fs-6 py-lg-2"><span class="fw-bolder">Converted from lead:</span>
+                            {% if client.converted_from_lead_id %}
+                            yes
                             {% else %}
                             No
                             {% endif %}

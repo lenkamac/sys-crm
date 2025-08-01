@@ -56,8 +56,14 @@ class LeadDetailView(LoginRequiredMixin, DetailView):
         task_page_number = self.request.GET.get('task_page')
         tasks_page = task_paginator.get_page(task_page_number)
 
+        file_list = LeadFile.objects.filter(lead_id=self.kwargs.get('pk')).order_by('-created_at')
+        file_paginator = Paginator(file_list, 5)
+        file_page_number = self.request.GET.get('file_page')
+        files_page = file_paginator.get_page(file_page_number)
+
         context['comments'] = comments_page
         context['tasks'] = tasks_page
+        context['files'] = files_page
 
         return context
 

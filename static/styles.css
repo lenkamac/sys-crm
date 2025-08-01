@@ -241,10 +241,15 @@ span {
     font-weight: bold;
     font-size: 1.1rem;
     width: 100px;
-    color: #e9ecf6;
+    color: white;
     border: 1px solid #1c4e6a;
     border-radius: 5px;
 }
+.form-submit-btn:hover {
+    background-color: #697272;
+    color: white;
+}
+.form-label {}
 
 /* custom button*/
 .add-button {
@@ -310,11 +315,19 @@ span {
 }
 .btn-edit:hover {
     color: #697272;
+    font-weight: bold;
+    font-size: 22px;
+    border: none;
 }
 .btn-delete {
     font-weight: bold;
     font-size: 18px;
     color: #bb0808;
+}
+.btn-delete:hover {
+    font-weight: bold;
+    font-size: 22px;
+    color: #b02a37;
 }
 
 /* Comment */
@@ -387,17 +400,25 @@ span {
     color: #113649;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 18px;
 }
 .custom-back-a:hover {
     color: #23523c;
+    font-weight: bold;
+    font-size: 22px;
 }
 
 
 .card-detail {
     background-color: white;
     border-radius: 5px;
-    border: 1px solid #3b4869;
+    height: auto;
+    border: 1px solid gray;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+}
+.card-detail-header {
+    background-color: #697272;
+    color: white;
 }
 
 /* not found message*/
@@ -421,6 +442,7 @@ span {
     background-color: rgba(137, 168, 165, 0.68);
     font-size: 17px;
     border: 1px solid #3b4869;
+    text-align: center;
 }
 tbody tr td a {
     text-decoration: none;
@@ -435,24 +457,27 @@ tbody tr td {
 }
 
 
-
 /* Styling for files*/
 .download-a {
     padding-right: 5px;
     padding-top: 2px;
-    font-size: 19px;
-    color: #023564;
+    font-size: 18px;
+    color: #414141;
 }
 .download-icon {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
 }
 .files-p {
     border-left: 3px solid #3b4869;
     height: auto;
-    padding: 0 5px;
-    margin-top: 13px;
+    padding: 0 4px;
+    margin-top: 5px;
     background-color: white;
+}
+.download-a:hover {
+    font-weight: bold;
+    font-size: 20px;
 }
 
 /* table for task on detail page*/

@@ -97,7 +97,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-12 my-lg-3">
                                     <div class="table-responsive-custom">
-                                        <table class="table">
+                                        <table class="table table-hover table-striped table-bordered table-sm">
                                             <thead class="th-custom">
                                                 <tr>
                                                     <th scope="col">
@@ -135,12 +135,18 @@
                                                             <td>{{ lead.email }}</td>
 
                                                             <td>{{ lead.get_status_display }}</td>
-                                                            <td>{{ lead.status_sale }}</td>
                                                             <td>
-                                                                <a href="{% url 'lead:detail' lead.pk %}">Detail</a>
+                                                                {% if lead.status_sale %}
+                                                                    {{ lead.status_sale }}
+                                                                    {% else %}
+                                                                    n/a
+                                                                {% endif %}
                                                             </td>
                                                             <td>
-                                                                <a href="{% url 'lead:edit' lead.pk %}">Edit</a>
+                                                                <a href="{% url 'lead:detail' lead.pk %}"><i class="fa-solid fa-circle-info"></i></a>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{% url 'lead:edit' lead.pk %}"><i class="fa-solid fa-pen-to-square"></i></a>
                                                             </td>
                                                             <td>
                                                                 <button type="submit" class="delete-icon bg-transparent border-0">
@@ -221,5 +227,6 @@
 
     <!-- Include your JS file -->
     <script src="{% static 'lead/js/lead.js' %}"></script>
+    <script src="{% static 'js/project.js' %}"></script>
 
 {% endblock %}

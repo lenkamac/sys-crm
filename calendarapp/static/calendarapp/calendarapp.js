@@ -32,6 +32,25 @@ document.addEventListener('DOMContentLoaded', function() {
             minute: '2-digit',
             hour12: false
         },
+        // === Add this below your eventClick ===
+        dateClick: function(info) {
+            // Clear previous form values
+            document.getElementById('addEventForm').reset();
+
+            // Pre-fill the "Start" field with clicked date
+            // Convert date to "YYYY-MM-DDTHH:MM" format
+            // If using dayGrid, time is 00:00
+            const dateStr = info.dateStr.length > 10 ? info.dateStr : info.dateStr + 'T00:00';
+            document.getElementById('eventStart').value = dateStr;
+
+            // Optionally, also pre-fill "End" field (e.g., 1 hour after start)
+            document.getElementById('eventEnd').value = "";
+
+            // Show the add event modal
+            var addModal = new bootstrap.Modal(document.getElementById('addEventModal'));
+            addModal.show();
+        },
+
         eventClick: function(info) {
             // Store event id and title in the modal for easy access
             document.getElementById('eventActionEventId').value = info.event.id;
